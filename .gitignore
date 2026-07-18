@@ -20,3 +20,4 @@ __pycache__/
 
 # PlatformIO build/deps (regenerable via `pio run`)
 firmware/.pio/
+.~lock.*#
