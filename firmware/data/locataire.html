@@ -1,0 +1,16 @@
+<meta charset="UTF-8">
+<title>TFC Multicanal - Locataire</title>
+<link rel="stylesheet" href="/style.css">
+<h1 id="titreCanal">Canal</h1>
+<p><a href="/">&larr; Accueil</a></p>
+<table>
+  <tr><td>Statut</td><td id="statut">--</td></tr>
+  <tr><td>Credit restant (USD)</td><td id="credit">--</td></tr>
+  <tr><td>Puissance instantanee (W)</td><td id="puissance">--</td></tr>
+  <tr><td>Energie cumulee (kWh)</td><td id="energie">--</td></tr>
+</table>
+<script src="/app.js"></script>
+<script>
+  rafraichirLocataire();
+  setInterval(rafraichirLocataire, 2000);
+</script>

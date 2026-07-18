@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+<title>TFC Multicanal - Admin</title>
+<link rel="stylesheet" href="/style.css">
+<h1>Vue bailleur / administrateur</h1>
+<p><a href="/">&larr; Accueil</a></p>
+<p>Tension secteur simulee : <b id="tensionSecteur">--</b> V &nbsp;|&nbsp; Tarif : <b id="tarif">--</b> USD/kWh</p>
+<table>
+  <thead>
+    <tr><th>Canal</th><th>Courant (A)</th><th>Puissance (W)</th><th>Energie (kWh)</th><th>Credit (USD)</th><th>Etat</th><th>Dernier evenement</th></tr>
+  </thead>
+  <tbody id="corpsTable"></tbody>
+</table>
+
+<form onsubmit="envoyerRecharge(event)">
+  <h2>Enregistrer une recharge</h2>
+  <label>Canal
+    <select id="selectCanal"></select>
+  </label>
+  <label>Montant (USD)
+    <input type="number" id="montant" step="0.01" min="0.01" required>
+  </label>
+  <button type="submit">Recharger</button>
+</form>
+
+<script src="/app.js"></script>
+<script>
+  rafraichirAdmin();
+  setInterval(rafraichirAdmin, 2000);
+</script>
