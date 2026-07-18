@@ -1,0 +1,22 @@
+# Flutter build artifacts (regenerable via `flutter build`)
+application/build/
+application/.dart_tool/
+application/.idea/
+application/android/.gradle/
+
+# Outils tiers telecharges (pas notre travail, regenerable)
+kicad/tools/*.jar
+
+# Logs et rapports de debug KiCad/Freerouting (non essentiels)
+kicad/multical/*.log
+kicad/multical/erc_*.json
+kicad/multical/drc_*.json
+kicad/multical/~*.lck
+kicad/multical/.history/
+
+# Fichiers temporaires divers
+*.pyc
+__pycache__/
+
+# PlatformIO build/deps (regenerable via `pio run`)
+firmware/.pio/

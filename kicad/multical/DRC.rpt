@@ -1,0 +1,158 @@
+** Drc report for multical.kicad_pcb **
+** Created on 2026-07-18T10:42:58 **
+** Report includes: Errors, Warnings **
+
+** Found 35 DRC violations **
+[shorting_items]: Eléments court-circuitant deux nets (nets /P5V et  /CANAL1_OUT)
+    Local override; error
+    @(55.0000 mm, 125.0000 mm): Pad métallisé 1 [/P5V] de C6
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+[shorting_items]: Eléments court-circuitant deux nets (nets /CANAL1_OUT et  /GND)
+    Local override; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(39.7200 mm, 126.1917 mm): Piste [/GND] sur B.Cu, long. 19.0883 mm
+[shorting_items]: Eléments court-circuitant deux nets (nets /CANAL1_OUT et  /GND)
+    Local override; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(39.6218 mm, 126.0935 mm): Piste [/GND] sur B.Cu, long. 0.1389 mm
+[shorting_items]: Eléments court-circuitant deux nets (nets /CANAL1_OUT et  /GND)
+    Local override; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(58.8083 mm, 126.1917 mm): Piste [/GND] sur B.Cu, long. 1.6853 mm
+[shorting_items]: Eléments court-circuitant deux nets (nets /CANAL1_OUT et  /GND)
+    Local override; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(39.6218 mm, 126.0935 mm): Via [/GND] sur F.Cu - B.Cu
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(52.7950 mm, 63.3275 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(52.7950 mm, 64.8525 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(53.5575 mm, 62.5650 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(53.5575 mm, 64.0900 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(53.5575 mm, 65.6150 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(54.3200 mm, 63.3275 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(54.3200 mm, 64.8525 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(55.0825 mm, 62.5650 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(55.0825 mm, 64.0900 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(55.0825 mm, 65.6150 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(55.8450 mm, 63.3275 mm): Pad métallisé 39 [/GND] de U1
+[drill_out_of_range]: Taille du trou en dehors de la plage (configuration des contraintes du PCB trou min 0,3000 mm ; réel 0,2000 mm)
+    Rule: configuration des contraintes du PCB; error
+    @(55.8450 mm, 64.8525 mm): Pad métallisé 39 [/GND] de U1
+[solder_mask_bridge]: L’ouverture du masque de soudure de dessous relie des éléments de différents nets
+    Rule: configuration largeur min masque de soudure; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(140.0000 mm, 125.0000 mm): Pad métallisé A1 [/P5V] de K5
+[solder_mask_bridge]: L’ouverture du masque de soudure de dessous relie des éléments de différents nets
+    Rule: configuration largeur min masque de soudure; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(55.0000 mm, 125.0000 mm): Pad métallisé 1 [/P5V] de C6
+[solder_mask_bridge]: L’ouverture du masque de soudure de dessous relie des éléments de différents nets
+    Rule: configuration largeur min masque de soudure; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(60.0000 mm, 125.0000 mm): Pad métallisé 2 [/GND] de C6
+[solder_mask_bridge]: L’ouverture du masque de soudure de dessous relie des éléments de différents nets
+    Rule: configuration largeur min masque de soudure; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(152.2000 mm, 125.0000 mm): Pad métallisé 12 [/CANAL1_HT] de K5
+[solder_mask_bridge]: L’ouverture du masque de soudure de dessous relie des éléments de différents nets
+    Rule: configuration largeur min masque de soudure; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(165.0000 mm, 125.0000 mm): Pad métallisé 1 [/P5V] de D1
+[solder_mask_bridge]: L’ouverture du masque de soudure de dessous relie des éléments de différents nets
+    Rule: configuration largeur min masque de soudure; error
+    @(34.1587 mm, 126.8866 mm): Piste [/CANAL1_OUT] sur B.Cu, long. 171.9547 mm
+    @(172.6200 mm, 125.0000 mm): Pad métallisé 2 [/REL1_DRV] de D1
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.6200 mm, 25.2500 mm): Champ référence de J10
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 149.7500 mm): Champ référence de J12
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(206.0800 mm, 240.8800 mm): Segment de J16 sur F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 251.6200 mm): Segment de J16 sur F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 224.7500 mm): Champ référence de J15
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(206.0800 mm, 267.8800 mm): Segment de J17 sur F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 278.6200 mm): Segment de J17 sur F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.6200 mm, 175.7500 mm): Champ référence de J13
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(206.0800 mm, 290.8800 mm): Segment de J18 sur F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 301.6200 mm): Segment de J18 sur F.Silkscreen
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 126.2500 mm): Champ référence de J11
+[silk_edge_clearance]: Silkscreen clipped by board edge
+    Rule: configuration des contraintes de la sérigraphie; warning
+    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
+    @(214.1200 mm, 199.7500 mm): Champ référence de J14
+
+** Found 3 unconnected pads **
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(20.0000 mm, 50.0000 mm): Pad métallisé 1 [/PHASE_BUS] de U12
+    @(140.0000 mm, 45.0000 mm): Piste [/PHASE_BUS] sur F.Cu, long. 2.1957 mm
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(140.0000 mm, 50.0000 mm): Pad métallisé 2 [/NEUTRE_BUS] de U10
+    @(20.0000 mm, 52.5400 mm): Pad métallisé 2 [/NEUTRE_BUS] de U12
+[unconnected_items]: Missing connection between items
+    Local override; error
+    @(165.0000 mm, 293.0000 mm): Piste [/P5V] sur F.Cu, long. 24.0000 mm
+    @(141.9888 mm, 267.0112 mm): Piste [/P5V] sur F.Cu, long. 20.0224 mm
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

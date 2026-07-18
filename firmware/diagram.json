@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "author": "Samuel Mumbere Mathe - TFC ULPGL",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+
+    { "type": "wokwi-potentiometer", "id": "pot_c0_bailleur", "top": -140, "left": -260, "attrs": { "value": "50" } },
+    { "type": "wokwi-potentiometer", "id": "pot_c1_loc1",     "top": -80,  "left": -260, "attrs": { "value": "50" } },
+    { "type": "wokwi-potentiometer", "id": "pot_c2_loc2",     "top": -20,  "left": -260, "attrs": { "value": "50" } },
+    { "type": "wokwi-potentiometer", "id": "pot_c3_loc3",     "top": 40,   "left": -260, "attrs": { "value": "50" } },
+    { "type": "wokwi-potentiometer", "id": "pot_c4_loc4",     "top": 100,  "left": -260, "attrs": { "value": "50" } },
+    { "type": "wokwi-potentiometer", "id": "pot_tension_zmpt","top": 160,  "left": -260, "attrs": { "value": "80" } },
+
+    { "type": "wokwi-led", "id": "led_c0", "top": -140, "left": 260, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "r_c0", "top": -140, "left": 220, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "led_c1", "top": -80, "left": 260, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "r_c1", "top": -80, "left": 220, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "led_c2", "top": -20, "left": 260, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "r_c2", "top": -20, "left": 220, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "led_c3", "top": 40, "left": 260, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "r_c3", "top": 40, "left": 220, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "led_c4", "top": 100, "left": 260, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "r_c4", "top": 100, "left": 220, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    ["esp:3V3", "pot_c0_bailleur:VCC", "black", []],
+    ["esp:GND.1", "pot_c0_bailleur:GND", "black", []],
+    ["pot_c0_bailleur:SIG", "esp:VP", "green", []],
+
+    ["esp:3V3", "pot_c1_loc1:VCC", "black", []],
+    ["esp:GND.1", "pot_c1_loc1:GND", "black", []],
+    ["pot_c1_loc1:SIG", "esp:VN", "green", []],
+
+    ["esp:3V3", "pot_c2_loc2:VCC", "black", []],
+    ["esp:GND.1", "pot_c2_loc2:GND", "black", []],
+    ["pot_c2_loc2:SIG", "esp:34", "green", []],
+
+    ["esp:3V3", "pot_c3_loc3:VCC", "black", []],
+    ["esp:GND.1", "pot_c3_loc3:GND", "black", []],
+    ["pot_c3_loc3:SIG", "esp:35", "green", []],
+
+    ["esp:3V3", "pot_c4_loc4:VCC", "black", []],
+    ["esp:GND.1", "pot_c4_loc4:GND", "black", []],
+    ["pot_c4_loc4:SIG", "esp:32", "green", []],
+
+    ["esp:3V3", "pot_tension_zmpt:VCC", "black", []],
+    ["esp:GND.1", "pot_tension_zmpt:GND", "black", []],
+    ["pot_tension_zmpt:SIG", "esp:25", "orange", []],
+
+    ["esp:4", "r_c0:1", "blue", []],
+    ["r_c0:2", "led_c0:A", "blue", []],
+    ["led_c0:C", "esp:GND.2", "black", []],
+
+    ["esp:5", "r_c1:1", "blue", []],
+    ["r_c1:2", "led_c1:A", "blue", []],
+    ["led_c1:C", "esp:GND.2", "black", []],
+
+    ["esp:13", "r_c2:1", "blue", []],
+    ["r_c2:2", "led_c2:A", "blue", []],
+    ["led_c2:C", "esp:GND.2", "black", []],
+
+    ["esp:14", "r_c3:1", "blue", []],
+    ["r_c3:2", "led_c3:A", "blue", []],
+    ["led_c3:C", "esp:GND.2", "black", []],
+
+    ["esp:16", "r_c4:1", "blue", []],
+    ["r_c4:2", "led_c4:A", "blue", []],
+    ["led_c4:C", "esp:GND.2", "black", []]
+  ]
+}
