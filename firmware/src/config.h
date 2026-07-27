@@ -19,10 +19,13 @@ static const int PIN_COURANT[NUM_CANAUX] = {
     32  //     - canal 4 : locataire 4
 };
 
-// --- Broche ADC2 du capteur de tension (potentiometre simulant le ZMPT101B) ---
-// Un seul capteur, commun a tous les canaux (cf. S1.3.2). Lu pendant les fenetres
-// ou le WiFi est inactif (cf. S1.4.3) : ici, simplement entre deux envois radio.
-static const int PIN_TENSION = 25;
+// --- Broche ADC1 du capteur de tension (potentiometre simulant le ZMPT101B) ---
+// Un seul capteur, commun a tous les canaux (cf. S1.3.2). Placee sur l'ADC1 (et
+// non l'ADC2 comme dans le Tableau 2.2 du PCB final) car le point d'acces WiFi
+// de la maquette est actif en permanence : l'ADC2 est alors inutilisable en
+// continu (contrairement au PCB final ou seules de courtes fenetres ponctuelles
+// sont concernees, cf. S1.4.3). GPIO33 est libre sur le DevKitC (ADC1_CH5).
+static const int PIN_TENSION = 33;
 
 // --- Broches de commande des relais (simulees par des LED) ---
 static const int PIN_RELAIS[NUM_CANAUX] = {4, 5, 13, 14, 16};
@@ -34,8 +37,18 @@ static const int   ADC_RESOLUTION = 4095;
 static const float COURANT_MAX_A = 20.0f;     // pleine echelle simulee (ACS712 20A)
 static const float TENSION_MAX_V = 250.0f;    // pleine echelle simulee du secteur
 
+// --- Lissage des lectures ADC : moyenne de N echantillons consecutifs au
+// lieu d'une seule lecture, pour attenuer le bruit propre a l'ADC de l'ESP32
+// (cf. TacheAcquisitionCapteurs). N=8 est un bon compromis : reduction nette
+// du bruit sans ralentir sensiblement l'acquisition (8 lectures ADC prennent
+// largement moins d'1 ms au total).
+static const int N_ECHANTILLONS_LISSAGE = 8;
+
 // --- Parametres tarifaires et de credit (demo) ---
-static const float TARIF_USD_PAR_KWH = 0.20f;
+// Valeur par defaut au tout premier demarrage (1 USD = 4 kWh) ; modifiable
+// ensuite par le bailleur depuis l'application (/api/tarif), et persistee en
+// NVS (cf. chargerEtatDepuisNVS/TacheGestionCredits dans main.cpp).
+static const float TARIF_USD_PAR_KWH = 0.25f;
 static const float CREDIT_INITIAL_USD = 0.05f; // volontairement faible pour observer
                                                  // la coupure automatique rapidement
                                                  // (cf. Tableau 3.2)
@@ -51,3 +64,27 @@ static const uint32_t PERIODE_AFFICHAGE_MS   = 2000;
 static const char *WIFI_SSID = "TFC-Multicanal-Goma";
 static const char *WIFI_PASSWORD = "12345678";
 static const char *ADMIN_PASSWORD = "bailleur2026";
+
+// --- Identifiants par canal (page d'authentification de l'application) ---
+// Le canal 0 (bailleur) reutilise ADMIN_PASSWORD pour rester compatible avec
+// les routes /admin et /api/recharge deja protegees par ce mot de passe.
+// A CHANGER avant tout deploiement reel (cf. rapport S2.9/S2.10) : ce sont des
+// mots de passe de demonstration pour la maquette.
+static const char *CANAL_USER[NUM_CANAUX] = {
+    "bailleur", "locataire1", "locataire2", "locataire3", "locataire4"
+};
+static const char *CANAL_PASSWORD[NUM_CANAUX] = {
+    ADMIN_PASSWORD, "loc1-2026", "loc2-2026", "loc3-2026", "loc4-2026"
+};
+
+// --- Compte technicien (electricien) : acces en lecture seule aux grandeurs
+// electriques brutes de tous les canaux (courant, tension, puissance, cos phi)
+// - pas de gestion de credit ni de coupure, profil different du bailleur.
+static const char *ELECTRICIEN_USER = "electricien";
+static const char *ELECTRICIEN_PASSWORD = "elec-2026";
+
+// --- Taille de la file d'evenements en attente (cf. mettreEnAttente dans
+// main.cpp) : evenements pas encore recuperes par l'application, purges au
+// fur et a mesure de leur recuperation. Bornee pour eviter une croissance
+// illimitee en RAM si aucune application ne se connecte pendant longtemps.
+static const size_t MAX_EVENEMENTS_EN_ATTENTE = 64;

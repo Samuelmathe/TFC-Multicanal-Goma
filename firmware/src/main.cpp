@@ -12,6 +12,7 @@
 #include <ArduinoJson.h>
 #include <LittleFS.h>
 #include <Preferences.h>
+#include <vector>
 
 #include "config.h"
 
@@ -20,20 +21,37 @@ struct CanalEtat {
   float tensionADC_V;     // tension lue sur la broche (0-3.3V)
   float courant_A;        // courant simule (A)
   float puissance_W;      // puissance active (W)
+  float cosPhi;           // facteur de puissance (cf. remarque dans TacheCalculPuissance)
   float energie_kWh;      // energie cumulee depuis la derniere recharge (kWh)
   float energie_prev_kWh; // valeur precedente, pour calculer le delta credit
   float credit_USD;       // credit restant
   bool  relaisFerme;      // etat du relais (true = alimente)
+  bool  coupureVolontaire; // coupure demandee par le locataire lui-meme (absence, etc.)
+  String nomAffiche;      // nom reel du locataire, saisi par le bailleur (facultatif)
   String dernierEvenement;
   unsigned long dernierHorodatageMs;
+};
+
+// Evenement pas encore recupere par une application (bailleur ou locataire).
+// Cf. mettreEnAttente/route /api/historique/nouveaux : chaque canal "possede"
+// sa portion de la file, purgee uniquement quand SON proprietaire (ou le
+// bailleur pour son propre canal 0) la recupere - une simple consultation par
+// le bailleur du canal d'un locataire ne purge pas la file de ce locataire.
+struct EvenementEnAttente {
+  int canal;
+  String type;
+  float valeur;
+  unsigned long horodatageMs;
 };
 
 static CanalEtat canaux[NUM_CANAUX];
 static int brutTension = 0;
 static float tensionSecteur_V = 0.0f;
 static float tarifCourant = TARIF_USD_PAR_KWH;
+static std::vector<EvenementEnAttente> evenementsEnAttente;
 
 static SemaphoreHandle_t mutexCanaux;
+static SemaphoreHandle_t mutexEvenements;
 static AsyncWebServer server(80);
 
 // ---------------------------------------------------------------------------
@@ -47,12 +65,19 @@ static void chargerEtatDepuisNVS() {
     prefs.begin(ns, true);
     canaux[i].credit_USD      = prefs.getFloat("credit", CREDIT_INITIAL_USD);
     canaux[i].energie_kWh     = prefs.getFloat("energie", 0.0f);
+    canaux[i].coupureVolontaire = prefs.getBool("coupvol", false);
+    canaux[i].nomAffiche = prefs.getString("nom", "");
     prefs.end();
     canaux[i].energie_prev_kWh = canaux[i].energie_kWh;
-    canaux[i].relaisFerme      = canaux[i].credit_USD > 0.0f;
+    canaux[i].relaisFerme      = canaux[i].credit_USD > 0.0f && !canaux[i].coupureVolontaire;
     canaux[i].dernierEvenement = "demarrage";
     canaux[i].dernierHorodatageMs = millis();
   }
+
+  Preferences config;
+  config.begin("config", true);
+  tarifCourant = config.getFloat("tarif", TARIF_USD_PAR_KWH);
+  config.end();
 }
 
 static void sauverCanalDansNVS(int i) {
@@ -62,7 +87,56 @@ static void sauverCanalDansNVS(int i) {
   prefs.begin(ns, false);
   prefs.putFloat("credit", canaux[i].credit_USD);
   prefs.putFloat("energie", canaux[i].energie_kWh);
+  prefs.putBool("coupvol", canaux[i].coupureVolontaire);
+  prefs.putString("nom", canaux[i].nomAffiche);
   prefs.end();
+}
+
+// ---------------------------------------------------------------------------
+// Authentification par canal : renvoie l'index du canal dont les identifiants
+// (login/mot de passe, cf. config.h) correspondent a la requete, ou -1 si
+// aucun ne correspond. Utilise par toutes les routes protegees ci-dessous.
+// ---------------------------------------------------------------------------
+static int authentifierRequete(AsyncWebServerRequest *request) {
+  for (int i = 0; i < NUM_CANAUX; i++) {
+    if (request->authenticate(CANAL_USER[i], CANAL_PASSWORD[i])) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// Compte technicien (electricien) : role a part, non lie a un canal.
+static bool authentifierElectricien(AsyncWebServerRequest *request) {
+  return request->authenticate(ELECTRICIEN_USER, ELECTRICIEN_PASSWORD);
+}
+
+// ---------------------------------------------------------------------------
+// File d'evenements en attente de recuperation par une application (cf.
+// struct EvenementEnAttente). Purgee cote application par canal, pas cote
+// firmware : l'ESP32 se contente d'empiler, bornee a MAX_EVENEMENTS_EN_ATTENTE
+// (le plus ancien est abandonne si la file est pleine faute de recuperation).
+// ---------------------------------------------------------------------------
+static void mettreEnAttente(int canal, const String &type, float valeur) {
+  if (xSemaphoreTake(mutexEvenements, pdMS_TO_TICKS(100)) == pdTRUE) {
+    if (evenementsEnAttente.size() >= MAX_EVENEMENTS_EN_ATTENTE) {
+      evenementsEnAttente.erase(evenementsEnAttente.begin());
+    }
+    evenementsEnAttente.push_back({canal, type, valeur, millis()});
+    xSemaphoreGive(mutexEvenements);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Moyenne de plusieurs lectures ADC consecutives, pour lisser le bruit
+// propre a l'ADC de l'ESP32 (cf. N_ECHANTILLONS_LISSAGE, config.h).
+// ---------------------------------------------------------------------------
+static int lireMoyenneADC(int pin, int nEchantillons) {
+  long somme = 0;
+  for (int k = 0; k < nEchantillons; k++) {
+    somme += analogRead(pin);
+  }
+  return somme / nEchantillons;
 }
 
 // ---------------------------------------------------------------------------
@@ -72,12 +146,13 @@ void TacheAcquisitionCapteurs(void *param) {
   for (;;) {
     if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(50)) == pdTRUE) {
       for (int i = 0; i < NUM_CANAUX; i++) {
-        canaux[i].brutCourant = analogRead(PIN_COURANT[i]);
+        canaux[i].brutCourant = lireMoyenneADC(PIN_COURANT[i], N_ECHANTILLONS_LISSAGE);
       }
       xSemaphoreGive(mutexCanaux);
     }
-    // ZMPT101B : lu ici aussi, en dehors des fenetres critiques WiFi (cf. S1.4.3)
-    brutTension = analogRead(PIN_TENSION);
+    // ZMPT101B : lu ici aussi, sur l'ADC1 pour rester utilisable meme avec le
+    // point d'acces WiFi actif en permanence sur la maquette (cf. config.h)
+    brutTension = lireMoyenneADC(PIN_TENSION, N_ECHANTILLONS_LISSAGE);
     vTaskDelay(pdMS_TO_TICKS(PERIODE_ACQUISITION_MS));
   }
 }
@@ -94,16 +169,36 @@ void TacheCalculPuissance(void *param) {
       for (int i = 0; i < NUM_CANAUX; i++) {
         float v = (canaux[i].brutCourant / (float)ADC_RESOLUTION) * ADC_VREF;
         canaux[i].tensionADC_V = v;
-        // Signal centre sur Vcc/2 = 0 A (cf. S1.3.1 / S3.2)
-        float ecart = (v - (ADC_VREF / 2.0f)) / (ADC_VREF / 2.0f);
-        canaux[i].courant_A = fabsf(ecart) * COURANT_MAX_A;
 
-        // P = V x I x cos(phi), cos(phi) ~ 1 pour charge resistive (cf. S1.3.3)
-        canaux[i].puissance_W = tensionSecteur_V * canaux[i].courant_A;
+        if (!canaux[i].relaisFerme) {
+          // Relais ouvert = circuit reellement coupe : aucun courant ne peut
+          // physiquement circuler, donc courant/puissance affiches a 0 et pas
+          // d'accumulation d'energie. Sans cette garde, le bruit du potentiometre
+          // flottant continuait a "consommer" meme canal coupe, faisant deriver
+          // le credit indefiniment vers des valeurs negatives.
+          canaux[i].courant_A = 0.0f;
+          canaux[i].puissance_W = 0.0f;
+          canaux[i].cosPhi = 0.0f;
+        } else {
+          // Signal centre sur Vcc/2 = 0 A (cf. S1.3.1 / S3.2)
+          float ecart = (v - (ADC_VREF / 2.0f)) / (ADC_VREF / 2.0f);
+          canaux[i].courant_A = fabsf(ecart) * COURANT_MAX_A;
 
-        // E += P x dt, dt en heures pour un resultat en kWh
-        float dt_h = (PERIODE_CALCUL_MS / 1000.0f) / 3600.0f;
-        canaux[i].energie_kWh += (canaux[i].puissance_W / 1000.0f) * dt_h;
+          // Simplification maquette : echantillon unique par cycle (potentiometres,
+          // pas de forme d'onde AC reelle), donc pas de calcul P/Q/cos(phi) reel ici :
+          // cosPhi est fixe a 1 (charge purement resistive supposee). L'algorithme
+          // complet (echantillonnage N points/cycle, P, S, Q, cos(phi) calcule et
+          // non estime) est celui concu pour les capteurs reels ACS712/ZMPT101B,
+          // decrit au rapport S2.7 - a brancher ici lors du passage aux vrais
+          // capteurs. cosPhi expose malgre tout (ecran electricien) pour que la
+          // grandeur existe dans l'API des la maquette, avec sa limite documentee.
+          canaux[i].puissance_W = tensionSecteur_V * canaux[i].courant_A;
+          canaux[i].cosPhi = 1.0f;
+
+          // E += P x dt, dt en heures pour un resultat en kWh
+          float dt_h = (PERIODE_CALCUL_MS / 1000.0f) / 3600.0f;
+          canaux[i].energie_kWh += (canaux[i].puissance_W / 1000.0f) * dt_h;
+        }
       }
       xSemaphoreGive(mutexCanaux);
     }
@@ -135,11 +230,18 @@ void TacheGestionCredits(void *param) {
           canaux[i].energie_prev_kWh = canaux[i].energie_kWh;
         }
 
-        bool doitEtreFerme = canaux[i].credit_USD > 0.0f;
+        bool doitEtreFerme = canaux[i].credit_USD > 0.0f && !canaux[i].coupureVolontaire;
         if (doitEtreFerme != canaux[i].relaisFerme) {
           canaux[i].relaisFerme = doitEtreFerme;
-          canaux[i].dernierEvenement = doitEtreFerme ? "retablissement" : "coupure";
+          String evt;
+          if (doitEtreFerme) {
+            evt = "retablissement";
+          } else {
+            evt = canaux[i].coupureVolontaire ? "coupure_volontaire" : "coupure_credit";
+          }
+          canaux[i].dernierEvenement = evt;
           canaux[i].dernierHorodatageMs = millis();
+          mettreEnAttente(i, evt, 0.0f);
         }
         digitalWrite(PIN_RELAIS[i], canaux[i].relaisFerme ? HIGH : LOW);
       }
@@ -188,6 +290,7 @@ static String construireJsonEtat() {
   JsonDocument doc;
   doc["tension_secteur_V"] = tensionSecteur_V;
   doc["tarif_usd_par_kwh"] = tarifCourant;
+  doc["maintenant_ms"] = millis(); // reference pour calculer "il y a X min" cote app
   JsonArray arr = doc["canaux"].to<JsonArray>();
   if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(100)) == pdTRUE) {
     for (int i = 0; i < NUM_CANAUX; i++) {
@@ -198,8 +301,14 @@ static String construireJsonEtat() {
       c["puissance_W"] = canaux[i].puissance_W;
       c["energie_kWh"] = canaux[i].energie_kWh;
       c["credit_USD"] = canaux[i].credit_USD;
+      // Equivalent en kWh du credit restant, au tarif courant (1 USD = 1/tarif kWh)
+      c["credit_kWh"] = (tarifCourant > 0.0f) ? (canaux[i].credit_USD / tarifCourant) : 0.0f;
+      c["cos_phi"] = canaux[i].cosPhi;
       c["relais_ferme"] = canaux[i].relaisFerme;
+      c["coupure_volontaire"] = canaux[i].coupureVolontaire;
+      c["nom_affiche"] = canaux[i].nomAffiche;
       c["dernier_evenement"] = canaux[i].dernierEvenement;
+      c["dernier_horodatage_ms"] = canaux[i].dernierHorodatageMs;
     }
     xSemaphoreGive(mutexCanaux);
   }
@@ -243,6 +352,191 @@ void TacheServeurAPI(void *param) {
       canaux[idx].dernierHorodatageMs = millis();
       xSemaphoreGive(mutexCanaux);
     }
+    mettreEnAttente(idx, "recharge", montant);
+    request->send(200, "application/json", construireJsonEtat());
+  });
+
+  // Identification - utilisee par l'ecran de connexion de l'application pour
+  // savoir si les identifiants saisis correspondent au bailleur, a un
+  // locataire (et lequel) ou au compte electricien, cf. S2.9/S2.10.
+  server.on("/api/moi", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (authentifierElectricien(request)) {
+      JsonDocument doc;
+      doc["canal"] = -1;
+      doc["role"] = "electricien";
+      String out;
+      serializeJson(doc, out);
+      request->send(200, "application/json", out);
+      return;
+    }
+    int canal = authentifierRequete(request);
+    if (canal < 0) {
+      return request->requestAuthentication();
+    }
+    JsonDocument doc;
+    doc["canal"] = canal;
+    doc["role"] = (canal == 0) ? "bailleur" : "locataire";
+    String out;
+    serializeJson(doc, out);
+    request->send(200, "application/json", out);
+  });
+
+  // Evenements pas encore recuperes par l'application, pour un canal donne
+  // (cf. struct EvenementEnAttente). L'historique long terme est stocke cote
+  // application (base locale sur le telephone) ; cette route ne sert qu'a
+  // garantir qu'aucun evenement n'est perdu si l'app etait fermee au moment
+  // ou il s'est produit. La file de CE canal n'est purgee que si le
+  // demandeur EST ce canal (son proprietaire) - une simple consultation par
+  // le bailleur du canal d'un locataire ne purge pas la file de ce dernier.
+  server.on("/api/historique/nouveaux", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (!request->hasParam("canal")) {
+      request->send(400, "text/plain", "parametre canal manquant");
+      return;
+    }
+    int canal = request->getParam("canal")->value().toInt();
+    if (canal < 0 || canal >= NUM_CANAUX) {
+      request->send(400, "text/plain", "canal invalide");
+      return;
+    }
+    int canalAuth = authentifierRequete(request);
+    if (canalAuth < 0) {
+      return request->requestAuthentication();
+    }
+    if (canalAuth != 0 && canalAuth != canal) {
+      request->send(403, "text/plain", "acces refuse a ce canal");
+      return;
+    }
+    bool doitPurger = (canalAuth == canal);
+    String out = "[";
+    bool premier = true;
+    if (xSemaphoreTake(mutexEvenements, pdMS_TO_TICKS(100)) == pdTRUE) {
+      for (auto it = evenementsEnAttente.begin(); it != evenementsEnAttente.end();) {
+        if (it->canal == canal) {
+          if (!premier) out += ",";
+          JsonDocument doc;
+          doc["type"] = it->type;
+          doc["valeur"] = it->valeur;
+          doc["horodatage_ms"] = it->horodatageMs;
+          String ligne;
+          serializeJson(doc, ligne);
+          out += ligne;
+          premier = false;
+          if (doitPurger) {
+            it = evenementsEnAttente.erase(it);
+            continue;
+          }
+        }
+        ++it;
+      }
+      xSemaphoreGive(mutexEvenements);
+    }
+    out += "]";
+    request->send(200, "application/json", out);
+  });
+
+  // Coupure/retablissement volontaire par le locataire lui-meme (absence,
+  // depart en voyage, etc.) - independant du credit restant. Le bailleur peut
+  // aussi l'actionner pour le compte d'un locataire.
+  server.on("/api/canal/couper", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (!request->hasParam("canal")) {
+      request->send(400, "text/plain", "parametre canal manquant");
+      return;
+    }
+    int canal = request->getParam("canal")->value().toInt();
+    if (canal < 0 || canal >= NUM_CANAUX) {
+      request->send(400, "text/plain", "canal invalide");
+      return;
+    }
+    int canalAuth = authentifierRequete(request);
+    if (canalAuth < 0) {
+      return request->requestAuthentication();
+    }
+    if (canalAuth != 0 && canalAuth != canal) {
+      request->send(403, "text/plain", "acces refuse a ce canal");
+      return;
+    }
+    if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(100)) == pdTRUE) {
+      canaux[canal].coupureVolontaire = true;
+      xSemaphoreGive(mutexCanaux);
+    }
+    request->send(200, "application/json", construireJsonEtat());
+  });
+
+  server.on("/api/canal/retablir", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (!request->hasParam("canal")) {
+      request->send(400, "text/plain", "parametre canal manquant");
+      return;
+    }
+    int canal = request->getParam("canal")->value().toInt();
+    if (canal < 0 || canal >= NUM_CANAUX) {
+      request->send(400, "text/plain", "canal invalide");
+      return;
+    }
+    int canalAuth = authentifierRequete(request);
+    if (canalAuth < 0) {
+      return request->requestAuthentication();
+    }
+    if (canalAuth != 0 && canalAuth != canal) {
+      request->send(403, "text/plain", "acces refuse a ce canal");
+      return;
+    }
+    if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(100)) == pdTRUE) {
+      canaux[canal].coupureVolontaire = false;
+      xSemaphoreGive(mutexCanaux);
+    }
+    request->send(200, "application/json", construireJsonEtat());
+  });
+
+  // Tarif (USD/kWh) - lecture publique (deja dans /api/etat), modification
+  // reservee au bailleur. L'app affiche/edite l'equivalent en kWh par dollar.
+  server.on("/api/tarif", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (!request->hasParam("valeur")) {
+      JsonDocument doc;
+      doc["tarif_usd_par_kwh"] = tarifCourant;
+      String out;
+      serializeJson(doc, out);
+      request->send(200, "application/json", out);
+      return;
+    }
+    if (!request->authenticate(CANAL_USER[0], CANAL_PASSWORD[0])) {
+      return request->requestAuthentication();
+    }
+    float valeur = request->getParam("valeur")->value().toFloat();
+    if (valeur <= 0.0f) {
+      request->send(400, "text/plain", "valeur invalide");
+      return;
+    }
+    tarifCourant = valeur;
+    Preferences config;
+    config.begin("config", false);
+    config.putFloat("tarif", tarifCourant);
+    config.end();
+    request->send(200, "application/json", construireJsonEtat());
+  });
+
+  // Nom affiche d'un canal (fiche locataire) - reserve au bailleur. Stocke
+  // sur l'ESP32 (pas cote app) car c'est une metadonnee du canal, la meme
+  // pour tous les appareils qui s'y connectent, comme le tarif.
+  server.on("/api/canal/nom", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (!request->hasParam("canal") || !request->hasParam("valeur")) {
+      request->send(400, "text/plain", "parametres manquants (canal, valeur)");
+      return;
+    }
+    int canal = request->getParam("canal")->value().toInt();
+    if (canal < 0 || canal >= NUM_CANAUX) {
+      request->send(400, "text/plain", "canal invalide");
+      return;
+    }
+    if (!request->authenticate(CANAL_USER[0], CANAL_PASSWORD[0])) {
+      return request->requestAuthentication();
+    }
+    String valeur = request->getParam("valeur")->value();
+    if (valeur.length() > 40) valeur = valeur.substring(0, 40);
+    if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(100)) == pdTRUE) {
+      canaux[canal].nomAffiche = valeur;
+      xSemaphoreGive(mutexCanaux);
+    }
+    sauverCanalDansNVS(canal);
     request->send(200, "application/json", construireJsonEtat());
   });
 
@@ -293,6 +587,7 @@ void setup() {
   }
 
   mutexCanaux = xSemaphoreCreateMutex();
+  mutexEvenements = xSemaphoreCreateMutex();
   chargerEtatDepuisNVS();
 
   WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);

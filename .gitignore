@@ -18,6 +18,9 @@ kicad/multical/.history/
 *.pyc
 __pycache__/
 
+# Sauvegardes locales du rapport (faites avant chaque edition, pas du travail en soi)
+rapport/*.bak*
+
 # PlatformIO build/deps (regenerable via `pio run`)
 firmware/.pio/
 .~lock.*#
