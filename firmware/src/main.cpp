@@ -17,7 +17,9 @@
 #include "config.h"
 
 struct CanalEtat {
-  int   brutCourant;      // lecture ADC brute (0-4095)
+  float brutCourant;      // moyenne ADC brute (0-4095, en virgule flottante :
+                           // cf. lireMoyenneADC, l'oversampling ne gagne en
+                           // resolution que si la division n'est pas tronquee)
   float tensionADC_V;     // tension lue sur la broche (0-3.3V)
   float courant_A;        // courant simule (A)
   float puissance_W;      // puissance active (W)
@@ -45,7 +47,7 @@ struct EvenementEnAttente {
 };
 
 static CanalEtat canaux[NUM_CANAUX];
-static int brutTension = 0;
+static float brutTension = 0.0f;
 static float tensionSecteur_V = 0.0f;
 static float tarifCourant = TARIF_USD_PAR_KWH;
 static std::vector<EvenementEnAttente> evenementsEnAttente;
@@ -129,30 +131,45 @@ static void mettreEnAttente(int canal, const String &type, float valeur) {
 
 // ---------------------------------------------------------------------------
 // Moyenne de plusieurs lectures ADC consecutives, pour lisser le bruit
-// propre a l'ADC de l'ESP32 (cf. N_ECHANTILLONS_LISSAGE, config.h).
+// propre a l'ADC de l'ESP32 (cf. N_ECHANTILLONS_LISSAGE, config.h). Retournee
+// en virgule flottante : avec un nombre d'echantillons suffisant, le bruit
+// ADC lui-meme sert de dither et la moyenne peut tomber entre deux pas de
+// l'ADC 12 bits - un gain reel de resolution qu'une division entiere (qui
+// tronque au pas ADC natif) annulerait completement.
 // ---------------------------------------------------------------------------
-static int lireMoyenneADC(int pin, int nEchantillons) {
+static float lireMoyenneADC(int pin, int nEchantillons) {
   long somme = 0;
   for (int k = 0; k < nEchantillons; k++) {
     somme += analogRead(pin);
   }
-  return somme / nEchantillons;
+  return (float)somme / (float)nEchantillons;
 }
 
 // ---------------------------------------------------------------------------
 // Tache 1 - Acquisition des capteurs (cf. Annexe A.1, prio 3, coeur 1)
 // ---------------------------------------------------------------------------
 void TacheAcquisitionCapteurs(void *param) {
+  static bool premierPassage = true;
   for (;;) {
     if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(50)) == pdTRUE) {
       for (int i = 0; i < NUM_CANAUX; i++) {
-        canaux[i].brutCourant = lireMoyenneADC(PIN_COURANT[i], N_ECHANTILLONS_LISSAGE);
+        float echantillon = lireMoyenneADC(PIN_COURANT[i], N_ECHANTILLONS_LISSAGE);
+        // Lissage EMA entre cycles (cf. ALPHA_LISSAGE_EMA, config.h) : le
+        // burst de N_ECHANTILLONS_LISSAGE seul ne suffit pas contre le bruit
+        // basse frequence observe sur la maquette reelle.
+        canaux[i].brutCourant = premierPassage
+            ? echantillon
+            : canaux[i].brutCourant + ALPHA_LISSAGE_EMA * (echantillon - canaux[i].brutCourant);
       }
       xSemaphoreGive(mutexCanaux);
     }
     // ZMPT101B : lu ici aussi, sur l'ADC1 pour rester utilisable meme avec le
     // point d'acces WiFi actif en permanence sur la maquette (cf. config.h)
-    brutTension = lireMoyenneADC(PIN_TENSION, N_ECHANTILLONS_LISSAGE);
+    float echantillonTension = lireMoyenneADC(PIN_TENSION, N_ECHANTILLONS_LISSAGE);
+    brutTension = premierPassage
+        ? echantillonTension
+        : brutTension + ALPHA_LISSAGE_EMA * (echantillonTension - brutTension);
+    premierPassage = false;
     vTaskDelay(pdMS_TO_TICKS(PERIODE_ACQUISITION_MS));
   }
 }
@@ -180,9 +197,15 @@ void TacheCalculPuissance(void *param) {
           canaux[i].puissance_W = 0.0f;
           canaux[i].cosPhi = 0.0f;
         } else {
-          // Signal centre sur Vcc/2 = 0 A (cf. S1.3.1 / S3.2)
-          float ecart = (v - (ADC_VREF / 2.0f)) / (ADC_VREF / 2.0f);
-          canaux[i].courant_A = fabsf(ecart) * COURANT_MAX_A;
+          // Maquette : le potentiometre balaie 0-3.3V de facon lineaire sur
+          // toute sa course, mappe directement sur 0-COURANT_MAX_A (meme
+          // logique que tensionSecteur_V ci-dessus). Le vrai ACS712 rend un
+          // signal AC bidirectionnel centre sur Vcc/2 (cf. S1.3.1/S3.2), mais
+          // ce n'est pas ce qu'un potentiometre simule ici : le calcul
+          // centre+abs precedent donnait 20A aux deux butees du potentiometre
+          // et 0A au milieu, au lieu d'une variation reguliere avec la
+          // position - corrige ici.
+          canaux[i].courant_A = (v / ADC_VREF) * COURANT_MAX_A;
 
           // Simplification maquette : echantillon unique par cycle (potentiometres,
           // pas de forme d'onde AC reelle), donc pas de calcul P/Q/cos(phi) reel ici :
