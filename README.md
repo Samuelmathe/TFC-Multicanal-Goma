@@ -15,9 +15,10 @@ crédit prépayé et consultation via une application mobile Flutter.
 - **Application mobile Flutter** : développée et testée en conditions
   réelles (connexion Wi-Fi à l'ESP32 depuis un téléphone Android).
 - **PCB (circuit imprimé, 8 canaux, capteurs ACS712/ZMPT101B réels)** :
-  conçu sous KiCad (dossier `kicad/`) — **non encore fabriqué ni assemblé**.
-  Le firmware cible pour ce PCB (`firmware_pcb_capteurs_reels/`) est écrit et
-  compile, mais n'a donc pas pu être testé sur le matériel réel.
+  conçu sous KiCad (dossier `kicad/`) — **routage non terminé, il reste 10
+  pistes à tracer** ; non encore fabriqué ni assemblé. Le firmware cible pour
+  ce PCB (`firmware_pcb_capteurs_reels/`) est écrit et compile, mais n'a donc
+  pas pu être testé sur le matériel réel.
 
 ## Structure du dépôt
 

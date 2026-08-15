@@ -21,11 +21,20 @@ __pycache__/
 # Sauvegardes locales du rapport (faites avant chaque edition, pas du travail en soi)
 rapport/*.bak*
 
+# Sauvegardes locales diverses (kicad, presentation) - pas du travail en soi
+*.bak
+
+# Fichiers de verrouillage/temporaires drawio (meme logique que LibreOffice)
+rapport/.$*.drawio.bkp
+rapport/.$*.drawio.dtmp
+
 # PlatformIO build/deps (regenerable via `pio run`)
 firmware/.pio/
 firmware_pcb_capteurs_reels/.pio/
 .~lock.*#
 
-# Guide technique personnel (pour Samuel, pas destine au depot public GitHub)
+# Guides techniques personnels (pour Samuel, pas destines au depot public GitHub)
 GUIDE_TECHNIQUE_COMPLET.md
 GUIDE_TECHNIQUE_COMPLET.pdf
+GUIDE_EXPLICATION_CODE.md
+GUIDE_EXPLICATION_CODE.pdf
