@@ -23,4 +23,9 @@ rapport/*.bak*
 
 # PlatformIO build/deps (regenerable via `pio run`)
 firmware/.pio/
+firmware_pcb_capteurs_reels/.pio/
 .~lock.*#
+
+# Guide technique personnel (pour Samuel, pas destine au depot public GitHub)
+GUIDE_TECHNIQUE_COMPLET.md
+GUIDE_TECHNIQUE_COMPLET.pdf
