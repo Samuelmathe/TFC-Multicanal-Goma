@@ -34,6 +34,13 @@
 		(45 "User.4" user)
 	)
 	(setup
+		(stackup
+			(layer "F.Cu" (type "copper") (thickness 0.07))
+			(layer "dielectric 1" (type "core") (thickness 1.46) (material "FR4") (epsilon_r 4.5) (loss_tangent 0.02))
+			(layer "B.Cu" (type "copper") (thickness 0.07))
+			(copper_finish "None")
+			(dielectric_constraints no)
+		)
 		(pad_to_mask_clearance 0)
 		(allow_soldermask_bridges_in_footprints no)
 		(tenting
@@ -21435,7 +21442,7 @@
 	)
 	(gr_rect
 		(start 14 18.5)
-		(end 214 318.5)
+		(end 250 480)
 		(stroke
 			(width 0.05)
 			(type default)
