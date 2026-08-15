@@ -5819,7 +5819,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 210.82 119.3799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7981,7 +7981,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 243.84 44.4499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8526,7 +8526,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 246.38 69.8499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8822,7 +8822,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 209.55 69.8499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8996,7 +8996,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 248.92 118.1099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9520,7 +9520,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 248.92 96.5199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9818,7 +9818,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 208.28 43.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10280,7 +10280,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT"
+		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
 			(at 210.82 97.7899 0)
 			(show_name no)
 			(do_not_autoplace no)
