@@ -162,6 +162,25 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
     }
   }
 
+  // Rearmement apres une coupure automatique pour surintensite (cf. TFC S2.7).
+  // Distinct de _basculerCoupure : suppose que l'appareil en cause a deja ete
+  // debranche - si le courant reste au-dessus du seuil, la protection se
+  // redeclenchera d'elle-meme apres 15 secondes.
+  Future<void> _rearmer() async {
+    if (_actionEnCours) return;
+    setState(() => _actionEnCours = true);
+    try {
+      await _api.rearmerCanal(widget.canal);
+      await _rafraichir();
+    } catch (e) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Echec : $e")));
+    } finally {
+      if (mounted) setState(() => _actionEnCours = false);
+    }
+  }
+
   Future<void> _envoyerRecharge() async {
     final montant = double.tryParse(_montantController.text);
     if (montant == null || montant <= 0) return;
@@ -293,6 +312,34 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
                 ),
               ),
             ],
+            if (c.avertissementSurintensite) ...[
+              const SizedBox(height: 12),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.35)),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(Icons.warning_amber_rounded, size: 18, color: Colors.deepOrange),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        c.secondesAvantCoupure >= 0
+                            ? "Courant eleve (>= 20 A) - coupure automatique dans "
+                                "${c.secondesAvantCoupure}s si ca persiste"
+                            : "Courant eleve (proche de 20 A) - coupure automatique si "
+                                "ca persiste",
+                        style: const TextStyle(
+                            fontSize: 12.5, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
             const SizedBox(height: 20),
 
             GridView.count(
@@ -301,7 +348,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
               physics: const NeverScrollableScrollPhysics(),
               crossAxisSpacing: 14,
               mainAxisSpacing: 14,
-              childAspectRatio: 1.25,
+              childAspectRatio: 1.05,
               children: [
                 _CarteStat(
                   icone: Icons.flash_on_rounded,
@@ -379,6 +426,55 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
                 ],
               ),
             ),
+
+            if (c.coupureSurintensite) ...[
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: Colors.deepOrange.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.deepOrange.withValues(alpha: 0.35)),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Row(
+                      children: [
+                        Icon(Icons.report_problem_rounded,
+                            size: 18, color: Colors.deepOrange),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            "Coupure automatique : surintensite",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                              color: Colors.deepOrange,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    const Text(
+                      "Rearmer apres avoir debranche certains appareils. Si le "
+                      "courant reste trop eleve, la coupure se redeclenchera "
+                      "automatiquement.",
+                      style: TextStyle(fontSize: 12.5),
+                    ),
+                    const SizedBox(height: 14),
+                    FilledButton.icon(
+                      onPressed: _actionEnCours ? null : _rearmer,
+                      style: FilledButton.styleFrom(
+                          backgroundColor: Colors.deepOrange),
+                      icon: const Icon(Icons.replay_circle_filled_rounded),
+                      label: const Text("Rearmer"),
+                    ),
+                  ],
+                ),
+              ),
+            ],
 
             if (widget.modeBailleur) ...[
               const SizedBox(height: 20),
@@ -491,6 +587,8 @@ class _StatutBandeau extends StatelessWidget {
     final String sousTitre;
     if (alimente) {
       sousTitre = "Alimentation active";
+    } else if (canal.coupureSurintensite) {
+      sousTitre = "Coupe : surintensite";
     } else if (canal.coupureVolontaire) {
       sousTitre = "Coupe volontairement";
     } else {
@@ -644,35 +742,46 @@ class _CarteStat extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: colorScheme.surfaceContainerHigh,
         borderRadius: BorderRadius.circular(18),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
               color: couleur.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icone, size: 18, color: couleur),
+            child: Icon(icone, size: 16, color: couleur),
           ),
-          const Spacer(),
+          const SizedBox(height: 8),
           Text(
             label,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 11.5,
               color: colorScheme.onSurfaceVariant,
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 4),
-          Text(
-            valeur,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+          // FittedBox : la valeur (2 lignes, longueur variable selon la
+          // grandeur - ex. "Energie cumulee" a 5 decimales) s'adapte a
+          // l'espace restant plutot que de deborder sur les ecrans etroits
+          // ou avec une echelle de police systeme augmentee.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: Text(
+              valeur,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
+            ),
           ),
         ],
       ),

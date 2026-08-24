@@ -47,6 +47,23 @@ static const int   ADC_RESOLUTION = 4095;
 static const float COURANT_MAX_A = 20.0f;     // pleine echelle simulee (ACS712 20A)
 static const float TENSION_MAX_V = 250.0f;    // pleine echelle simulee du secteur
 
+// --- Protection par seuil de courant, par canal (cf. TFC S2.7) ---
+// Independante de la gestion du credit : le capteur ACS712-20A retenu est
+// theoriquement calibre pour 20A, donc protege le capteur lui-meme (et pas
+// seulement le budget du locataire) contre un depassement de sa plage.
+static const float SEUIL_AVERTISSEMENT_A        = 18.0f;  // avertissement seul, pas de coupure
+static const float SEUIL_COUPURE_SURINTENSITE_A = 20.0f;  // seuil de coupure si soutenu
+static const uint32_t DUREE_SURINTENSITE_MS     = 15000;  // duree de depassement avant coupure
+static const float SEUIL_COUPURE_IMMEDIATE_A    = 22.0f;  // coupure sans delai, danger immediat
+
+// Tolerance de comparaison flottante pour le seuil de coupure : un
+// potentiometre pousse a fond en butee mecanique n'atteint pas forcement la
+// valeur ADC maximale exacte (4095/4095) - le courant calcule plafonne alors
+// a une valeur du type 19.997, qui s'affiche arrondie "20.000" mais echoue au
+// test strict >= SEUIL_COUPURE_SURINTENSITE_A. Constate sur la maquette
+// reelle (canal reste FERME indefiniment malgre un courant affiche a 20.000).
+static const float TOLERANCE_SEUIL_A = 0.05f;
+
 // --- Lissage des lectures ADC : moyenne de N echantillons consecutifs au
 // lieu d'une seule lecture, pour attenuer le bruit propre a l'ADC de l'ESP32
 // (cf. TacheAcquisitionCapteurs). N=64 : au-dela du simple lissage, cet

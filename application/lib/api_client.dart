@@ -102,6 +102,19 @@ class ApiClient {
     }
   }
 
+  // Rearmement apres coupure automatique pour surintensite (cf. TFC S2.7) -
+  // distinct de retablirCanal (coupure volontaire) : l'utilisateur est cense
+  // avoir debranche l'appareil en cause avant d'appeler cette methode.
+  Future<void> rearmerCanal(int canal) async {
+    final uri = Uri.parse('$baseUrl/api/canal/rearmer?canal=$canal');
+    final reponse = await http
+        .get(uri, headers: _headersAuth)
+        .timeout(const Duration(seconds: 5));
+    if (reponse.statusCode != 200) {
+      throw Exception('Rearmement refuse : ${reponse.statusCode}');
+    }
+  }
+
   // Bailleur uniquement (verifie cote ESP32). Stocke le nom directement sur
   // l'ESP32 (metadonnee de canal, cf. historique_db.dart pour la distinction
   // avec l'historique qui lui est cote application).

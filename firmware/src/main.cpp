@@ -29,6 +29,13 @@ struct CanalEtat {
   float credit_USD;       // credit restant
   bool  relaisFerme;      // etat du relais (true = alimente)
   bool  coupureVolontaire; // coupure demandee par le locataire lui-meme (absence, etc.)
+  bool  coupureSurintensite; // coupure automatique par depassement de seuil de courant
+                              // (cf. S2.7) - distincte de coupureVolontaire/credit, ne se
+                              // reinitialise que via /api/canal/rearmer
+  unsigned long debutSurintensiteMs; // 0 si courant sous SEUIL_COUPURE_SURINTENSITE_A,
+                                      // sinon horodatage du debut du depassement soutenu
+  bool  avertissementEnvoye; // evite de renvoyer l'evenement d'avertissement 18A a
+                              // chaque cycle tant que le courant reste au-dessus du seuil
   String nomAffiche;      // nom reel du locataire, saisi par le bailleur (facultatif)
   String dernierEvenement;
   unsigned long dernierHorodatageMs;
@@ -221,6 +228,49 @@ void TacheCalculPuissance(void *param) {
           // E += P x dt, dt en heures pour un resultat en kWh
           float dt_h = (PERIODE_CALCUL_MS / 1000.0f) / 3600.0f;
           canaux[i].energie_kWh += (canaux[i].puissance_W / 1000.0f) * dt_h;
+
+          // Protection par seuil de courant (cf. S2.7, independante du credit) :
+          // avertissement a SEUIL_AVERTISSEMENT_A, coupure si le courant reste
+          // au-dessus de SEUIL_COUPURE_SURINTENSITE_A pendant DUREE_SURINTENSITE_MS
+          // consecutives. La fermeture du relais elle-meme est geree par
+          // TacheGestionCredits (coupureSurintensite est juste un troisieme motif
+          // de coupure, au meme titre que credit epuise / coupure volontaire).
+          //
+          // Hysteresis entre les deux seuils (18-20A) : une fois le chronometre
+          // demarre, il ne se reinitialise que si le courant redescend sous
+          // SEUIL_AVERTISSEMENT_A, pas des le premier passage sous 20A. Sans
+          // cela, le bruit de mesure normal (jeu mecanique du potentiometre,
+          // bruit ADC) fait osciller la lecture de part et d'autre de 20A et le
+          // chrono repart de zero en permanence - la coupure ne se declenche
+          // alors jamais, meme apres plusieurs minutes au-dessus du seuil.
+          if (!canaux[i].coupureSurintensite &&
+              canaux[i].courant_A >= SEUIL_COUPURE_IMMEDIATE_A) {
+            // Danger immediat (>= 22A) : coupure sans attendre les 15 secondes
+            // de temporisation normalement appliquees entre 20 et 22A.
+            canaux[i].coupureSurintensite = true;
+            canaux[i].avertissementEnvoye = true;
+            mettreEnAttente(i, "coupure_surintensite", canaux[i].courant_A);
+          } else if (canaux[i].courant_A >= SEUIL_COUPURE_SURINTENSITE_A - TOLERANCE_SEUIL_A) {
+            if (canaux[i].debutSurintensiteMs == 0) {
+              canaux[i].debutSurintensiteMs = millis();
+            } else if (!canaux[i].coupureSurintensite &&
+                       millis() - canaux[i].debutSurintensiteMs >= DUREE_SURINTENSITE_MS) {
+              canaux[i].coupureSurintensite = true;
+              mettreEnAttente(i, "coupure_surintensite", canaux[i].courant_A);
+            }
+            canaux[i].avertissementEnvoye = true; // pas de doublon d'avertissement au-dela de 20A
+          } else if (canaux[i].courant_A >= SEUIL_AVERTISSEMENT_A) {
+            // Zone intermediaire : courant retombe sous 20A mais reste eleve.
+            // Le chronometre, s'il a deja demarre, N'EST PAS reinitialise ici.
+            if (!canaux[i].avertissementEnvoye) {
+              canaux[i].avertissementEnvoye = true;
+              mettreEnAttente(i, "avertissement_surintensite", canaux[i].courant_A);
+            }
+          } else {
+            // Retour franc sous le seuil d'avertissement : on reinitialise tout.
+            canaux[i].debutSurintensiteMs = 0;
+            canaux[i].avertissementEnvoye = false;
+          }
         }
       }
       xSemaphoreGive(mutexCanaux);
@@ -253,18 +303,25 @@ void TacheGestionCredits(void *param) {
           canaux[i].energie_prev_kWh = canaux[i].energie_kWh;
         }
 
-        bool doitEtreFerme = canaux[i].credit_USD > 0.0f && !canaux[i].coupureVolontaire;
+        bool doitEtreFerme = canaux[i].credit_USD > 0.0f && !canaux[i].coupureVolontaire
+                             && !canaux[i].coupureSurintensite;
         if (doitEtreFerme != canaux[i].relaisFerme) {
           canaux[i].relaisFerme = doitEtreFerme;
           String evt;
           if (doitEtreFerme) {
             evt = "retablissement";
+          } else if (canaux[i].coupureSurintensite) {
+            // Evenement deja mis en attente au moment de la detection (cf.
+            // TacheCalculPuissance) - ne pas le pousser une seconde fois ici.
+            evt = "coupure_surintensite";
           } else {
             evt = canaux[i].coupureVolontaire ? "coupure_volontaire" : "coupure_credit";
           }
           canaux[i].dernierEvenement = evt;
           canaux[i].dernierHorodatageMs = millis();
-          mettreEnAttente(i, evt, 0.0f);
+          if (evt != "coupure_surintensite") {
+            mettreEnAttente(i, evt, 0.0f);
+          }
         }
         digitalWrite(PIN_RELAIS[i], canaux[i].relaisFerme ? HIGH : LOW);
       }
@@ -329,6 +386,19 @@ static String construireJsonEtat() {
       c["cos_phi"] = canaux[i].cosPhi;
       c["relais_ferme"] = canaux[i].relaisFerme;
       c["coupure_volontaire"] = canaux[i].coupureVolontaire;
+      c["coupure_surintensite"] = canaux[i].coupureSurintensite;
+      c["avertissement_surintensite"] = canaux[i].avertissementEnvoye && !canaux[i].coupureSurintensite;
+      // Secondes restantes avant coupure automatique (cf. DUREE_SURINTENSITE_MS) -
+      // -1 si le chronometre n'est pas en cours (courant sous SEUIL_AVERTISSEMENT_A
+      // ou coupure deja effective). Permet a l'application d'afficher un compte a
+      // rebours plutot qu'un simple message statique.
+      if (canaux[i].debutSurintensiteMs > 0 && !canaux[i].coupureSurintensite) {
+        long ecouleMs = (long)(millis() - canaux[i].debutSurintensiteMs);
+        long restantMs = (long)DUREE_SURINTENSITE_MS - ecouleMs;
+        c["secondes_avant_coupure"] = restantMs > 0 ? (int)(restantMs / 1000) : 0;
+      } else {
+        c["secondes_avant_coupure"] = -1;
+      }
       c["nom_affiche"] = canaux[i].nomAffiche;
       c["dernier_evenement"] = canaux[i].dernierEvenement;
       c["dernier_horodatage_ms"] = canaux[i].dernierHorodatageMs;
@@ -505,6 +575,40 @@ void TacheServeurAPI(void *param) {
     }
     if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(100)) == pdTRUE) {
       canaux[canal].coupureVolontaire = false;
+      xSemaphoreGive(mutexCanaux);
+    }
+    request->send(200, "application/json", construireJsonEtat());
+  });
+
+  // Rearmement apres coupure pour surintensite (cf. S2.7) : contrairement a la
+  // coupure sur credit epuise (necessite une recharge) ou volontaire (bouton
+  // retablir), une coupure pour surintensite necessite ce rearmement explicite
+  // - l'utilisateur est cense avoir debranche l'appareil en cause au prealable.
+  // Si le courant est toujours au-dessus du seuil, la protection se
+  // redeclenche naturellement apres DUREE_SURINTENSITE_MS (pas de verification
+  // bloquante ici, le rearmement est idempotent et sans risque).
+  server.on("/api/canal/rearmer", HTTP_GET, [](AsyncWebServerRequest *request) {
+    if (!request->hasParam("canal")) {
+      request->send(400, "text/plain", "parametre canal manquant");
+      return;
+    }
+    int canal = request->getParam("canal")->value().toInt();
+    if (canal < 0 || canal >= NUM_CANAUX) {
+      request->send(400, "text/plain", "canal invalide");
+      return;
+    }
+    int canalAuth = authentifierRequete(request);
+    if (canalAuth < 0) {
+      return request->requestAuthentication();
+    }
+    if (canalAuth != 0 && canalAuth != canal) {
+      request->send(403, "text/plain", "acces refuse a ce canal");
+      return;
+    }
+    if (xSemaphoreTake(mutexCanaux, pdMS_TO_TICKS(100)) == pdTRUE) {
+      canaux[canal].coupureSurintensite = false;
+      canaux[canal].debutSurintensiteMs = 0;
+      canaux[canal].avertissementEnvoye = false;
       xSemaphoreGive(mutexCanaux);
     }
     request->send(200, "application/json", construireJsonEtat());

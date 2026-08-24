@@ -3786,7 +3786,7 @@
 		)
 		(uuid "07a52abb-cda4-4a43-9940-db4756e2ad18")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL8_NEUTRE_OUT"
 		(at 271.78 125.73 0)
 		(effects
 			(font
@@ -3836,7 +3836,7 @@
 		)
 		(uuid "12542a4d-3410-497e-8751-85b6fe838493")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL6_NEUTRE_OUT"
 		(at 262.89 100.33 0)
 		(effects
 			(font
@@ -3866,7 +3866,7 @@
 		)
 		(uuid "1640dc90-c7a0-4495-ba92-d8fb93f6ad15")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL1_NEUTRE_OUT"
 		(at 264.16 35.56 0)
 		(effects
 			(font
@@ -3896,7 +3896,7 @@
 		)
 		(uuid "1edd0922-60f0-4a46-9dcd-2c821724ce5a")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL8_PHASE_IN"
 		(at 242.57 124.46 0)
 		(effects
 			(font
@@ -4086,7 +4086,7 @@
 		)
 		(uuid "38ddb1ad-9839-4636-92a3-79e7bec4e0e5")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL5_PHASE_IN"
 		(at 237.49 50.8 0)
 		(effects
 			(font
@@ -4206,7 +4206,7 @@
 		)
 		(uuid "4b3b57e4-859b-4da7-b380-4446f146dd87")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL2_PHASE_IN"
 		(at 203.2 76.2 0)
 		(effects
 			(font
@@ -4396,7 +4396,7 @@
 		)
 		(uuid "668a3e90-7516-4df1-9fde-e52af0d9ec9e")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL4_PHASE_IN"
 		(at 204.47 125.73 0)
 		(effects
 			(font
@@ -4566,7 +4566,7 @@
 		)
 		(uuid "7d8a676b-d684-4200-9c33-571f3be727b2")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL3_NEUTRE_OUT"
 		(at 265.43 63.5 0)
 		(effects
 			(font
@@ -4596,7 +4596,7 @@
 		)
 		(uuid "80011d43-e5d3-4627-9826-d20eb5850acf")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL5_NEUTRE_OUT"
 		(at 265.43 87.63 0)
 		(effects
 			(font
@@ -4626,7 +4626,7 @@
 		)
 		(uuid "838eddc0-05b8-4c6d-88e8-c37803ab80d3")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL1_PHASE_IN"
 		(at 201.93 49.53 0)
 		(effects
 			(font
@@ -4756,7 +4756,7 @@
 		)
 		(uuid "958cc6dd-af75-4a6b-a22d-e8abc93dbae9")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL2_NEUTRE_OUT"
 		(at 264.16 48.26 0)
 		(effects
 			(font
@@ -4826,7 +4826,7 @@
 		)
 		(uuid "a29efe52-50b4-4561-93bf-80757c63fb48")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL4_NEUTRE_OUT"
 		(at 266.7 74.93 0)
 		(effects
 			(font
@@ -4836,7 +4836,7 @@
 		)
 		(uuid "a5648e1b-0e07-4fa3-bdeb-5baa8e8a15d0")
 	)
-	(label "NEUTRE_BUS"
+	(label "CANAL7_NEUTRE_OUT"
 		(at 271.78 110.49 0)
 		(effects
 			(font
@@ -4876,7 +4876,7 @@
 		)
 		(uuid "aa370eed-33f3-4d86-bb14-d8e826754fc6")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL3_PHASE_IN"
 		(at 204.47 104.14 0)
 		(effects
 			(font
@@ -5266,7 +5266,7 @@
 		)
 		(uuid "e33933ab-1a15-4e4d-9c29-9fd9bfdef15e")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL6_PHASE_IN"
 		(at 240.03 76.2 0)
 		(effects
 			(font
@@ -5306,7 +5306,7 @@
 		)
 		(uuid "e886cdbf-85e3-481e-be4d-b33ca274d809")
 	)
-	(label "PHASE_BUS"
+	(label "CANAL7_PHASE_IN"
 		(at 242.57 102.87 0)
 		(effects
 			(font
@@ -5819,7 +5819,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 210.82 119.3799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5830,7 +5830,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 210.82 119.38 0)
 			(hide yes)
 			(show_name no)
@@ -7981,7 +7981,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 243.84 44.4499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7992,7 +7992,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 243.84 44.45 0)
 			(hide yes)
 			(show_name no)
@@ -8526,7 +8526,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 246.38 69.8499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8537,7 +8537,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 246.38 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -8822,7 +8822,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 209.55 69.8499 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8833,7 +8833,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 209.55 69.85 0)
 			(hide yes)
 			(show_name no)
@@ -8996,7 +8996,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 248.92 118.1099 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9007,7 +9007,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 248.92 118.11 0)
 			(hide yes)
 			(show_name no)
@@ -9520,7 +9520,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 248.92 96.5199 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9531,7 +9531,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 248.92 96.52 0)
 			(hide yes)
 			(show_name no)
@@ -9818,7 +9818,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 208.28 43.1799 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9829,7 +9829,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 208.28 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -10280,7 +10280,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "Relay_SPDT_20A_A_CONFIRMER"
+		(property "Value" "Songle_SLA-05VDC-SL-C_LCSC-C87367"
 			(at 210.82 97.7899 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10291,7 +10291,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Relay_THT:Relay_SPDT_Hongfa_JQC-3FF_0XX-1Z"
+		(property "Footprint" "multical_local:RELAY-TH_SLA-XXVDC-XX-C"
 			(at 210.82 97.79 0)
 			(hide yes)
 			(show_name no)
@@ -10614,6 +10614,742 @@
 				)
 			)
 		)
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 217.17 31.75 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "94105c65-b2dd-4a45-8ed6-f8805285257b")
+		(property "Reference" "J19"
+			(at 219.95 31.18 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 219.95 33.72 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 217.17 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 217.17 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 217.17 31.75 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "0830f959-7b7b-45a8-a356-a68e6f9de6ff")
+		)
+		(pin "1"
+			(uuid "21c34a37-817d-44cd-97db-2889ffff6b63")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL5_PHASE_IN"
+		(at 212.09 31.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3196e109-78ad-42c0-b67b-f2dbad892dae")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 219.71 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e1355045-744f-46d0-aa57-3ee004a4e4f8")
+		(property "Reference" "J20"
+			(at 222.48999999999998 56.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 222.48999999999998 59.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 219.71 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 219.71 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 219.71 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "2808538a-0526-4d90-aa98-3f54a509ec7d")
+		)
+		(pin "1"
+			(uuid "5a32d1dc-6648-48ad-9d3c-f4709f2ee392")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL6_PHASE_IN"
+		(at 214.63 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "58adb09e-9e1f-4460-8ad5-c46f0f78e095")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 222.25 83.82 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "b0de26e8-2f04-4b45-9d3a-3a67eac3dda2")
+		(property "Reference" "J21"
+			(at 225.03 83.25 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 225.03 85.79 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 222.25 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 222.25 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 222.25 83.82 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "7b216fb3-9a79-4a08-823c-e32088ca4a35")
+		)
+		(pin "1"
+			(uuid "a6ad21cf-7ddf-4ee2-862d-572e4fa8d49a")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL7_PHASE_IN"
+		(at 217.17 83.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1166f54f-2a07-4c85-9117-45c8274a268e")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 222.25 105.41 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "713eec21-bfa2-4423-a1b1-cf84e639ed22")
+		(property "Reference" "J22"
+			(at 225.03 104.84 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 225.03 107.38000000000001 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 222.25 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 222.25 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 222.25 105.41 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "fb80baec-d2ca-4402-9179-d1a586acc8c7")
+		)
+		(pin "1"
+			(uuid "3322c377-4dfe-40af-bfd2-2395fd1ec2e0")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL8_PHASE_IN"
+		(at 217.17 105.41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a878e6fc-c9f5-43e0-b350-dabac6d360b5")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 181.61 30.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "fbf10a44-1a4c-4572-8a39-83ce51cd9163")
+		(property "Reference" "J23"
+			(at 184.39 29.91 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 184.39 32.45 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 181.61 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 181.61 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 181.61 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ef7f430a-d39f-40ca-b311-b899a488334c")
+		)
+		(pin "1"
+			(uuid "798e6193-9ce3-47c3-ab5d-1792efcb512b")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL1_PHASE_IN"
+		(at 176.53 30.48 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "dcb56a38-e88d-4c3a-b542-888f8bdbd1e5")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 182.88 57.15 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "99aba51f-9c2c-4117-93c7-8989c4db9600")
+		(property "Reference" "J24"
+			(at 185.66 56.58 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 185.66 59.12 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 182.88 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 182.88 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 182.88 57.15 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "cb2cf53d-0f5b-4191-832c-8352a10fb441")
+		)
+		(pin "1"
+			(uuid "de484a0e-96dd-4fae-afac-f3b6988ca092")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL2_PHASE_IN"
+		(at 177.8 57.15 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d0dd761d-4361-4c83-b670-4c78327d278a")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 184.15 85.09 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d3b609a5-fa33-4d7b-988c-05729f7e3db9")
+		(property "Reference" "J25"
+			(at 186.92999999999998 84.52 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 186.92999999999998 87.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 184.15 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 184.15 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 184.15 85.09 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "735efbce-6531-4cd4-bfd5-05c681cec71b")
+		)
+		(pin "1"
+			(uuid "b2f3a4bf-bb48-4a9c-93e4-36979529d2b9")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL3_PHASE_IN"
+		(at 179.07 85.09 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b896c4f5-16a8-4b8d-9ee2-122f4e983301")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 184.15 106.68 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7fbf466b-eb72-4bfe-b330-af77c8b93135")
+		(property "Reference" "J26"
+			(at 186.92999999999998 106.11 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Screw_Terminal_01x02"
+			(at 186.92999999999998 108.65 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TerminalBlock:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 184.15 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 184.15 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 184.15 106.68 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "7458a7e4-3dd4-4514-8096-f390e5789ca0")
+		)
+		(pin "1"
+			(uuid "5bbec43d-1090-4934-963a-1335ddf573ce")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J26")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "CANAL4_PHASE_IN"
+		(at 179.07 106.68 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e141a958-6a0c-469d-b91e-3b06e8cd384a")
 	)
 	(sheet_instances
 		(path "/"

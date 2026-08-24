@@ -537,6 +537,9 @@ class _LigneCanal extends StatelessWidget {
     if (canal.relaisFerme) {
       couleurStatut = Colors.green;
       libelleStatut = "ALIMENTE";
+    } else if (canal.coupureSurintensite) {
+      couleurStatut = Colors.deepOrange;
+      libelleStatut = "COUPE (surintensite)";
     } else if (canal.coupureVolontaire) {
       couleurStatut = Colors.orange;
       libelleStatut = "COUPE (volontaire)";

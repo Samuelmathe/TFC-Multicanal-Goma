@@ -13,6 +13,9 @@ class CanalEtat {
   final double cosPhi;
   final bool relaisFerme;
   final bool coupureVolontaire;
+  final bool coupureSurintensite;
+  final bool avertissementSurintensite;
+  final int secondesAvantCoupure; // -1 si le chronometre n'est pas en cours
   final String nomAffiche;
   final String dernierEvenement;
   final int dernierHorodatageMs;
@@ -28,6 +31,9 @@ class CanalEtat {
     required this.cosPhi,
     required this.relaisFerme,
     required this.coupureVolontaire,
+    required this.coupureSurintensite,
+    required this.avertissementSurintensite,
+    required this.secondesAvantCoupure,
     required this.nomAffiche,
     required this.dernierEvenement,
     required this.dernierHorodatageMs,
@@ -53,6 +59,9 @@ class CanalEtat {
       cosPhi: (json['cos_phi'] as num?)?.toDouble() ?? 0.0,
       relaisFerme: json['relais_ferme'] as bool,
       coupureVolontaire: json['coupure_volontaire'] as bool? ?? false,
+      coupureSurintensite: json['coupure_surintensite'] as bool? ?? false,
+      avertissementSurintensite: json['avertissement_surintensite'] as bool? ?? false,
+      secondesAvantCoupure: (json['secondes_avant_coupure'] as num?)?.toInt() ?? -1,
       nomAffiche: json['nom_affiche'] as String? ?? '',
       dernierEvenement: json['dernier_evenement'] as String,
       dernierHorodatageMs: (json['dernier_horodatage_ms'] as num?)?.toInt() ?? 0,
@@ -118,6 +127,10 @@ class HistoriqueEntree {
         return 'Coupure automatique (credit epuise)';
       case 'coupure_volontaire':
         return 'Coupure volontaire';
+      case 'coupure_surintensite':
+        return 'Coupure automatique (surintensite)';
+      case 'avertissement_surintensite':
+        return 'Avertissement : courant eleve';
       case 'retablissement':
         return 'Retablissement';
       case 'demarrage':

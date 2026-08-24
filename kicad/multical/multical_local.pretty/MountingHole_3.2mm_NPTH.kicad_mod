@@ -1,0 +1,38 @@
+(footprint "MountingHole_3.2mm_NPTH"
+	(layer "F.Cu")
+	(descr "Trou de montage non plaque, M3, pour la carte multical")
+	(tags "mounting hole")
+	(attr exclude_from_pos_files exclude_from_bom)
+	(property "Reference" "REF**"
+		(at 0 0 0)
+		(layer "F.SilkS")
+		(hide yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Value" "MountingHole_3.2mm_NPTH"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(fp_circle
+		(center 0 0)
+		(end 3 0)
+		(layer "F.CrtYd")
+		(width 0.05)
+	)
+	(pad "" np_thru_hole circle
+		(at 0 0)
+		(size 6 6)
+		(drill 3.2)
+		(layers "*.Cu" "*.Mask")
+	)
+)
