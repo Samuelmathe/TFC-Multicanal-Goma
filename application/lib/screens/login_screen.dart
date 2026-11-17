@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     } catch (e) {
       if (!mounted) return;
-      setState(() => _erreur = "Connexion impossible : $e");
+      setState(() => _erreur = messageErreurReseau(e));
     } finally {
       if (mounted) setState(() => _connexionEnCours = false);
     }

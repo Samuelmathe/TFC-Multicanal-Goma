@@ -1,6 +1,31 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'models.dart';
+
+// Traduit une erreur reseau/technique en message comprehensible pour un
+// utilisateur non developpeur (bailleur ou locataire). Les erreurs deja
+// levees par ApiClient (Exception('Identifiants incorrects'), etc.) sont
+// deja redigees pour l'utilisateur et ressortent donc telles quelles.
+String messageErreurReseau(Object e) {
+  if (e is TimeoutException) {
+    return "Le boitier ne repond pas. Verifiez que vous etes bien connecte "
+        "a son reseau Wi-Fi.";
+  }
+  if (e is SocketException) {
+    return "Impossible de joindre le boitier. Verifiez l'adresse saisie et "
+        "la connexion Wi-Fi.";
+  }
+  if (e is FormatException || e is TypeError) {
+    return "Reponse du boitier incomprehensible. Reessayez dans un instant.";
+  }
+  if (e is Exception) {
+    final m = e.toString();
+    return m.startsWith("Exception: ") ? m.substring("Exception: ".length) : m;
+  }
+  return "Une erreur inattendue est survenue. Reessayez.";
+}
 
 // Client HTTP vers le serveur API embarque de l'ESP32 (cf. memoire S2.9/S2.10).
 // baseUrl est saisi sur l'ecran de connexion : mets l'IP de l'ESP32

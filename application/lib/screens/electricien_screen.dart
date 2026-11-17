@@ -55,7 +55,7 @@ class _ElectricienScreenState extends State<ElectricienScreen> {
       });
     } catch (e) {
       if (!mounted) return;
-      setState(() => _erreur = "Connexion impossible : $e");
+      setState(() => _erreur = messageErreurReseau(e));
     }
   }
 

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import '../historique_db.dart';
 import '../temps.dart';
@@ -19,6 +21,7 @@ class HistoriqueListe extends StatefulWidget {
 class _HistoriqueListeState extends State<HistoriqueListe>
     with AutomaticKeepAliveClientMixin {
   List<EvenementLocal>? _entrees;
+  Timer? _timer;
 
   @override
   bool get wantKeepAlive => true;
@@ -27,6 +30,19 @@ class _HistoriqueListeState extends State<HistoriqueListe>
   void initState() {
     super.initState();
     _charger();
+    // Le widget garde son etat (wantKeepAlive) quand on change d'onglet, donc
+    // un seul chargement dans initState() ne verrait jamais les evenements
+    // (coupure, retablissement...) inseres en base par drainerFirmware()
+    // APRES l'ouverture de cet onglet - seule la recharge apparaissait,
+    // parce qu'elle force elle-meme un rafraichissement juste avant. On
+    // recharge donc periodiquement, meme onglet non visible au premier plan.
+    _timer = Timer.periodic(const Duration(seconds: 3), (_) => _charger());
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   Future<void> _charger() async {

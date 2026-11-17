@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../api_client.dart';
 import '../historique_db.dart';
 import '../models.dart';
+import '../widgets/stat_card.dart';
 import 'canal_detail_screen.dart';
 import 'historique_liste.dart';
 
@@ -66,7 +67,7 @@ class _BailleurHomeScreenState extends State<BailleurHomeScreen> {
       });
     } catch (e) {
       if (!mounted) return;
-      setState(() => _erreur = "Connexion impossible : $e");
+      setState(() => _erreur = messageErreurReseau(e));
     }
   }
 
@@ -133,7 +134,7 @@ class _BailleurHomeScreenState extends State<BailleurHomeScreen> {
           Row(
             children: [
               Expanded(
-                child: _StatChip(
+                child: StatCard(
                   icone: Icons.bolt_rounded,
                   label: "Tension secteur",
                   valeur: "${etat.tensionSecteurV.toStringAsFixed(1)} V",
@@ -141,7 +142,7 @@ class _BailleurHomeScreenState extends State<BailleurHomeScreen> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _StatChip(
+                child: StatCard(
                   icone: Icons.payments_rounded,
                   label: "Tarif",
                   valeur: "1\$ = ${etat.kwhParDollar.toStringAsFixed(2)} kWh",
@@ -235,7 +236,7 @@ class _OngletResumeState extends State<_OngletResume> {
           Row(
             children: [
               Expanded(
-                child: _CarteResume(
+                child: StatCard(
                   icone: Icons.savings_rounded,
                   label: "Total recharge (tous canaux)",
                   valeur: _totalRecharge == null
@@ -246,7 +247,7 @@ class _OngletResumeState extends State<_OngletResume> {
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: _CarteResume(
+                child: StatCard(
                   icone: Icons.flash_on_rounded,
                   label: "Puissance totale instantanee",
                   valeur: "${puissanceTotale.toStringAsFixed(1)} W",
@@ -359,53 +360,6 @@ class _BarreCanal extends StatelessWidget {
   }
 }
 
-class _CarteResume extends StatelessWidget {
-  final IconData icone;
-  final String label;
-  final String valeur;
-  final Color couleur;
-
-  const _CarteResume({
-    required this.icone,
-    required this.label,
-    required this.valeur,
-    required this.couleur,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: couleur.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: couleur.withValues(alpha: 0.25)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(icone, size: 20, color: couleur),
-          const SizedBox(height: 10),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11.5,
-              fontWeight: FontWeight.w700,
-              color: colorScheme.onSurfaceVariant,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            valeur,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: couleur),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 // ---------------------------------------------------------------------------
 // Onglet Reglages : tarif (1 USD = X kWh), la seule chose modifiable par le
 // bailleur en dehors des recharges par canal.
@@ -444,7 +398,12 @@ class _OngletReglagesState extends State<_OngletReglages> {
 
   Future<void> _enregistrer() async {
     final v = double.tryParse(_controller.text);
-    if (v == null || v <= 0) return;
+    if (v == null || v <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Entrez un nombre de kWh valide (ex. 4.00)")),
+      );
+      return;
+    }
     setState(() => _enCours = true);
     try {
       await widget.api.definirTarif(1.0 / v);
@@ -455,7 +414,7 @@ class _OngletReglagesState extends State<_OngletReglages> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Echec : $e")));
+          .showSnackBar(SnackBar(content: Text("Echec : ${messageErreurReseau(e)}")));
     } finally {
       if (mounted) setState(() => _enCours = false);
     }
@@ -609,52 +568,3 @@ class _LigneCanal extends StatelessWidget {
   }
 }
 
-class _StatChip extends StatelessWidget {
-  final IconData icone;
-  final String label;
-  final String valeur;
-
-  const _StatChip({
-    required this.icone,
-    required this.label,
-    required this.valeur,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 14),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icone, size: 15, color: colorScheme.primary),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w600,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Text(
-            valeur,
-            style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w800),
-          ),
-        ],
-      ),
-    );
-  }
-}

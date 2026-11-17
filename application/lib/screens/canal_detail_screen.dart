@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../api_client.dart';
 import '../historique_db.dart';
 import '../models.dart';
+import '../widgets/stat_card.dart';
 import 'graphique_consommation.dart';
 import 'historique_liste.dart';
 
@@ -83,7 +84,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
       _enregistrerEchantillon(canal);
     } catch (e) {
       if (!mounted) return;
-      setState(() => _erreur = "Connexion impossible : $e");
+      setState(() => _erreur = messageErreurReseau(e));
     }
   }
 
@@ -97,7 +98,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Echec : $e")));
+          .showSnackBar(SnackBar(content: Text("Echec : ${messageErreurReseau(e)}")));
     }
   }
 
@@ -145,6 +146,38 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
   Future<void> _basculerCoupure() async {
     final c = _canal;
     if (c == null || _actionEnCours) return;
+
+    // Retablir le courant est sans risque ; le couper a une consequence
+    // reelle immediate (le canal se retrouve sans electricite), d'ou la
+    // confirmation uniquement dans ce sens.
+    if (!c.coupureVolontaire) {
+      final confirme = await showDialog<bool>(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          icon: const Icon(Icons.power_settings_new_rounded, color: Colors.deepOrange),
+          title: const Text("Couper l'alimentation ?"),
+          content: Text(
+            widget.canal == 0
+                ? "Le canal du bailleur sera coupe immediatement."
+                : "Le locataire sera immediatement coupe de l'electricite, "
+                    "sans perdre son credit.",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx, false),
+              child: const Text("Annuler"),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(ctx, true),
+              style: FilledButton.styleFrom(backgroundColor: Colors.deepOrange),
+              child: const Text("Couper"),
+            ),
+          ],
+        ),
+      );
+      if (confirme != true) return;
+    }
+
     setState(() => _actionEnCours = true);
     try {
       if (c.coupureVolontaire) {
@@ -156,7 +189,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Echec : $e")));
+          .showSnackBar(SnackBar(content: Text("Echec : ${messageErreurReseau(e)}")));
     } finally {
       if (mounted) setState(() => _actionEnCours = false);
     }
@@ -175,7 +208,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Echec : $e")));
+          .showSnackBar(SnackBar(content: Text("Echec : ${messageErreurReseau(e)}")));
     } finally {
       if (mounted) setState(() => _actionEnCours = false);
     }
@@ -183,7 +216,12 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
 
   Future<void> _envoyerRecharge() async {
     final montant = double.tryParse(_montantController.text);
-    if (montant == null || montant <= 0) return;
+    if (montant == null || montant <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Entrez un montant valide (ex. 5.00)")),
+      );
+      return;
+    }
     try {
       await _api.recharger(widget.canal, montant);
       _montantController.clear();
@@ -196,7 +234,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text("Echec : $e")));
+          .showSnackBar(SnackBar(content: Text("Echec : ${messageErreurReseau(e)}")));
     }
   }
 
@@ -245,6 +283,27 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
     final colorScheme = Theme.of(context).colorScheme;
     final estimation = _estimation(c);
 
+    // Le libelle depend de QUI agit (widget.modeBailleur), pas seulement du
+    // canal concerne : un bailleur qui coupe le canal d'un locataire a
+    // distance n'est pas en train de partir en "voyage" lui-meme.
+    final String titreCoupure;
+    final String descCoupure;
+    if (!widget.modeBailleur) {
+      titreCoupure = "Absence / voyage";
+      descCoupure = "Coupe l'alimentation de ce canal sans perdre le credit "
+          "restant (utile en cas d'absence prolongee, voyage ou journee de "
+          "travail).";
+    } else if (estBailleurCanal) {
+      titreCoupure = "Couper ce canal";
+      descCoupure = "Coupe l'alimentation de ce canal sans perdre le credit "
+          "restant (utile en cas d'absence prolongee, voyage ou journee de "
+          "travail).";
+    } else {
+      titreCoupure = "Couper ce locataire";
+      descCoupure = "Coupe l'alimentation de ce locataire sans lui faire perdre "
+          "son credit (ex. a sa demande, ou pour une raison a traiter avec lui).";
+    }
+
     return RefreshIndicator(
       onRefresh: _rafraichir,
       child: SingleChildScrollView(
@@ -260,7 +319,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
             Row(
               children: [
                 Expanded(
-                  child: _CarteSolde(
+                  child: StatCard(
                     icone: Icons.bolt_rounded,
                     label: "kWh restants",
                     valeur: c.creditKWh.toStringAsFixed(2),
@@ -270,7 +329,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _CarteSolde(
+                  child: StatCard(
                     icone: Icons.attach_money_rounded,
                     label: "Equivalent",
                     valeur: c.creditUSD.toStringAsFixed(2),
@@ -350,28 +409,32 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
               mainAxisSpacing: 14,
               childAspectRatio: 1.05,
               children: [
-                _CarteStat(
+                StatCard(
                   icone: Icons.flash_on_rounded,
                   label: "Puissance instantanee",
-                  valeur: "${c.puissanceW.toStringAsFixed(2)}\nW",
+                  valeur: c.puissanceW.toStringAsFixed(2),
+                  unite: "W",
                   couleur: Colors.orange,
                 ),
-                _CarteStat(
+                StatCard(
                   icone: Icons.speed_rounded,
                   label: "Courant",
-                  valeur: "${c.courantA.toStringAsFixed(3)}\nA",
+                  valeur: c.courantA.toStringAsFixed(3),
+                  unite: "A",
                   couleur: Colors.purple,
                 ),
-                _CarteStat(
+                StatCard(
                   icone: Icons.stacked_line_chart_rounded,
                   label: "Energie cumulee",
-                  valeur: "${c.energieKWh.toStringAsFixed(5)}\nkWh",
+                  valeur: c.energieKWh.toStringAsFixed(5),
+                  unite: "kWh",
                   couleur: Colors.indigo,
                 ),
-                _CarteStat(
+                StatCard(
                   icone: Icons.bolt_rounded,
                   label: "Tension secteur",
-                  valeur: "${etat.tensionSecteurV.toStringAsFixed(1)}\nV",
+                  valeur: etat.tensionSecteurV.toStringAsFixed(1),
+                  unite: "V",
                   couleur: Colors.blueGrey,
                 ),
               ],
@@ -395,7 +458,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          estBailleurCanal ? "Couper ce canal" : "Absence / voyage",
+                          titreCoupure,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 15,
@@ -409,8 +472,7 @@ class _CanalDetailScreenState extends State<CanalDetailScreen> {
                   Text(
                     c.coupureVolontaire
                         ? "Ce canal est coupe volontairement, meme si le credit est suffisant."
-                        : "Coupe l'alimentation de ce canal sans perdre le credit restant "
-                            "(utile en cas d'absence prolongee, voyage ou journee de travail).",
+                        : descCoupure,
                     style: TextStyle(fontSize: 12.5, color: colorScheme.onSurfaceVariant),
                   ),
                   const SizedBox(height: 14),
@@ -651,143 +713,6 @@ class _StatutBandeau extends StatelessWidget {
   }
 }
 
-class _CarteSolde extends StatelessWidget {
-  final IconData icone;
-  final String label;
-  final String valeur;
-  final String unite;
-  final Color couleur;
-
-  const _CarteSolde({
-    required this.icone,
-    required this.label,
-    required this.valeur,
-    required this.unite,
-    required this.couleur,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: couleur.withValues(alpha: 0.10),
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: couleur.withValues(alpha: 0.25)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(icone, size: 16, color: couleur),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 11.5,
-                    fontWeight: FontWeight.w700,
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
-            children: [
-              Text(
-                valeur,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w800,
-                  color: couleur,
-                ),
-              ),
-              const SizedBox(width: 4),
-              Text(
-                unite,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: colorScheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CarteStat extends StatelessWidget {
-  final IconData icone;
-  final String label;
-  final String valeur;
-  final Color couleur;
-
-  const _CarteStat({
-    required this.icone,
-    required this.label,
-    required this.valeur,
-    required this.couleur,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    return Container(
-      padding: const EdgeInsets.all(14),
-      decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHigh,
-        borderRadius: BorderRadius.circular(18),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: couleur.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icone, size: 16, color: couleur),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            label,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 11.5,
-              color: colorScheme.onSurfaceVariant,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(height: 4),
-          // FittedBox : la valeur (2 lignes, longueur variable selon la
-          // grandeur - ex. "Energie cumulee" a 5 decimales) s'adapte a
-          // l'espace restant plutot que de deborder sur les ecrans etroits
-          // ou avec une echelle de police systeme augmentee.
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: Text(
-              valeur,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 class _ErreurConnexion extends StatelessWidget {
   final String message;
