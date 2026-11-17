@@ -373,7 +373,7 @@
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -3.12 3.92)
-			(end -3.12 -4.12)
+			(end -3.12 -3.625)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -492,8 +492,8 @@
 			(uuid "c790cea6-f18f-4b6d-a023-07a5403d66fd")
 		)
 		(fp_line
-			(start -3.12 -4.12)
-			(end 7.62 -4.12)
+			(start -3.12 -3.625)
+			(end 7.62 -3.625)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -502,7 +502,7 @@
 			(uuid "eabbb037-0b6b-4a8e-a7c4-0b7ab6275097")
 		)
 		(fp_line
-			(start 7.62 -4.12)
+			(start 7.62 -3.625)
 			(end 7.62 3.92)
 			(stroke
 				(width 0.12)
@@ -4943,7 +4943,6 @@
 		(pad "1" smd rect
 			(at -8.75 -8.25)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_1")
@@ -4953,7 +4952,6 @@
 		(pad "2" smd rect
 			(at -8.75 -6.98)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/P3V3")
 			(pinfunction "VDD_2")
@@ -4963,7 +4961,6 @@
 		(pad "3" smd rect
 			(at -8.75 -5.71)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/EN")
 			(pinfunction "EN_3")
@@ -4973,7 +4970,6 @@
 		(pad "4" smd rect
 			(at -8.75 -4.44)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO36")
 			(pinfunction "SENSOR_VP_4")
@@ -4983,7 +4979,6 @@
 		(pad "5" smd rect
 			(at -8.75 -3.17)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO39")
 			(pinfunction "SENSOR_VN_5")
@@ -4993,7 +4988,6 @@
 		(pad "6" smd rect
 			(at -8.75 -1.9)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO34")
 			(pinfunction "IO34_6")
@@ -5003,7 +4997,6 @@
 		(pad "7" smd rect
 			(at -8.75 -0.63)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO35")
 			(pinfunction "IO35_7")
@@ -5013,7 +5006,6 @@
 		(pad "8" smd rect
 			(at -8.75 0.64)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO32")
 			(pinfunction "IO32_8")
@@ -5023,7 +5015,6 @@
 		(pad "9" smd rect
 			(at -8.75 1.91)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO33")
 			(pinfunction "IO33_9")
@@ -5033,7 +5024,6 @@
 		(pad "10" smd rect
 			(at -8.75 3.18)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO25")
 			(pinfunction "IO25_10")
@@ -5043,7 +5033,6 @@
 		(pad "11" smd rect
 			(at -8.75 4.45)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO26")
 			(pinfunction "IO26_11")
@@ -5053,7 +5042,6 @@
 		(pad "12" smd rect
 			(at -8.75 5.72)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO27")
 			(pinfunction "IO27_12")
@@ -5063,7 +5051,6 @@
 		(pad "13" smd rect
 			(at -8.75 6.99)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO14")
 			(pinfunction "IO14_13")
@@ -5073,7 +5060,6 @@
 		(pad "14" smd rect
 			(at -8.75 8.26)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/IO12")
 			(pinfunction "IO12_14")
@@ -5083,7 +5069,6 @@
 		(pad "15" smd rect
 			(at -5.71 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_15")
@@ -5093,7 +5078,6 @@
 		(pad "16" smd rect
 			(at -4.44 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO13")
 			(pinfunction "IO13_16")
@@ -5103,7 +5087,6 @@
 		(pad "17" smd rect
 			(at -3.17 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-SHD{slash}SD2-Pad17)")
 			(pinfunction "SHD/SD2_17")
@@ -5113,7 +5096,6 @@
 		(pad "18" smd rect
 			(at -1.9 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-SWP{slash}SD3-Pad18)")
 			(pinfunction "SWP/SD3_18")
@@ -5123,7 +5105,6 @@
 		(pad "19" smd rect
 			(at -0.63 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-SCS{slash}CMD-Pad19)")
 			(pinfunction "SCS/CMD_19")
@@ -5133,7 +5114,6 @@
 		(pad "20" smd rect
 			(at 0.64 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-SCK{slash}CLK-Pad20)")
 			(pinfunction "SCK/CLK_20")
@@ -5143,7 +5123,6 @@
 		(pad "21" smd rect
 			(at 1.91 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-SDO{slash}SD0-Pad21)")
 			(pinfunction "SDO/SD0_21")
@@ -5153,7 +5132,6 @@
 		(pad "22" smd rect
 			(at 3.18 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-SDI{slash}SD1-Pad22)")
 			(pinfunction "SDI/SD1_22")
@@ -5163,7 +5141,6 @@
 		(pad "23" smd rect
 			(at 4.45 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/IO15")
 			(pinfunction "IO15_23")
@@ -5173,7 +5150,6 @@
 		(pad "24" smd rect
 			(at 5.72 9.51 90)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/IO2")
 			(pinfunction "IO2_24")
@@ -5183,7 +5159,6 @@
 		(pad "25" smd rect
 			(at 8.75 8.26)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/IO0")
 			(pinfunction "IO0_25")
@@ -5193,7 +5168,6 @@
 		(pad "26" smd rect
 			(at 8.75 6.99)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO4")
 			(pinfunction "IO4_26")
@@ -5203,7 +5177,6 @@
 		(pad "27" smd rect
 			(at 8.75 5.72)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO16")
 			(pinfunction "IO16_27")
@@ -5213,7 +5186,6 @@
 		(pad "28" smd rect
 			(at 8.75 4.45)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO17")
 			(pinfunction "IO17_28")
@@ -5223,7 +5195,6 @@
 		(pad "29" smd rect
 			(at 8.75 3.18)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO5")
 			(pinfunction "IO5_29")
@@ -5233,7 +5204,6 @@
 		(pad "30" smd rect
 			(at 8.75 1.91)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO18")
 			(pinfunction "IO18_30")
@@ -5243,7 +5213,6 @@
 		(pad "31" smd rect
 			(at 8.75 0.64)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GPIO19")
 			(pinfunction "IO19_31")
@@ -5253,7 +5222,6 @@
 		(pad "32" smd rect
 			(at 8.75 -0.63)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-NC-Pad32)")
 			(pinfunction "NC_32")
@@ -5263,7 +5231,6 @@
 		(pad "33" smd rect
 			(at 8.75 -1.9)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-IO21-Pad33)")
 			(pinfunction "IO21_33")
@@ -5273,7 +5240,6 @@
 		(pad "34" smd rect
 			(at 8.75 -3.17)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-RXD0{slash}IO3-Pad34)")
 			(pinfunction "RXD0/IO3_34")
@@ -5283,7 +5249,6 @@
 		(pad "35" smd rect
 			(at 8.75 -4.44)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-TXD0{slash}IO1-Pad35)")
 			(pinfunction "TXD0/IO1_35")
@@ -5293,7 +5258,6 @@
 		(pad "36" smd rect
 			(at 8.75 -5.71)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-IO22-Pad36)")
 			(pinfunction "IO22_36")
@@ -5303,7 +5267,6 @@
 		(pad "37" smd rect
 			(at 8.75 -6.98)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "unconnected-(U1-IO23-Pad37)")
 			(pinfunction "IO23_37")
@@ -5313,7 +5276,6 @@
 		(pad "38" smd rect
 			(at 8.75 -8.25)
 			(size 1.5 0.9)
-			(drill 0.3)
 			(layers "F.Cu" "F.Mask" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_38")
@@ -5323,7 +5285,6 @@
 		(pad "39" smd rect
 			(at -2.205 -2.435)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5346,7 +5307,6 @@
 		(pad "39" smd rect
 			(at -2.205 -0.91)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5369,7 +5329,6 @@
 		(pad "39" smd rect
 			(at -2.205 0.615)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5418,7 +5377,6 @@
 		(pad "39" smd rect
 			(at -0.68 -2.435)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5441,7 +5399,6 @@
 		(pad "39" smd rect
 			(at -0.68 -0.91)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5451,7 +5408,6 @@
 		(pad "39" smd rect
 			(at -0.68 -0.91)
 			(size 4.2 4.2)
-			(drill 0.3)
 			(property pad_prop_heatsink)
 			(layers "F.Cu" "F.Mask")
 			(net "/GND")
@@ -5476,7 +5432,6 @@
 		(pad "39" smd rect
 			(at -0.68 0.615)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5525,7 +5480,6 @@
 		(pad "39" smd rect
 			(at 0.845 -2.435)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5548,7 +5502,6 @@
 		(pad "39" smd rect
 			(at 0.845 -0.91)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -5571,7 +5524,6 @@
 		(pad "39" smd rect
 			(at 0.845 0.615)
 			(size 1.05 1.05)
-			(drill 0.3)
 			(layers "F.Cu" "F.Paste")
 			(net "/GND")
 			(pinfunction "GND_39")
@@ -8577,7 +8529,7 @@
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start -3.12 3.92)
-			(end -3.12 -4.12)
+			(end -3.12 -3.125)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -8696,8 +8648,8 @@
 			(uuid "19861071-3e68-412d-b214-f11ca4f8e585")
 		)
 		(fp_line
-			(start -3.12 -4.12)
-			(end 7.62 -4.12)
+			(start -3.12 -3.125)
+			(end 7.62 -3.125)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -8706,7 +8658,7 @@
 			(uuid "0c4d3252-a496-49da-b930-7c18ccd81595")
 		)
 		(fp_line
-			(start 7.62 -4.12)
+			(start 7.62 -3.125)
 			(end 7.62 3.92)
 			(stroke
 				(width 0.12)
@@ -22110,7 +22062,7 @@
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
 			(start 7.62 -4.12)
-			(end 7.62 3.92)
+			(end 7.62 3.625)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -22219,8 +22171,8 @@
 			(uuid "31cb3940-7b9d-4dbc-b957-d4ac55f317d7")
 		)
 		(fp_line
-			(start 7.62 3.92)
-			(end 0.3 3.92)
+			(start 7.62 3.625)
+			(end 0.3 3.625)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -22229,8 +22181,8 @@
 			(uuid "c1d93ad5-17e0-4273-b05d-b4e89ee4ef20")
 		)
 		(fp_line
-			(start -0.3 3.92)
-			(end -3.12 3.92)
+			(start -0.3 3.625)
+			(end -3.12 3.625)
 			(stroke
 				(width 0.12)
 				(type solid)
@@ -22239,7 +22191,7 @@
 			(uuid "efb4a884-a0c2-41b7-b364-6bfe7b1e4f2c")
 		)
 		(fp_line
-			(start -3.12 3.92)
+			(start -3.12 3.625)
 			(end -3.12 -4.12)
 			(stroke
 				(width 0.12)
@@ -22250,7 +22202,7 @@
 		)
 		(fp_poly
 			(pts
-				(xy 0 3.92) (xy 0.44 4.53) (xy -0.44 4.53)
+				(xy 0 3.015) (xy 0.44 3.625) (xy -0.44 3.625)
 			)
 			(stroke
 				(width 0.12)

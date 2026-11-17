@@ -1,8 +1,8 @@
 ** Drc report for multical.kicad_pcb **
-** Created on 2026-11-17T12:02:46 **
+** Created on 2026-11-17T12:54:58 **
 ** Report includes: Errors, Warnings, Exclusions **
 
-** Found 14 DRC violations **
+** Found 11 DRC violations **
 [clearance]: Violation d'isolation (netclasse 'HT' isolation 1,0000 mm; réel 0,8400 mm)
     Rule: netclasse 'HT'; error
     @(20.0000 mm, 47.5400 mm): Pad métallisé 2 [/NEUTRE_BUS] de U12
@@ -19,32 +19,18 @@
     Rule: netclasse 'HT'; error
     @(20.0000 mm, 47.5400 mm): Pad métallisé 2 [/NEUTRE_BUS] de U12
     @(20.0000 mm, 45.0000 mm): Pad métallisé 1 [/PHASE_BUS] de U12
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuration des contraintes de la sérigraphie; warning
-    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
-    @(266.0800 mm, 28.8800 mm): Segment de J10 sur F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuration des contraintes de la sérigraphie; warning
-    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
-    @(274.1200 mm, 39.6200 mm): Segment de J10 sur F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuration des contraintes de la sérigraphie; warning
-    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
-    @(266.5800 mm, 343.3800 mm): Segment de J17 sur F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuration des contraintes de la sérigraphie; warning
-    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
-    @(274.6200 mm, 354.1200 mm): Segment de J17 sur F.Silkscreen
-[silk_edge_clearance]: Silkscreen clipped by board edge
-    Rule: configuration des contraintes de la sérigraphie; warning
-    @(14.0000 mm, 18.5000 mm): Rectangle sur Edge.Cuts
-    @(273.9200 mm, 416.5000 mm): Polygone de J22 sur F.Silkscreen
+[lib_footprint_mismatch]: L’empreinte 'TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm' ne correspond pas à la copie en librairie 'TerminalBlock'
+    Local override; warning
+    @(270.0000 mm, 32.0000 mm): Empreinte J10
 [lib_footprint_mismatch]: L’empreinte 'MountingHole_3.2mm_NPTH' ne correspond pas à la copie en librairie 'multical_local'
     Local override; warning
     @(225.0000 mm, 280.0000 mm): Empreinte MH2
 [lib_footprint_mismatch]: L’empreinte 'ESP32-WROOM-32' ne correspond pas à la copie en librairie 'RF_Module'
     Local override; warning
     @(50.0000 mm, 60.0000 mm): Empreinte U1
+[lib_footprint_mismatch]: L’empreinte 'TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm' ne correspond pas à la copie en librairie 'TerminalBlock'
+    Local override; warning
+    @(270.5000 mm, 346.5000 mm): Empreinte J17
 [lib_footprint_mismatch]: L’empreinte 'MountingHole_3.2mm_NPTH' ne correspond pas à la copie en librairie 'multical_local'
     Local override; warning
     @(25.0000 mm, 280.0000 mm): Empreinte MH1
