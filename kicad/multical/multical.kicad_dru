@@ -1,0 +1,47 @@
+(version 1)
+
+# Regles d'isolement et de courant pour la partie secteur 230 V / 20 A.
+# La classe de nets "HT" est definie dans multical.kicad_pro (motifs *CANAL*,
+# *PHASE_BUS*, *NEUTRE_BUS*). Dans KiCad, quand plusieurs regles s'appliquent,
+# c'est la DERNIERE du fichier qui l'emporte : les exceptions sont donc a la fin.
+
+# Isolement entre le secteur et la basse tension (ESP32, 5 V, 3,3 V, GND...).
+(rule "Isolement HT-BT"
+  (layer outer)
+  (condition "A.NetClass == 'HT' && B.NetClass != 'HT'")
+  (constraint clearance (min 6mm)))
+
+# Ecart entre deux nets secteur differents (phase/neutre, canaux voisins).
+(rule "Isolement HT-HT"
+  (layer outer)
+  (condition "A.NetClass == 'HT' && B.NetClass == 'HT' && A.NetName != B.NetName")
+  (constraint clearance (min 3mm)))
+
+# Pistes de puissance des canaux (20 A, cuivre 2 oz) : 6 mm minimum.
+(rule "Pistes puissance 20A"
+  (condition "A.NetClass == 'HT' && A.NetName != '/PHASE_BUS' && A.NetName != '/NEUTRE_BUS'")
+  (constraint track_width (min 6mm)))
+
+# Bus phase/neutre : n'alimente que le HLK et le ZMPT101B (quelques dizaines
+# de mA), 1 mm suffit.
+(rule "Pistes bus secteur"
+  (condition "A.NetName == '/PHASE_BUS' || A.NetName == '/NEUTRE_BUS'")
+  (constraint track_width (min 1mm)))
+
+# Vias sur les nets secteur : percage d'au moins 1 mm.
+(rule "Vias puissance"
+  (condition "A.Type == 'Via' && A.NetClass == 'HT'")
+  (constraint hole_size (min 1mm)))
+
+# Exception : ecarts entre broches d'un meme ACS712, imposes par le boitier
+# SOIC-8 (broches 1-2 / 3-4 au pas de 1,27 mm, isolement 1-4 / 5-8 assure
+# par la puce elle-meme). Ne s'applique qu'entre pads d'un meme composant.
+(rule "ACS712 boitier"
+  (condition "A.Type == 'Pad' && B.Type == 'Pad' && ((A.Parent == 'U2' && B.Parent == 'U2') || (A.Parent == 'U3' && B.Parent == 'U3') || (A.Parent == 'U4' && B.Parent == 'U4') || (A.Parent == 'U5' && B.Parent == 'U5') || (A.Parent == 'U6' && B.Parent == 'U6') || (A.Parent == 'U7' && B.Parent == 'U7') || (A.Parent == 'U8' && B.Parent == 'U8') || (A.Parent == 'U9' && B.Parent == 'U9'))")
+  (constraint clearance (min 0.2mm)))
+
+# Exception : broches au pas de 2,54 mm du connecteur ZMPT101B (U12) et
+# broches du HLK (U10), imposees par les composants.
+(rule "Connecteurs secteur boitier"
+  (condition "A.Type == 'Pad' && B.Type == 'Pad' && ((A.Parent == 'U10' && B.Parent == 'U10') || (A.Parent == 'U12' && B.Parent == 'U12'))")
+  (constraint clearance (min 0.5mm)))

@@ -31,8 +31,13 @@ Ces valeurs, dans `src/config.h`, sont des valeurs nominales de datasheet ou
 des estimations — **pas des mesures faites sur le circuit réel** (qui
 n'existe pas encore) :
 
-- `ACS712_SENSIBILITE_V_PAR_A` (100 mV/A, valeur datasheet Allegro pour la
-  variante 20A — la tolérance fabricant réelle peut différer de quelques %)
+- `ACS712_SENSIBILITE_CAPTEUR_V_PAR_A` (100 mV/A, valeur datasheet Allegro
+  pour la variante 20A — la tolérance fabricant réelle peut différer de
+  quelques %). La sensibilité vue par l'ADC (`ACS712_SENSIBILITE_V_PAR_A`,
+  ~66,7 mV/A) en est déduite via le pont diviseur 10 kΩ / 20 kΩ placé entre
+  chaque sortie ACS712 (0,5–4,5 V) et l'ESP32 (3,3 V max) :
+  `ACS712_PONT_R_HAUT_OHM` / `ACS712_PONT_R_BAS_OHM` doivent correspondre
+  aux résistances du schéma KiCad.
 - `ZMPT_FACTEUR_CALIBRATION` (rapport tension secteur réelle / tension RMS
   mesurée à l'ADC — dépend du pont diviseur exact du module ZMPT101B utilisé,
   à déterminer par comparaison avec un multimètre/wattmètre une fois le PCB

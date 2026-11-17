@@ -70,7 +70,22 @@ static const int   ADC_RESOLUTION  = 4095;
 // ACS712-20A : 100 mV par ampere (datasheet Allegro), sortie centree sur
 // Vcc/2 au repos (0 A). Tolerance fabricant de l'ordre de quelques % - a
 // recalibrer canal par canal si besoin de precision metrologique.
-static const float ACS712_SENSIBILITE_V_PAR_A = 0.100f;
+static const float ACS712_SENSIBILITE_CAPTEUR_V_PAR_A = 0.100f;
+
+// Pont diviseur entre chaque sortie ACS712 (alimente en 5 V, sortie 0,5-4,5 V)
+// et l'entree ADC de l'ESP32 (3,3 V max) : R_HAUT entre la sortie de l'ACS712
+// et la broche ADC, R_BAS entre la broche ADC et GND. Avec 10k/20k, le zero
+// (2,5 V) tombe a ~1,67 V et la plage +/-20 A reste dans 0,33-3,0 V.
+// A garder identique aux valeurs du schema KiCad.
+static const float ACS712_PONT_R_HAUT_OHM = 10000.0f;
+static const float ACS712_PONT_R_BAS_OHM  = 20000.0f;
+static const float ACS712_RAPPORT_PONT =
+    ACS712_PONT_R_BAS_OHM / (ACS712_PONT_R_HAUT_OHM + ACS712_PONT_R_BAS_OHM); // 2/3
+
+// Sensibilite vue par l'ADC (apres le pont) : ~66,7 mV/A. L'offset (zero) est
+// mesure directement a l'ADC par calibrerOffsets(), le pont n'y change rien.
+static const float ACS712_SENSIBILITE_V_PAR_A =
+    ACS712_SENSIBILITE_CAPTEUR_V_PAR_A * ACS712_RAPPORT_PONT;
 
 // ZMPT101B : le module de conditionnement (transformateur + pont diviseur)
 // ramene le secteur 220V AC a une plage exploitable par l'ADC (0-3.3V), avec
