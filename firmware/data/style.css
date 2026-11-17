@@ -1,11 +1,334 @@
-body { font-family: sans-serif; background: #f4f6f8; color: #222; margin: 0; padding: 1.2rem; }
-h1 { font-size: 1.2rem; }
-table { border-collapse: collapse; width: 100%; margin-top: 1rem; background: #fff; }
-th, td { border: 1px solid #ccc; padding: 0.5rem; text-align: left; font-size: 0.9rem; }
-th { background: #e8edf2; }
-.ferme { color: #1a7f37; font-weight: bold; }
-.ouvert { color: #b91c1c; font-weight: bold; }
-a.bouton, button { display: inline-block; background: #2563eb; color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; margin: 0.2rem 0; cursor: pointer; }
-form { margin-top: 1rem; background: #fff; padding: 1rem; border-radius: 4px; }
-label { display: block; margin-top: 0.5rem; font-size: 0.9rem; }
-input { padding: 0.3rem; width: 100%; box-sizing: border-box; }
+:root {
+  --primary: #0f6fff;
+  --primary-dark: #0b57d0;
+  --primary-bg: #e9f0ff;
+  --bg: #e7eaef;
+  --surface: #ffffff;
+  --surface-alt: #eef0f3;
+  --text: #16181b;
+  --text-muted: #686f78;
+  --border: #d7dadf;
+  --ok: #15803d;
+  --ok-bg: #e7f6ec;
+  --danger: #b91c1c;
+  --danger-bg: #fdecec;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 1px 2px rgba(16, 18, 22, 0.04), 0 1px 3px rgba(16, 18, 22, 0.05);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: var(--text);
+  margin: 0;
+  padding: 0 0 2rem;
+  line-height: 1.5;
+  background-color: var(--bg);
+  /* Motif de pistes de circuit imprime, tres discret (clin d'oeil au theme du
+     projet - PCB/electronique - sans etre une texture decorative generique) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%230f6fff' stroke-opacity='0.10' stroke-width='1.5'%3E%3Cpath d='M0 20 H40 V60 H90'/%3E%3Cpath d='M120 90 H80 V40 H60 V0'/%3E%3Cpath d='M0 100 H20 V75'/%3E%3C/g%3E%3Cg fill='%230f6fff' fill-opacity='0.13'%3E%3Ccircle cx='40' cy='20' r='2.5'/%3E%3Ccircle cx='90' cy='60' r='2.5'/%3E%3Ccircle cx='80' cy='90' r='2.5'/%3E%3Ccircle cx='60' cy='40' r='2.5'/%3E%3Ccircle cx='20' cy='100' r='2.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+header.topbar {
+  background: var(--surface);
+  color: var(--text);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+}
+
+header.topbar .lien-accueil {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+header.topbar .logo {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.05rem;
+}
+
+header.topbar .titres { display: flex; flex-direction: column; }
+header.topbar h1 { font-size: 1.02rem; font-weight: 700; margin: 0; color: var(--text); }
+header.topbar .sous-titre { font-size: 0.78rem; color: var(--text-muted); }
+
+main {
+  max-width: 760px;
+  margin: 1.25rem auto 0;
+  padding: 0 1rem;
+}
+
+.statut-accueil {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.statut-accueil::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+}
+.statut-accueil.en-ligne::before { background: var(--ok); }
+.statut-accueil.hors-ligne::before { background: var(--danger); }
+
+.carte-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin: 0 0 0.75rem;
+}
+
+.card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  padding: 1.1rem 1.15rem;
+  margin-bottom: 1rem;
+}
+
+.card h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0 0 0.85rem;
+  color: var(--text);
+}
+
+.resume {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.resume .pastille {
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.8rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.resume .pastille b { color: var(--text); font-size: 0.95rem; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.85rem;
+}
+thead th {
+  text-align: left;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--text-muted);
+  font-weight: 700;
+  padding: 0 0.5rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+tbody td {
+  padding: 0.6rem 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: var(--surface-alt); }
+
+.bandeau-erreur {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid rgba(185, 28, 28, 0.25);
+  border-radius: var(--radius-sm);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.bandeau-erreur::before {
+  content: "\26A0";
+  font-size: 1rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.badge::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.ferme { color: var(--ok); background: var(--ok-bg); }
+.ouvert { color: var(--danger); background: var(--danger-bg); }
+
+.statut-grand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 800;
+}
+.statut-grand::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.jauge-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 0.6rem;
+}
+.jauge {
+  width: 100%;
+  max-width: 280px;
+  overflow: visible;
+}
+.jauge-piste, .jauge-valeur {
+  fill: none;
+  stroke-linecap: round;
+}
+.jauge-piste {
+  stroke: var(--surface-alt);
+  stroke-width: 16;
+}
+.jauge-valeur {
+  stroke: var(--primary);
+  stroke-width: 16;
+  stroke-dasharray: 251.3 251.3;
+  stroke-dashoffset: 251.3;
+  transition: stroke-dashoffset 0.6s ease;
+}
+.jauge-centre {
+  margin-top: -2.4rem;
+  text-align: center;
+}
+.jauge-chiffre {
+  font-size: 1.7rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.jauge-chiffre span { color: var(--primary); }
+
+.grille-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.75rem;
+}
+.stat {
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 0.9rem;
+}
+.stat .valeur {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.stat .label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+form { margin-top: 0; }
+label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-top: 0.9rem;
+}
+label:first-of-type { margin-top: 0; }
+input, select {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  background: var(--surface-alt);
+  color: var(--text);
+}
+input:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--surface);
+}
+
+a.bouton, button {
+  display: inline-block;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin: 0.2rem 0.3rem 0.2rem 0;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+a.bouton:hover, button:hover { background: var(--primary-dark); }
+button[type="submit"] { margin-top: 1rem; }
+
+.liste-canaux {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+@media (max-width: 480px) {
+  table, thead, tbody, th, td, tr { display: block; }
+  thead { display: none; }
+  tbody tr {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.6rem;
+    padding: 0.3rem 0.6rem;
+  }
+  tbody td {
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+  }
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+  }
+}

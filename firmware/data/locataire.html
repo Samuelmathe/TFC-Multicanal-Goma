@@ -1,14 +1,46 @@
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TFC Multicanal - Locataire</title>
 <link rel="stylesheet" href="/style.css">
-<h1 id="titreCanal">Canal</h1>
-<p><a href="/">&larr; Accueil</a></p>
-<table>
-  <tr><td>Statut</td><td id="statut">--</td></tr>
-  <tr><td>Credit restant (USD)</td><td id="credit">--</td></tr>
-  <tr><td>Puissance instantanee (W)</td><td id="puissance">--</td></tr>
-  <tr><td>Energie cumulee (kWh)</td><td id="energie">--</td></tr>
-</table>
+<header class="topbar">
+  <a class="lien-accueil" href="/">
+    <div class="logo">&#9889;</div>
+    <div class="titres">
+      <h1 id="titreCanal">Canal</h1>
+      <span class="sous-titre">TFC Multicanal</span>
+    </div>
+  </a>
+</header>
+<main>
+  <div class="card">
+    <span id="statut" class="statut-grand ouvert">--</span>
+  </div>
+
+  <div class="card jauge-card">
+    <svg id="jaugePuissance" class="jauge" viewBox="0 0 200 120" aria-hidden="true">
+      <path class="jauge-piste" d="M 20 100 A 80 80 0 0 1 180 100" />
+      <path class="jauge-valeur" d="M 20 100 A 80 80 0 0 1 180 100" />
+    </svg>
+    <div class="jauge-centre">
+      <div class="jauge-chiffre"><span id="puissance">--</span> W</div>
+      <div class="label">Puissance instantanee</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="grille-stats">
+      <div class="stat">
+        <div class="valeur"><span id="credit">--</span></div>
+        <div class="label">Credit restant (USD)</div>
+      </div>
+      <div class="stat">
+        <div class="valeur"><span id="energie">--</span></div>
+        <div class="label">Energie cumulee (kWh)</div>
+      </div>
+    </div>
+  </div>
+</main>
+
 <script src="/app.js"></script>
 <script>
   rafraichirLocataire();

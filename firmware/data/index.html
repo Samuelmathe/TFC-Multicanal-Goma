@@ -1,14 +1,35 @@
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TFC Multicanal - Accueil</title>
 <link rel="stylesheet" href="/style.css">
-<h1>Systeme embarque IoT multicanal - Sous-comptage energie</h1>
-<p>ULPGL - TFC Genie Electrique et Informatique</p>
-<p><a class="bouton" href="/admin">Acces bailleur / administrateur</a></p>
-<p>Acces locataire :</p>
-<p>
-  <a class="bouton" href="/L0">Canal 0 (bailleur)</a>
-  <a class="bouton" href="/L1">Canal 1</a>
-  <a class="bouton" href="/L2">Canal 2</a>
-  <a class="bouton" href="/L3">Canal 3</a>
-  <a class="bouton" href="/L4">Canal 4</a>
-</p>
+<header class="topbar">
+  <a class="lien-accueil" href="/">
+    <div class="logo">&#9889;</div>
+    <div class="titres">
+      <h1>TFC Multicanal</h1>
+      <span class="sous-titre">Goma &middot; Sous-comptage energie IoT</span>
+    </div>
+  </a>
+</header>
+<main>
+  <div class="statut-accueil" id="statutAccueil">Connexion au systeme...</div>
+
+  <div class="card">
+    <h2>Acces administrateur</h2>
+    <p class="carte-desc">Vue d'ensemble des canaux et gestion des recharges.</p>
+    <a class="bouton" href="/admin">Acces bailleur / administrateur</a>
+  </div>
+  <div class="card">
+    <h2>Acces locataire</h2>
+    <p class="carte-desc">Choisissez votre canal.</p>
+    <div class="liste-canaux" id="listeCanaux">
+      <a class="bouton" href="/L1">Canal 1</a>
+      <a class="bouton" href="/L2">Canal 2</a>
+      <a class="bouton" href="/L3">Canal 3</a>
+      <a class="bouton" href="/L4">Canal 4</a>
+    </div>
+  </div>
+</main>
+
+<script src="/app.js"></script>
+<script>remplirListeCanaux();</script>

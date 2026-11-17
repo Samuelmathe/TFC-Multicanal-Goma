@@ -7,6 +7,9 @@
 
 #include <Arduino.h>
 #include <WiFi.h>
+#ifdef WOKWI_SIMULATION
+#include <HTTPClient.h>
+#endif
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
 #include <ArduinoJson.h>
@@ -717,11 +720,43 @@ void setup() {
   mutexEvenements = xSemaphoreCreateMutex();
   chargerEtatDepuisNVS();
 
+#ifdef WOKWI_SIMULATION
+  // Mode station (rejoint le reseau virtuel de Wokwi) au lieu du point
+  // d'acces reel : Wokwi ne sait pas connecter un client a un softAP simule
+  // (cf. wokwi-features#304), donc le mode AP reel est inutilisable ici.
+  // Permet de tester /api/* via le Private Gateway (http://localhost:9080).
+  WiFi.begin("Wokwi-GUEST", "", 6);
+  Serial.print(F("Connexion au reseau Wokwi-GUEST (simulation)"));
+  while (WiFi.status() != WL_CONNECTED) {
+    vTaskDelay(pdMS_TO_TICKS(250));
+    Serial.print(F("."));
+  }
+  Serial.println();
+  Serial.print(F("Connecte. IP : "));
+  Serial.println(WiFi.localIP());
+  Serial.println(F("Acces API : http://localhost:9080/ (Private Gateway Wokwi actif)"));
+
+  // Test de connectivite internet sortante (gratuit, ne necessite pas le
+  // Private Gateway) : simple requete HTTP vers un service public.
+  {
+    HTTPClient http;
+    Serial.println(F("Test internet sortant : GET http://worldtimeapi.org/api/ip ..."));
+    http.begin("http://worldtimeapi.org/api/ip");
+    int code = http.GET();
+    if (code > 0) {
+      Serial.printf("Reponse HTTP %d - internet sortant OK (simulation)\n", code);
+    } else {
+      Serial.printf("Echec requete (code %d) - verifier la connexion\n", code);
+    }
+    http.end();
+  }
+#else
   WiFi.softAP(WIFI_SSID, WIFI_PASSWORD);
   Serial.print(F("Point d'acces demarre. IP : "));
   Serial.println(WiFi.softAPIP());
   Serial.printf("SSID: %s / mot de passe: %s\n", WIFI_SSID, WIFI_PASSWORD);
   Serial.printf("Admin HTTP - utilisateur: bailleur / mot de passe: %s\n", ADMIN_PASSWORD);
+#endif
 
   xTaskCreatePinnedToCore(TacheAcquisitionCapteurs, "Acquisition", 4096, NULL, 3, NULL, 1);
   xTaskCreatePinnedToCore(TacheCalculPuissance,      "Calcul",      4096, NULL, 2, NULL, 1);

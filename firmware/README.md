@@ -65,7 +65,7 @@ Le moniteur série affiche toutes les 2 secondes un tableau comme :
 Pour chaque canal : clique sur le potentiomètre correspondant dans la vue
 Wokwi, fais-le glisser vers une position connue, note la valeur affichée dans
 `courant_A`/`I(A)`. Le "courant attendu (calcul théorique)" du Tableau 3.1
-est simplement `I = |position_pot - 50%| / 50% x 20 A` (cf. `config.h`,
+est simplement `I = position_pot x 20 A` (cf. `config.h`,
 `COURANT_MAX_A`) — compare-le à la valeur `I(A)` imprimée par le firmware.
 
 ## Remplir le Tableau 3.2 (coupure / rétablissement)
