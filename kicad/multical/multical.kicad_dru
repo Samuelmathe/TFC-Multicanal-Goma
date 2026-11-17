@@ -1,0 +1,38 @@
+(version 1)
+
+# Le ACS712 est un shunt en serie : broches 1-2 (IP+) et 3-4 (IP-) sont reliees
+# par un conducteur interne de 1,2 mOhm (datasheet). CANALn_HT et CANALn_OUT sont
+# donc au meme potentiel (24 mV max a 20 A) : la regle HT de 1 mm ne sert a rien entre eux.
+# On garde 0,3 mm (limite de fabrication + marge). Les autres nets HT restent a 1 mm.
+
+(rule "ACS712 conducteur serie CH1"
+	(condition "(A.NetName == '/CANAL1_HT' && B.NetName == '/CANAL1_OUT') || (A.NetName == '/CANAL1_OUT' && B.NetName == '/CANAL1_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH2"
+	(condition "(A.NetName == '/CANAL2_HT' && B.NetName == '/CANAL2_OUT') || (A.NetName == '/CANAL2_OUT' && B.NetName == '/CANAL2_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH3"
+	(condition "(A.NetName == '/CANAL3_HT' && B.NetName == '/CANAL3_OUT') || (A.NetName == '/CANAL3_OUT' && B.NetName == '/CANAL3_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH4"
+	(condition "(A.NetName == '/CANAL4_HT' && B.NetName == '/CANAL4_OUT') || (A.NetName == '/CANAL4_OUT' && B.NetName == '/CANAL4_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH5"
+	(condition "(A.NetName == '/CANAL5_HT' && B.NetName == '/CANAL5_OUT') || (A.NetName == '/CANAL5_OUT' && B.NetName == '/CANAL5_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH6"
+	(condition "(A.NetName == '/CANAL6_HT' && B.NetName == '/CANAL6_OUT') || (A.NetName == '/CANAL6_OUT' && B.NetName == '/CANAL6_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH7"
+	(condition "(A.NetName == '/CANAL7_HT' && B.NetName == '/CANAL7_OUT') || (A.NetName == '/CANAL7_OUT' && B.NetName == '/CANAL7_HT')")
+	(constraint clearance (min 0.3mm)))
+
+(rule "ACS712 conducteur serie CH8"
+	(condition "(A.NetName == '/CANAL8_HT' && B.NetName == '/CANAL8_OUT') || (A.NetName == '/CANAL8_OUT' && B.NetName == '/CANAL8_HT')")
+	(constraint clearance (min 0.3mm)))

@@ -1,0 +1,97 @@
+* =============================================================================
+* Modeles comportementaux ngspice - TFC Multicanal Goma
+*
+* Aucun de ces composants n'a de modele SPICE officiel publie par son
+* fabricant. Chaque sous-circuit reproduit la fonction de transfert
+* documentee dans la fiche technique (gain, seuils, resistances typiques),
+* pas le silicium exact. Objectif : valider le comportement du circuit
+* environnant (filtrage, niveaux de tension, logique de commutation),
+* pas remplacer une mesure sur le prototype reel.
+*
+* Les valeurs numeriques approximatives (coefficient ZMPT101B, inductance
+* de bobine du relais) sont a recaler sur mesure reelle avant de les citer
+* comme definitives dans le rapport.
+*
+* Toutes les commutations (relais, ULN2003A, regulateur) utilisent des
+* transitions lissees (tanh) plutot que des seuils francs (? :) : un
+* changement brutal de resistance casse la convergence de Newton-Raphson
+* dans ngspice (matrice singuliere, valeurs qui divergent vers l'infini).
+* =============================================================================
+
+* --- ACS712ELC-20A : capteur de courant a effet Hall ------------------------
+* Sensibilite 100 mV/A (variante 20 A), sortie centree sur Vcc/2 (datasheet
+* Allegro ACS712-DS). IP+ /IP- : conducteur de puissance (quasi 0 ohm).
+.subckt ACS712_20A IP_P IP_N GND FILTER VIOUT VCC
+Rsense   IP_P IP_N      1m
+Bvout    VIOUT GND      V = {V(VCC,GND)/2 + 0.1*I(Rsense)}
+Rfilt    FILTER VIOUT   1.7k
+Cfilt    FILTER GND     1n
+.ends
+
+* --- ZMPT101B : capteur de tension (transformateur + conditionnement) -------
+* Gain approxime pour ramener 220 Vac dans la plage 0-3,3 V autour de Vcc/2.
+* A RECALER sur mesure reelle (cf. 1.3.2) : valeur ci-dessous est un ordre
+* de grandeur, pas une donnee constructeur.
+.subckt ZMPT101B L N GND VCC OUT
+Rburden  L N             1k
+Bvout    OUT GND         V = {V(VCC,GND)/2 + 0.0045*V(L,N)}
+.ends
+
+* --- Relais SPDT (ex. Songle SRD-05VDC-SL-C) ---------------------------------
+* Bobine R+L typique 5V (~70 ohm, datasheet Songle). Transition lissee
+* autour de 75% de la tension nominale (3,75 V pour un relais 5 V),
+* sur une fenetre d'environ +/-0,5 V (k=10).
+.subckt RELAY_SPDT COM NC NO COIL_P COIL_N
+Rcoil    COIL_P coil_int   70
+Lcoil    coil_int COIL_N   100m
+Rno      COM NO            R = {0.1 + 0.999999e9*0.5*(1 - tanh(10*(V(COIL_P,COIL_N)-3.75)))}
+Rnc      COM NC             R = {0.1 + 0.999999e9*0.5*(1 + tanh(10*(V(COIL_P,COIL_N)-3.75)))}
+.ends
+
+* --- ULN2003A : reseau de 7 darlingtons a collecteur ouvert ------------------
+* Les 7 canaux du boitier reel, dans l'ordre de brochage (1-7 entrees,
+* 8 GND, 9 COM retour diode de roue libre, 10-16 sorties O7..O1).
+* Seuil d'entree ~2 V (compatible logique 3,3V/5V), transition lissee
+* sur environ +/-0,3 V (k=15) pour la meme raison de convergence.
+.subckt ULN2003A I1 I2 I3 I4 I5 I6 I7 GND COM O7 O6 O5 O4 O3 O2 O1
+Rin1 I1 GND 10k
+Rin2 I2 GND 10k
+Rin3 I3 GND 10k
+Rin4 I4 GND 10k
+Rin5 I5 GND 10k
+Rin6 I6 GND 10k
+Rin7 I7 GND 10k
+Ron1 O1 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I1,GND)-2.0)))}
+Ron2 O2 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I2,GND)-2.0)))}
+Ron3 O3 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I3,GND)-2.0)))}
+Ron4 O4 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I4,GND)-2.0)))}
+Ron5 O5 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I5,GND)-2.0)))}
+Ron6 O6 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I6,GND)-2.0)))}
+Ron7 O7 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I7,GND)-2.0)))}
+Dfly1 O1 COM DFLY
+Dfly2 O2 COM DFLY
+Dfly3 O3 COM DFLY
+Dfly4 O4 COM DFLY
+Dfly5 O5 COM DFLY
+Dfly6 O6 COM DFLY
+Dfly7 O7 COM DFLY
+.model DFLY D(IS=1n RS=0.5)
+.ends
+
+* --- AMS1117-3.3 : regulateur lineaire LDO -----------------------------------
+* Sortie fixe 3,3 V des que l'entree depasse quelques volts, saturation
+* lissee (tanh) plutot qu'un ecretage brutal.
+.subckt AMS1117_3V3 GND VO VI
+Bvout    VO GND            V = {3.3*tanh(V(VI,GND)/1.5)}
+.ends
+
+* --- HLK-PM01 : convertisseur AC/DC isole 220V -> 5V -------------------------
+* Modele ideal : sortie 5V continue, alimentation supposee presente.
+* Ne reproduit pas la commutation interne ni la detection secteur (hors
+* sujet pour valider le circuit en aval ; necessite une vraie source AC
+* sur ACL/ACN pour une analyse .tran realiste du secteur lui-meme).
+.subckt HLK_PM01 ACL ACN VOUT_N VOUT_P
+Vdummy   ACL ACN_int        0
+Rdummy   ACN_int ACN        1
+Bvout    VOUT_P VOUT_N      V = {5}
+.ends

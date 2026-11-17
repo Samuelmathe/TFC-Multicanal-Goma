@@ -15,10 +15,20 @@ crédit prépayé et consultation via une application mobile Flutter.
 - **Application mobile Flutter** : développée et testée en conditions
   réelles (connexion Wi-Fi à l'ESP32 depuis un téléphone Android).
 - **PCB (circuit imprimé, 8 canaux, capteurs ACS712/ZMPT101B réels)** :
-  conçu sous KiCad (dossier `kicad/`) — **routage non terminé, il reste 10
-  pistes à tracer** ; non encore fabriqué ni assemblé. Le firmware cible pour
-  ce PCB (`firmware_pcb_capteurs_reels/`) est écrit et compile, mais n'a donc
-  pas pu être testé sur le matériel réel.
+  conçu et **routé** sous KiCad (dossier `kicad/`), carte de 260 x 440 mm.
+  Dernier DRC (KiCad 10, 20/09/2026) : **0 élément non connecté**, 14
+  avertissements restants, dont 4 à traiter avant toute fabrication
+  (distances phase/neutre/GND sur le connecteur du ZMPT101B, U12, trop
+  faibles pour du 230 V) ; les autres sont cosmétiques (silkscreen des
+  borniers, empreintes modifiées localement). Les 13 violations
+  d'isolation du ACS712 sont couvertes par `multical.kicad_dru` (les deux
+  côtés du shunt sont au même potentiel). **Non fabriqué ni assemblé** : les
+  Gerbers de `kicad/multical/fabrication/` datent du 23/08 et sont à
+  régénérer. Le firmware cible (`firmware_pcb_capteurs_reels/`) est écrit et
+  compile, mais n'a pas pu être testé sur matériel réel.
+- **Boîtier 3D** (`boitier/multicanal_boitier.scad`, OpenSCAD) : boîtier
+  paramétrique pour le PCB, avec rampe inclinée sur les borniers et
+  étiquettes gravées (BAI, LOC1 à LOC7, NEUTRE).
 
 ## Structure du dépôt
 
@@ -30,6 +40,7 @@ firmware_pcb_capteurs_reels/    -> firmware cible pour le PCB (8 canaux,
                                     fabrique, code non teste sur materiel reel
 application/                     -> application mobile Flutter (Android/iOS)
 kicad/                            -> conception du circuit imprime (PCB, 8 canaux)
+boitier/                          -> boitier 3D du PCB (OpenSCAD)
 rapport/                           -> memoire de TFC
 presentation/                       -> support de soutenance
 ```

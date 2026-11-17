@@ -730,7 +730,7 @@
 		(descr "terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf")
 		(tags "THT terminal block MaiXu MX126-5.0-02P pitch 5mm size 10.5x7.8mm drill 1.3mm pad 2.8mm")
 		(property "Reference" "J12"
-			(at 2.25 -5.12 90)
+			(at 2.25 -2.5 90)
 			(layer "F.SilkS")
 			(uuid "99cd156f-f196-441e-8288-c17031c38fb7")
 			(effects
@@ -4187,7 +4187,7 @@
 		(descr "terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf")
 		(tags "THT terminal block MaiXu MX126-5.0-02P pitch 5mm size 10.5x7.8mm drill 1.3mm pad 2.8mm")
 		(property "Reference" "J15"
-			(at 2.25 -5.12 90)
+			(at 2.25 -2.5 90)
 			(layer "F.SilkS")
 			(uuid "7a00607f-9aa2-48f3-950c-f626e716907d")
 			(effects
@@ -9429,7 +9429,7 @@
 		(descr "terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf")
 		(tags "THT terminal block MaiXu MX126-5.0-02P pitch 5mm size 10.5x7.8mm drill 1.3mm pad 2.8mm")
 		(property "Reference" "J13"
-			(at 2.25 -5.12 90)
+			(at 2.25 -2.6 90)
 			(layer "F.SilkS")
 			(uuid "cab64884-1737-48d0-a4f1-5a84288ddcc7")
 			(effects
@@ -11710,7 +11710,7 @@
 		(descr "terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf")
 		(tags "THT terminal block MaiXu MX126-5.0-02P pitch 5mm size 10.5x7.8mm drill 1.3mm pad 2.8mm")
 		(property "Reference" "J18"
-			(at 2.25 -5.12 90)
+			(at 2.25 -2.6 90)
 			(layer "F.SilkS")
 			(uuid "46a2fe67-8468-41b1-b509-b9bedf83e934")
 			(effects
@@ -17046,7 +17046,7 @@
 		(descr "terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf")
 		(tags "THT terminal block MaiXu MX126-5.0-02P pitch 5mm size 10.5x7.8mm drill 1.3mm pad 2.8mm")
 		(property "Reference" "J11"
-			(at 2.25 -5.12 90)
+			(at 2.25 -2.5 90)
 			(layer "F.SilkS")
 			(uuid "78109cc8-9904-4f3b-96ca-be5277bfbbda")
 			(effects
@@ -20421,7 +20421,7 @@
 		(descr "terminal block MaiXu MX126-5.0-02P, 2 pins, pitch 5mm, size 10.5x7.8mm, drill diameter 1.3mm, pad diameter 2.8mm, https://www.lcsc.com/datasheet/lcsc_datasheet_2309150913_MAX-MX126-5-0-03P-GN01-Cu-S-A_C5188435.pdf")
 		(tags "THT terminal block MaiXu MX126-5.0-02P pitch 5mm size 10.5x7.8mm drill 1.3mm pad 2.8mm")
 		(property "Reference" "J14"
-			(at 2.25 -5.12 90)
+			(at 2.25 -3 90)
 			(layer "F.SilkS")
 			(uuid "ca589a25-4ed7-4f66-9930-6a78970fa556")
 			(effects
@@ -25878,22 +25878,6 @@
 		(uuid "9f28792c-aec6-441d-b07b-166d8089fdac")
 	)
 	(segment
-		(start 123.0679 149.2589)
-		(end 123.0679 151.6535)
-		(width 1)
-		(layer "F.Cu")
-		(net "/CANAL2_OUT")
-		(uuid "a7385431-67b8-45c3-9386-4153c321a95f")
-	)
-	(segment
-		(start 123.0679 151.6535)
-		(end 123.0679 149.2589)
-		(width 1)
-		(layer "F.Cu")
-		(net "/CANAL2_OUT")
-		(uuid "b160c03f-a8d1-4d75-b82e-d9667357426d")
-	)
-	(segment
 		(start 123.0679 151.6535)
 		(end 123.0679 162.3039)
 		(width 1)
@@ -25908,22 +25892,6 @@
 		(layers "F.Cu" "B.Cu")
 		(net "/CANAL2_OUT")
 		(uuid "30839c0e-3225-4138-aaab-1224d76e7a26")
-	)
-	(segment
-		(start 123.0679 151.6535)
-		(end 123.0679 149.2589)
-		(width 1)
-		(layer "B.Cu")
-		(net "/CANAL2_OUT")
-		(uuid "05afcead-9424-4379-9c1a-599a44a04514")
-	)
-	(segment
-		(start 123.0679 149.2589)
-		(end 123.0679 151.6535)
-		(width 1)
-		(layer "B.Cu")
-		(net "/CANAL2_OUT")
-		(uuid "11bac773-6d6d-43b6-a95f-73fa5c655ab0")
 	)
 	(segment
 		(start 252.2793 125.7207)
@@ -30590,28 +30558,12 @@
 		(uuid "16fb1c7b-de12-4840-b93d-0fdbf36bae7e")
 	)
 	(segment
-		(start 125.6312 170.0505)
-		(end 124.0199 171.6618)
-		(width 1)
-		(layer "B.Cu")
-		(net "/CANAL3_OUT")
-		(uuid "568437df-2022-426d-918d-4598331b17c3")
-	)
-	(segment
 		(start 257.9495 170.0505)
 		(end 125.6312 170.0505)
 		(width 1)
 		(layer "B.Cu")
 		(net "/CANAL3_OUT")
 		(uuid "6239eb8d-1b28-4355-9a01-9118ce90d626")
-	)
-	(segment
-		(start 124.0199 171.6618)
-		(end 125.6312 170.0505)
-		(width 1)
-		(layer "B.Cu")
-		(net "/CANAL3_OUT")
-		(uuid "e3b622ce-cd50-4a30-aef6-caa6806d7ea8")
 	)
 	(segment
 		(start 129.0497 127.6998)
