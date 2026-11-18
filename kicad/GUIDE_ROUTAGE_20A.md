@@ -1,5 +1,9 @@
 # Guide — Terminer le routage 20 A par canal
 
+> **Historique.** Ce guide décrit l'état du mois d'août (carte 236 x 461,5 mm).
+> La carte a depuis été compactée à 138 x 349,5 mm et re-routée : voir
+> `COMPACTAGE_PCB.md`. La section 5 (relais 20 A, bus d'entrée) reste valable.
+
 Objectif : finir de router `multical.kicad_pcb` après la révision pour
 20 A par canal (2 oz de cuivre, pistes 6,5 mm, carte agrandie à
 236 x 461,5 mm). L'essentiel du travail a déjà été fait automatiquement
