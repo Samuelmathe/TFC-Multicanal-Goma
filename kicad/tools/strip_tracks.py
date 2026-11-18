@@ -1,6 +1,9 @@
 import pcbnew
 
-PCB = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.kicad_pcb"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+PCB = str(MULTICAL / "multical.kicad_pcb")
 
 b = pcbnew.LoadBoard(PCB)
 tracks = list(b.GetTracks())

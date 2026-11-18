@@ -1,6 +1,9 @@
 import re
 
-SRC = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.kicad_pcb"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+SRC = str(MULTICAL / "multical.kicad_pcb")
 
 with open(SRC, encoding="utf-8") as f:
     content = f.read()

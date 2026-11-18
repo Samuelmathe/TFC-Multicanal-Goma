@@ -1,7 +1,10 @@
 import pcbnew
 
-PCB = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.kicad_pcb"
-SES = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical_v2.ses"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+PCB = str(MULTICAL / "multical.kicad_pcb")
+SES = str(MULTICAL / "multical_v2.ses")
 
 b = pcbnew.LoadBoard(PCB)
 ok = pcbnew.ImportSpecctraSES(b, SES)

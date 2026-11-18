@@ -1,7 +1,10 @@
 import pcbnew
 
-PCB = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.kicad_pcb"
-DSN = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.dsn"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+PCB = str(MULTICAL / "multical.kicad_pcb")
+DSN = str(MULTICAL / "multical.dsn")
 
 b = pcbnew.LoadBoard(PCB)
 ok = pcbnew.ExportSpecctraDSN(b, DSN)

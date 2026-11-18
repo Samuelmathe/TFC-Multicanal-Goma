@@ -1,6 +1,9 @@
 import re
 
-DSN = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical_v3.dsn"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+DSN = str(MULTICAL / "multical_v3.dsn")
 
 with open(DSN, encoding="utf-8") as f:
     content = f.read()

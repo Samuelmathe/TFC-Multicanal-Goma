@@ -3,8 +3,11 @@ import subprocess
 import json
 import shutil
 
-FILE = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.kicad_pcb"
-DRC_OUT = "/home/samuel/drc_widen_iter.json"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+FILE = str(MULTICAL / "multical.kicad_pcb")
+DRC_OUT = str(MULTICAL / "drc_widen_iter.json")
 
 HT_NETS = ["/PHASE_BUS", "/NEUTRE_BUS"] + [
     f"/CANAL{i}_{suffix}" for i in range(1, 9) for suffix in ("HT", "OUT")

@@ -1,6 +1,9 @@
 import uuid
 
-FILE = "/home/samuel/Documents/TFC-Multicanal-Goma/kicad/multical/multical.kicad_pcb"
+from pathlib import Path
+# Chemins relatifs au depot : fonctionne sous Linux comme sous Windows
+MULTICAL = Path(__file__).resolve().parents[1] / "multical"
+FILE = str(MULTICAL / "multical.kicad_pcb")
 
 with open(FILE, encoding="utf-8") as f:
     content = f.read()
