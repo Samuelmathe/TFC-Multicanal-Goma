@@ -1,0 +1,48 @@
+# Integration continue : verifie a chaque push que les deux firmwares ESP32
+# compilent et que l'application Flutter passe l'analyse et les tests.
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  firmware:
+    name: Firmware (${{ matrix.projet }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        projet: [firmware, firmware_pcb_capteurs_reels]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.platformio
+            ~/.cache/pip
+          key: pio-${{ matrix.projet }}-${{ hashFiles(format('{0}/platformio.ini', matrix.projet)) }}
+      - run: pip install --upgrade platformio
+      - name: Compilation
+        run: pio run -d ${{ matrix.projet }}
+
+  application:
+    name: Application Flutter
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: application
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+      - run: flutter test
