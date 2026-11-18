@@ -1,0 +1,35 @@
+# Fins de ligne normalisees (LF dans le depot), que l'on travaille sous Linux ou Windows
+* text=auto eol=lf
+
+# Scripts Windows : CRLF obligatoire
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Fichiers KiCad / Gerber : texte, LF
+*.kicad_pcb text eol=lf
+*.kicad_sch text eol=lf
+*.kicad_pro text eol=lf
+*.kicad_sym text eol=lf
+*.kicad_mod text eol=lf
+*.kicad_dru text eol=lf
+
+# Binaires : jamais de conversion ni de diff texte
+*.pdf   binary
+*.docx  binary
+*.pptx  binary
+*.png   binary
+*.jpg   binary
+*.ico   binary
+*.zip   binary
+*.step  binary
+*.jar   binary
+
+# Statistiques de langages GitHub : ne pas compter les fichiers generes
+kicad/multical/fabrication/** linguist-generated
+application/android/**        linguist-vendored
+application/ios/**            linguist-vendored
+application/linux/**          linguist-vendored
+application/macos/**          linguist-vendored
+application/windows/**        linguist-vendored
+application/web/**            linguist-vendored
