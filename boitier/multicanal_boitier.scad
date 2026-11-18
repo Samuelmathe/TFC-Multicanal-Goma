@@ -1,6 +1,6 @@
 // =============================================================================
 // Boitier ergonomique - TFC Multicanal Goma
-// PCB : kicad/multical/multical.kicad_pcb (260 x 440 mm, 8 canaux, 17 borniers)
+// PCB : kicad/multical/multical.kicad_pcb (138 x 349,5 mm, 8 canaux, 17 borniers)
 //
 // Vue de dessus, les borniers sont sur le bord DROIT de la carte. Le boitier a :
 //   - une rampe inclinee cote borniers (lisible, tournevis accessible)
@@ -18,9 +18,9 @@ PART    = "assembly";
 explode = 0;              // ecart en Z du couvercle dans la vue "assembly"
 
 // ---- PCB --------------------------------------------------------------------
-pcb_w = 260;  pcb_l = 440;  pcb_t = 1.6;
+pcb_w = 138;  pcb_l = 349.5;  pcb_t = 1.6;
 kx0 = 14;                 // KiCad : x du bord gauche de la carte
-ky1 = 458.5;              // KiCad : y du bord bas de la carte (axe Y KiCad vers le bas)
+ky1 = 368;                // KiCad : y du bord bas de la carte (axe Y KiCad vers le bas)
 function bx(x) = x - kx0;         // repere carte : X vers la droite, Y vers le haut,
 function by(y) = ky1 - y;         // meme orientation que la vue de dessus dans KiCad
 
@@ -41,8 +41,8 @@ z_pcb_top = floor_t + standoff + pcb_t;
 z_top     = z_pcb_top + comp_h + lid_t;
 z_lo      = z_pcb_top + term_h + ramp_gap + lid_t;   // niveau plat de la rampe
 z_split   = z_pcb_top + 12;                          // plan de joint base / couvercle
-ramp_x0   = 192;          // debut de la pente (repere carte) - apres les relais
-ramp_x1   = 232;          // fin de la pente : les etiquettes sont sur la pente, les reperes P/N sur le plat
+ramp_x0   = 110;          // debut de la pente (repere carte) - apres les relais et le HLK
+ramp_x1   = 124;          // fin de la pente : les etiquettes sont sur la pente, les reperes P/N sur le plat
 ramp_ang  = atan((z_top - z_lo) / (ramp_x1 - ramp_x0));
 
 r_in  = r_out - wall;
@@ -58,23 +58,23 @@ x_out_r = cx + out_w/2;                  // face exterieure de la paroi droite
 //   type "IN"  : entree phase du canal (seule la broche 1 est cablee)
 // canal 1 = bailleur (BAI), canaux 2 a 8 = locataires LOC1 a LOC7
 terminals = [
-  ["J10", 270,   32,  -90, "SEC", 0],
-  ["J11", 269,   75.5,-90, "OUT", 1],
-  ["J12", 269,  109,  -90, "OUT", 2],
-  ["J13", 269.5,158.5,-90, "OUT", 3],
-  ["J14", 268.5,210.5,-90, "OUT", 4],
-  ["J15", 269,  253.5,-90, "OUT", 5],
-  ["J16", 267,  324,   90, "OUT", 6],
-  ["J17", 270.5,346.5,-90, "OUT", 7],
-  ["J18", 269.5,388.5,-90, "OUT", 8],
-  ["J19", 269,  274.5, 90, "IN",  5],
-  ["J20", 267,  293,   90, "IN",  6],
-  ["J21", 268,  372,   90, "IN",  7],
-  ["J22", 270,  416.5, 90, "IN",  8],
-  ["J23", 269,   97,   90, "IN",  1],
-  ["J24", 268,  138,   90, "IN",  2],
-  ["J25", 268,  184.5, 90, "IN",  3],
-  ["J26", 268,  239.5, 90, "IN",  4]
+  ["J10", 146.88,  27.75, -90, "SEC", 0],
+  ["J23", 146.81, 123.25,  90, "IN",  1],
+  ["J11", 146.88, 132.75, -90, "OUT", 1],
+  ["J24", 146.81, 153.25,  90, "IN",  2],
+  ["J12", 146.88, 162.75, -90, "OUT", 2],
+  ["J25", 146.81, 183.25,  90, "IN",  3],
+  ["J13", 146.88, 192.75, -90, "OUT", 3],
+  ["J26", 146.81, 213.25,  90, "IN",  4],
+  ["J14", 146.88, 222.75, -90, "OUT", 4],
+  ["J19", 146.81, 243.25,  90, "IN",  5],
+  ["J15", 146.88, 252.75, -90, "OUT", 5],
+  ["J20", 146.81, 273.25,  90, "IN",  6],
+  ["J16", 146.81, 287.25,  90, "OUT", 6],
+  ["J21", 146.81, 303.25,  90, "IN",  7],
+  ["J17", 146.88, 312.75, -90, "OUT", 7],
+  ["J22", 147.06, 333.25,  90, "IN",  8],
+  ["J18", 146.88, 342.75, -90, "OUT", 8]
 ];
 
 function ch_name(n)  = n == 1 ? "BAI" : str("LOC", n - 1);
@@ -88,14 +88,14 @@ function t_yc(t)     = t[4] == "IN" ? pin_y(t, 1) : (pin_y(t, 1) + pin_y(t, 2)) 
 // ---- Fixations ---------------------------------------------------------------
 // plots sous la carte : les 4 premiers sont les trous de fixation du PCB (M3),
 // les suivants sont des appuis pleins places loin des composants.
-pcb_mounts = [[bx(25), by(280)], [bx(225), by(280)], [bx(25), by(440)], [bx(225), by(440)]];
-supports   = [[110, 420], [235, 335], [20, 315], [135, 275], [110, 85], [205, 420]];
+pcb_mounts = [[bx(20), by(24.5)], [bx(128), by(112)], [bx(20), by(362)], [bx(128), by(362)]];
+supports   = [[bx(20), by(200)], [bx(20), by(290)], [bx(60), by(108)], [bx(130), by(80)]];
 
 // oreilles de fixation du couvercle (centre en repere carte)
 ear_o = clr + wall + 3;
-ears = [[-ear_o, 60], [-ear_o, 220], [-ear_o, 380],
-        [pcb_w + ear_o, 152], [pcb_w + ear_o, 402],
-        [130, -ear_o], [130, pcb_l + ear_o]];
+ears = [[-ear_o, 60], [-ear_o, 175], [-ear_o, 290],
+        [pcb_w + ear_o, by(358)], [pcb_w + ear_o, by(75)],
+        [pcb_w/2, -ear_o], [pcb_w/2, pcb_l + ear_o]];
 
 // ---- Outils ------------------------------------------------------------------
 module rr2d(w, l, r) {
@@ -162,23 +162,23 @@ module terminal_marks() {
     for (n = pins(t))
       translate([pin_x(t), pin_y(t, n), z_pcb_top + term_h]) cylinder(d = screw_d, h = 40, $fn = 24);
     // nom du bornier, en tete de rangee
-    engrave(label(t), t[4] == "SEC" ? 4.5 : 5, 197, t_yc(t));
+    engrave(label(t), 3.5, 88, t_yc(t));
     // repere de chaque broche, juste avant le trou de tournevis
     for (n = pins(t))
       engrave(pin_mark(t, n), 3.2, pin_x(t) - 6, pin_y(t, n), ha = "right", depth = 0.6);
   }
 }
 
-// events au-dessus du convertisseur HLK-PM01 (KiCad : x 165, y 35)
+// events au-dessus du convertisseur HLK-PM01 (KiCad : x 103, y 32)
 module vents() {
   for (i = [0 : 5])
-    translate([bx(165) - 11 + i*4.5, by(35) - 11, z_top - lid_t - 1]) cube([2, 22, lid_t + 2]);
+    translate([bx(103) - 11 + i*4.5, by(32) - 11, z_top - lid_t - 1]) cube([2, 22, lid_t + 2]);
 }
 
 module top_text() {
-  engrave("MULTICANAL", 18, 97, 235, ha = "center", depth = 1);
-  engrave("SOUS-COMPTAGE ELECTRIQUE", 6.5, 97, 195, ha = "center", depth = 0.8);
-  engrave("8 CANAUX - BAILLEUR + 7 LOCATAIRES", 5, 97, 178, ha = "center", depth = 0.8);
+  engrave("MULTICANAL", 9, 46, 175, ha = "center", depth = 1);
+  engrave("SOUS-COMPTAGE ELECTRIQUE", 3.6, 46, 160, ha = "center", depth = 0.8);
+  engrave("8 CANAUX - BAILLEUR + 7 LOCATAIRES", 2.6, 46, 151, ha = "center", depth = 0.8);
 }
 
 // ---- Pieces ------------------------------------------------------------------
