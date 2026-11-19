@@ -27,6 +27,23 @@ Vérifications faites avec KiCad 10.0.8 :
 - boîtier OpenSCAD : se compile, cotes et positions des borniers mises à
   jour.
 
+## Ajouts du 19/11/2026 (après compactage)
+
+- **Ponts diviseurs 10 kΩ / 12 kΩ** (R6-R23, CMS 0805) entre chaque capteur et
+  son entrée ADC : les capteurs sont alimentés en 5 V (sortie 0,5-4,5 V), ce qui
+  dépassait les 3,6 V admissibles par l'ESP32. Ajoutés au schéma
+  (`tools/add_dividers_sch.py`, étiquettes `ACSn_VOUT` / `ZMPT_VOUT`) et au PCB.
+  Le firmware `firmware_pcb_capteurs_reels` divise la mesure par 12/22
+  (`RAPPORT_PONT_DIVISEUR` dans `config.h`). Voir `simulation/acquisition_ac.cir`.
+- **32 points d'accueil pour les barres de cuivre** (`BAR1`-`BAR32`, empreinte
+  `multical_local:Point_barre_cuivre`, pastille 4 mm percée 2,5 mm, « carte
+  seule ») : à côté de la broche 1 de chaque bornier IN/OUT et des broches IP+ /
+  IP− de chaque ACS712, reliés par une piste verrouillée de 1,8 mm. Les broches
+  COM/NO des relais (perçage 2,5 mm) servent directement. Dessin de principe :
+  `simulation/figures/fig_barres_cuivre.png`.
+- Re-routage complet (Freerouting) : DRC 0 non connecté, mêmes 11 violations ;
+  parité schéma/PCB inchangée (99 écarts cosmétiques préexistants).
+
 ## Points à garder en tête avant fabrication
 
 1. **U12 (ZMPT101B)** : la phase, le neutre et la masse arrivent sur un

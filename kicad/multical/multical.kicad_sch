@@ -3796,7 +3796,7 @@
 		)
 		(uuid "083b35bd-adb7-4e56-9197-f6e5e4a82d3d")
 	)
-	(label "GPIO27"
+	(label "ACS3_VOUT"
 		(at 59.69 96.52 0)
 		(effects
 			(font
@@ -4146,7 +4146,7 @@
 		)
 		(uuid "408a6397-aaad-423b-bec6-609195b84607")
 	)
-	(label "GPIO39"
+	(label "ACS4_VOUT"
 		(at 62.23 116.84 0)
 		(effects
 			(font
@@ -4346,7 +4346,7 @@
 		)
 		(uuid "606b7463-60cd-489b-893e-02e9da8f9ffc")
 	)
-	(label "GPIO36"
+	(label "ACS1_VOUT"
 		(at 58.42 50.8 0)
 		(effects
 			(font
@@ -4366,7 +4366,7 @@
 		)
 		(uuid "6152b41e-fa8b-407e-8f3e-2382a0d79504")
 	)
-	(label "GPIO26"
+	(label "ACS2_VOUT"
 		(at 57.15 76.2 0)
 		(effects
 			(font
@@ -5096,7 +5096,7 @@
 		)
 		(uuid "c8802dbd-0ce9-49bf-862b-ff56e0ee7c96")
 	)
-	(label "GPIO34"
+	(label "ACS7_VOUT"
 		(at 101.6 95.25 0)
 		(effects
 			(font
@@ -5356,7 +5356,7 @@
 		)
 		(uuid "edfe9a42-a60f-47f4-9bff-3c35fcaf38d6")
 	)
-	(label "GPIO35"
+	(label "ACS8_VOUT"
 		(at 101.6 118.11 0)
 		(effects
 			(font
@@ -5396,7 +5396,7 @@
 		)
 		(uuid "efc4cb6d-c960-4047-be69-c4bc77d0679c")
 	)
-	(label "GPIO32"
+	(label "ACS5_VOUT"
 		(at 101.6 49.53 0)
 		(effects
 			(font
@@ -5436,7 +5436,7 @@
 		)
 		(uuid "f737da6a-655f-4dd2-a687-4cac7e70ad3b")
 	)
-	(label "GPIO33"
+	(label "ACS6_VOUT"
 		(at 101.6 72.39 0)
 		(effects
 			(font
@@ -5476,7 +5476,7 @@
 		)
 		(uuid "fdb172aa-5d4f-4af6-8824-60529ce78bf2")
 	)
-	(label "GPIO25"
+	(label "ZMPT_VOUT"
 		(at 185.42 149.86 0)
 		(effects
 			(font
@@ -12274,6 +12274,1853 @@
 			(justify left)
 		)
 		(uuid "e141a958-6a0c-469d-b91e-3b06e8cd384a")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 25.4 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "da5eaebf-ba45-480c-8254-4767b4d6b16a")
+		(property "Reference" "R6"
+			(at 27.94 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 27.94 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 23.62 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 25.4 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 25.4 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "289234fe-c2d2-4d77-853c-577f0f123d9e")
+		)
+		(pin "1"
+			(uuid "85ed59c0-2519-42da-849f-4a4c0cf19b6d")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 25.4 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "138e6746-8384-4a1b-8c73-5ac726dbe08f")
+		(property "Reference" "R7"
+			(at 27.94 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 27.94 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 23.62 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 25.4 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 25.4 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ba3122be-95c9-4f2b-a6d9-7a7d636db457")
+		)
+		(pin "1"
+			(uuid "10834fa7-5081-4a5b-800b-873cda4fdbca")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS1_VOUT"
+		(at 25.4 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d9dc0de2-dd3b-40a8-b3fe-defb8913144c")
+	)
+	(label "GPIO36"
+		(at 25.4 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "758467bf-f4f4-4ca0-b0b9-ea9a8190bda3")
+	)
+	(label "GPIO36"
+		(at 25.4 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "715d0443-fe77-4676-aeba-a5e0d36afe61")
+	)
+	(label "GND"
+		(at 25.4 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a08772f1-4909-41a7-8461-7756322ffba6")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 44.45 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "076f8f1b-6b30-4fc3-8293-7eac629192d0")
+		(property "Reference" "R8"
+			(at 46.99 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 46.99 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 42.67 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 44.45 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 44.45 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "eebbeddb-8fea-4bb3-bd96-bf24f1e4551f")
+		)
+		(pin "1"
+			(uuid "8bee70cf-bc21-411b-bff7-a732ee20da1c")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R8")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 44.45 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e663b2a2-29f7-4bf4-89bb-56c904bbe9c0")
+		(property "Reference" "R9"
+			(at 46.99 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 46.99 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 42.67 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 44.45 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 44.45 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "57b84d0f-68b6-4d64-9e67-72abfd6d0414")
+		)
+		(pin "1"
+			(uuid "b0e94b8b-ae84-4d4a-8146-b194fd85da2f")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R9")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS2_VOUT"
+		(at 44.45 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "e51666c2-84f9-43a4-97d8-243e4cb4f46a")
+	)
+	(label "GPIO26"
+		(at 44.45 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a0910435-34ed-4466-b499-03e6bf970984")
+	)
+	(label "GPIO26"
+		(at 44.45 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b3197d18-591e-465f-92c5-b1b4adcfef17")
+	)
+	(label "GND"
+		(at 44.45 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "b043a06b-094c-4cb8-8865-7e51a0a570e4")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 63.5 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "552b06cb-511c-4dfb-b190-5fac13e473b7")
+		(property "Reference" "R10"
+			(at 66.04 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 66.04 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 61.72 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 63.5 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "6331b927-b50f-459a-9f8d-5a0d5e8ad7fd")
+		)
+		(pin "1"
+			(uuid "b0ce7e4e-dbd8-431e-98e2-1a4d9fff8dbb")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R10")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 63.5 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2472d732-5ea7-4f1a-a1f7-b6857b3098f0")
+		(property "Reference" "R11"
+			(at 66.04 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 66.04 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 61.72 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 63.5 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 63.5 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "b70e714d-6dbc-4266-b7c2-7edad56ee14d")
+		)
+		(pin "1"
+			(uuid "dad94918-23b2-451d-a038-8735e4128b96")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS3_VOUT"
+		(at 63.5 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "00700524-a413-4def-a224-2f71c673e718")
+	)
+	(label "GPIO27"
+		(at 63.5 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8387883d-c174-4f70-a366-e9258a0ae843")
+	)
+	(label "GPIO27"
+		(at 63.5 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "958d1679-4e56-454a-b229-bd55d9a1f551")
+	)
+	(label "GND"
+		(at 63.5 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7b524c0e-6ca8-4116-b538-4a8f24020c04")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 82.55 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "51c84b22-ab82-4671-87c2-cf00d402aefd")
+		(property "Reference" "R12"
+			(at 85.09 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 85.09 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 80.77 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 82.55 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 82.55 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "6976a8ed-5d15-4f56-870e-7265b44ce919")
+		)
+		(pin "1"
+			(uuid "8f58e140-ab17-4141-9e4a-855f56dc531f")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 82.55 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "70f52ae8-b594-4cc2-a658-a13e6a4c38f5")
+		(property "Reference" "R13"
+			(at 85.09 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 85.09 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 80.77 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 82.55 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 82.55 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "1afd5e87-3c96-4ba6-afb8-1c7d0cdd1711")
+		)
+		(pin "1"
+			(uuid "9ec90ebd-71f6-44dc-a9c4-60a0cc4ec670")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R13")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS4_VOUT"
+		(at 82.55 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a373ac35-497d-4ee5-869c-961128ec3244")
+	)
+	(label "GPIO39"
+		(at 82.55 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4ed37f3d-b1b6-498a-8294-57c561bdd487")
+	)
+	(label "GPIO39"
+		(at 82.55 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8a232243-5063-46fc-a205-6c2c8dc6b4c3")
+	)
+	(label "GND"
+		(at 82.55 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "45e18469-cb0d-4b12-aa4e-4d8d488e5554")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 101.6 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2613c1a2-0b59-4f66-8dad-a247a9d35518")
+		(property "Reference" "R14"
+			(at 104.14 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 104.14 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 99.82 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 101.6 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "09628635-f8f3-473b-9e9b-0ea516df6b86")
+		)
+		(pin "1"
+			(uuid "f9a441c3-9afe-42b9-a7c9-5b16f09890e6")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 101.6 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "63b65a90-9965-4568-a925-dfc0de20d9b8")
+		(property "Reference" "R15"
+			(at 104.14 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 104.14 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 99.82 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 101.6 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "3f7af4d8-beeb-4e86-b268-255d15db31ed")
+		)
+		(pin "1"
+			(uuid "ec975fba-65fa-4fc8-87ed-5974cfeac8d0")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS5_VOUT"
+		(at 101.6 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "c7639d64-6fb3-4f96-9996-b4db2a5109cb")
+	)
+	(label "GPIO32"
+		(at 101.6 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7decf192-0df7-4474-b223-18f85025fd7b")
+	)
+	(label "GPIO32"
+		(at 101.6 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f33d2058-a3a7-4fd3-b9b8-d267817cd429")
+	)
+	(label "GND"
+		(at 101.6 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a40f6f4d-c09d-4eea-90e0-532e88334c3e")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 120.65 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "9ad6fb04-10c5-4295-9e56-abcefa6e3101")
+		(property "Reference" "R16"
+			(at 123.19 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 123.19 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 118.87 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 120.65 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "0904cf32-ac20-46c6-aa66-c136187b883f")
+		)
+		(pin "1"
+			(uuid "c492251f-31ec-46df-b946-6268dbd7a791")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R16")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 120.65 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "010294d1-36f4-4fff-8ea8-ded3d8bf796d")
+		(property "Reference" "R17"
+			(at 123.19 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 123.19 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 118.87 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 120.65 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 120.65 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "62f8022c-79b6-4883-b2d5-91a0b4cf88e6")
+		)
+		(pin "1"
+			(uuid "101daac8-6e09-4523-875b-567e19c5751d")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R17")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS6_VOUT"
+		(at 120.65 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "ec960d4e-5f17-49dd-8ee7-46d556f2e053")
+	)
+	(label "GPIO33"
+		(at 120.65 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "36a1c8ca-5849-4ede-a4da-92316dcfa9d1")
+	)
+	(label "GPIO33"
+		(at 120.65 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8ed19958-b677-42f6-9661-3143e745e317")
+	)
+	(label "GND"
+		(at 120.65 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "36da14a7-1fcf-4c24-9c8a-3180380b9c80")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 139.7 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "a6ed900f-ba01-4f8f-a087-d846b1df509f")
+		(property "Reference" "R18"
+			(at 142.24 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 142.24 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 137.92 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 139.7 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 139.7 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "b53b8dca-00ca-4acf-b9ce-cdcad7599e88")
+		)
+		(pin "1"
+			(uuid "4c3255a5-d6e1-4726-9d2a-19e0e66e1db4")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R18")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 139.7 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "102cd8f2-7da3-42d6-88f1-1a835932dd32")
+		(property "Reference" "R19"
+			(at 142.24 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 142.24 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 137.92 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 139.7 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 139.7 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "4b0fda04-f4f4-43e6-bf01-f4537a9b25be")
+		)
+		(pin "1"
+			(uuid "38f5adc1-999a-4fe9-9af4-1bf67feff8ec")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R19")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS7_VOUT"
+		(at 139.7 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "23c283eb-f01d-46a3-9973-470cc8645ecc")
+	)
+	(label "GPIO34"
+		(at 139.7 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "4fb2f738-887e-470a-90e9-0329b7f3a023")
+	)
+	(label "GPIO34"
+		(at 139.7 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7741f0b8-e749-4070-969c-c79863539d45")
+	)
+	(label "GND"
+		(at 139.7 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9049e615-0095-468e-9230-2b0376d9a431")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 158.75 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "8d79c7f0-6b8d-4e58-8d99-cb3ea8b7f6d1")
+		(property "Reference" "R20"
+			(at 161.29 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 161.29 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 156.97 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 158.75 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 158.75 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "d73b55ca-e96a-43cc-b5b3-583f51ef5c78")
+		)
+		(pin "1"
+			(uuid "259c63fc-cc85-4eb3-8b4c-909a74212e17")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R20")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 158.75 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d5a786d4-b2f1-494a-8c80-0dc3f306db9e")
+		(property "Reference" "R21"
+			(at 161.29 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 161.29 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 156.97 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 158.75 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 158.75 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "a2d7426b-7464-473d-9739-aa8f70b6fdb8")
+		)
+		(pin "1"
+			(uuid "88f63457-894b-43d6-b552-65236515699d")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R21")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ACS8_VOUT"
+		(at 158.75 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d4f6217c-f8b7-471c-8214-05095a54e3f3")
+	)
+	(label "GPIO35"
+		(at 158.75 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "f4e45bc0-b131-47a9-804f-c7c1368a7ff6")
+	)
+	(label "GPIO35"
+		(at 158.75 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3ccd47c1-92e8-45ce-a4a3-c735916f4c9d")
+	)
+	(label "GND"
+		(at 158.75 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "8363416c-5be2-4348-ab50-b08c559328fb")
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 177.8 177.8 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "dcbca797-8cf2-4717-a96d-f186d233c908")
+		(property "Reference" "R22"
+			(at 180.34 176.53 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 180.34 179.07 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 176.02 177.8 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 177.8 177.8 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "6d4eb6a9-11d2-4775-a9ed-af8e0d55b37c")
+		)
+		(pin "1"
+			(uuid "3ddd53a6-1638-4700-a6df-40c615fbb202")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 177.8 189.23 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "abaa0174-bd44-4eba-b9c4-8c2f05a48551")
+		(property "Reference" "R23"
+			(at 180.34 187.96 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "12k"
+			(at 180.34 190.5 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0805_2012Metric"
+			(at 176.02 189.23 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 177.8 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 177.8 189.23 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "ee191799-5404-47c4-afe1-cd2e57e878dd")
+		)
+		(pin "1"
+			(uuid "6ffb7718-4901-45d3-ab8b-6fbd3d8d721f")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "R23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "ZMPT_VOUT"
+		(at 177.8 173.99 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "7e16f53f-9995-495d-9195-aa58d6b1db80")
+	)
+	(label "GPIO25"
+		(at 177.8 181.61 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "707acb19-6a2b-4031-9632-a8361e199fbe")
+	)
+	(label "GPIO25"
+		(at 177.8 185.42 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eb5fb941-8813-4476-96e8-dfec5705146f")
+	)
+	(label "GND"
+		(at 177.8 193.04 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fbcfbb29-bfa9-4a2a-9ed5-26147451cfe1")
+	)
+	(text "Ponts diviseurs 10k / 12k : sorties des capteurs (alimentes en 5 V, 0,5-4,5 V)\nramenees a 0,27-2,45 V pour les entrees ADC de l'ESP32 (attenuation 12 dB)"
+		(exclude_from_sim no)
+		(at 22.86 168.91 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "985c32aa-de61-467f-9182-4aac53aae6c7")
 	)
 	(sheet_instances
 		(path "/"

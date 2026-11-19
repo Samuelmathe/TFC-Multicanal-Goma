@@ -54,7 +54,7 @@ static float tarifCourant = TARIF_USD_PAR_KWH;
 static std::vector<EvenementEnAttente> evenementsEnAttente;
 
 static float offsetCourant_V[NUM_CANAUX];
-static float offsetTension_V = ADC_VREF / 2.0f;
+static float offsetTension_V = OFFSET_REPOS_ADC_V;
 
 static SemaphoreHandle_t mutexCanaux;
 static SemaphoreHandle_t mutexEvenements;
@@ -165,7 +165,7 @@ static void calibrerOffsets() {
     }
     offsetCourant_V[i] = valides > 0
         ? (somme / valides) / (float)ADC_RESOLUTION * ADC_VREF
-        : ADC_VREF / 2.0f; // repli raisonnable si l'ADC2 est reste indisponible durant toute la calibration
+        : OFFSET_REPOS_ADC_V; // repli raisonnable si l'ADC2 est reste indisponible durant toute la calibration
   }
 
   double sommeT = 0;
@@ -177,7 +177,7 @@ static void calibrerOffsets() {
   }
   offsetTension_V = validesT > 0
       ? (sommeT / validesT) / (float)ADC_RESOLUTION * ADC_VREF
-      : ADC_VREF / 2.0f;
+      : OFFSET_REPOS_ADC_V;
 
   Serial.printf("Offsets calibres : tension=%.4fV\n", offsetTension_V);
 }
@@ -213,8 +213,9 @@ static bool acquerirCycleCanal(int canal, MesureCycle &resultat) {
     float vCourant = (brutCourant / (float)ADC_RESOLUTION) * ADC_VREF - offsetCourant_V[canal];
     float vTension = (brutTension / (float)ADC_RESOLUTION) * ADC_VREF - offsetTension_V;
 
-    float i = vCourant / ACS712_SENSIBILITE_V_PAR_A;
-    float v = vTension * ZMPT_FACTEUR_CALIBRATION;
+    // retour a la tension du capteur (avant le pont diviseur 10k/12k)
+    float i = (vCourant / RAPPORT_PONT_DIVISEUR) / ACS712_SENSIBILITE_V_PAR_A;
+    float v = (vTension / RAPPORT_PONT_DIVISEUR) * ZMPT_FACTEUR_CALIBRATION;
 
     sommeI2 += (double)i * i;
     sommeV2 += (double)v * v;

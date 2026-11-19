@@ -62,7 +62,7 @@ bar([P_IN, (132, 57), (132, 48), P_COM], "barre 1", 128, 53)
 bar([P_NO, (88, 32), (88, 60), (71, 60), P_ACSp], "barre 2", 88, 65)
 bar([P_ACSm, (71, 9), (132, 9), (132, 23), P_OUT], "barre 3", 102, 9)
 
-ax.annotate("cuivre PCB court et large\n(plan 2 oz, vias de couture)", xy=(71, 40), xytext=(20, 40),
+ax.annotate("liaison PCB courte\n(piste 1,8 mm, cuivre 2 oz)", xy=(71, 40), xytext=(20, 40),
             fontsize=7, ha="center", arrowprops=dict(arrowstyle="->", color="black", lw=0.8),
             bbox=dict(fc="white", ec="#999", pad=2))
 ax.text(80, 78, "Vue de dessus d'un canal (schéma de principe, échelle libre)", ha="center", fontsize=9, weight="bold")

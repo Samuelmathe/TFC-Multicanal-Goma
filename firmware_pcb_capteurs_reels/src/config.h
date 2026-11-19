@@ -72,6 +72,13 @@ static const int   ADC_RESOLUTION  = 4095;
 // recalibrer canal par canal si besoin de precision metrologique.
 static const float ACS712_SENSIBILITE_V_PAR_A = 0.100f;
 
+// Pont diviseur 10 k / 12 k entre chaque capteur (alimente en 5 V, sortie
+// 0,5-4,5 V) et son entree ADC (schema : R6-R23). La tension lue par l'ADC vaut
+// RAPPORT_PONT_DIVISEUR x la tension du capteur : on la divise par ce rapport
+// avant conversion. Au repos, l'offset attendu est donc 2,5 V x 12/22 = 1,36 V.
+static const float RAPPORT_PONT_DIVISEUR = 12.0f / 22.0f;
+static const float OFFSET_REPOS_ADC_V    = 2.5f * RAPPORT_PONT_DIVISEUR;
+
 // ZMPT101B : le module de conditionnement (transformateur + pont diviseur)
 // ramene le secteur 220V AC a une plage exploitable par l'ADC (0-3.3V), avec
 // un rapport qui depend du montage exact (resistances du pont, cf. schema
