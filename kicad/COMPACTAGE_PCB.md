@@ -52,6 +52,7 @@ Vérifications faites avec KiCad 10.0.8 :
   (avertissements « empreinte modifiée localement ») ; parité schéma/PCB :
   99 écarts cosmétiques préexistants + 2 notes attendues (« pas de pastille »
   pour les broches L/N de U12, câblées hors carte via J27).
+- **Plan de masse GND sur B.Cu** (`tools/add_ground_plane.py`) sur toute la carte, tenu à au moins 3 mm de tous les réseaux 230 V par la règle « Plan de masse eloigne du 230 V » de `multical.kicad_dru`. DRC inchangé : 0 non connecté, 7 avertissements cosmétiques.
 
 ## Points à garder en tête avant fabrication
 

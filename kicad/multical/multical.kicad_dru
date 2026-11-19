@@ -36,3 +36,10 @@
 (rule "ACS712 conducteur serie CH8"
 	(condition "(A.NetName == '/CANAL8_HT' && B.NetName == '/CANAL8_OUT') || (A.NetName == '/CANAL8_OUT' && B.NetName == '/CANAL8_HT')")
 	(constraint clearance (min 0.3mm)))
+
+# Plan de masse (GND, couche B.Cu) : on le tient a au moins 3 mm de tout ce qui
+# porte le 230 V (marge de 2,5 a 3,2 mm recommandee pour 220 V en degre de
+# pollution 2), plus large que la regle HT generale de 1 mm.
+(rule "Plan de masse eloigne du 230 V"
+	(condition "A.Type == 'Zone' && A.NetName == '/GND' && B.NetClass == 'HT'")
+	(constraint clearance (min 3mm)))
