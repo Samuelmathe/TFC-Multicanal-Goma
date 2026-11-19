@@ -41,20 +41,25 @@ Vérifications faites avec KiCad 10.0.8 :
   IP− de chaque ACS712, reliés par une piste verrouillée de 1,8 mm. Les broches
   COM/NO des relais (perçage 2,5 mm) servent directement. Dessin de principe :
   `simulation/figures/fig_barres_cuivre.png`.
-- Re-routage complet (Freerouting) : DRC 0 non connecté, mêmes 11 violations ;
-  parité schéma/PCB inchangée (99 écarts cosmétiques préexistants).
+- **Entrée secteur du ZMPT101B déportée** : le connecteur U12 (empreinte
+  `multical_local:ZMPT101B_Header_1x04`) ne porte plus que GND / GND / VCC /
+  OUT ; la phase et le neutre arrivent sur un nouveau bornier **J27** au pas de
+  5 mm, à câbler vers le bornier à vis L/N du module. Les 4 écarts de
+  dégagement 230 V (0,84 mm pour 1 mm) ont disparu. Scripts :
+  `tools/fix_zmpt_secteur_sch.py`, `fix_zmpt_secteur_sch2.py`,
+  `fix_zmpt_secteur_pcb.py`.
+- Re-routage complet (Freerouting) : DRC **0 non connecté, 7 violations**
+  (avertissements « empreinte modifiée localement ») ; parité schéma/PCB :
+  99 écarts cosmétiques préexistants + 2 notes attendues (« pas de pastille »
+  pour les broches L/N de U12, câblées hors carte via J27).
 
 ## Points à garder en tête avant fabrication
 
-1. **U12 (ZMPT101B)** : la phase, le neutre et la masse arrivent sur un
-   connecteur au pas de 2,54 mm (0,84 mm d'isolation pour 1 mm demandé). C'est
-   un problème d'empreinte, déjà présent avant le compactage. Solution
-   conseillée : brancher le secteur sur le bornier à vis du module ZMPT101B
-   lui-même et ne garder sur le PCB que VCC / OUT / GND.
-2. **Courant par canal** : les pistes HT font 1 mm (cuivre 2 oz), ce qui
-   suffit pour quelques ampères, pas pour 20 A. Pour 20 A, il faut des pistes
-   bien plus larges ou des fils / barres de cuivre (voir
-   `GUIDE_ROUTAGE_20A.md`).
+1. **Câblage du ZMPT101B** : relier J27 (PH / N) au bornier à vis du module
+   avec du fil isolé 230 V (0,75 mm² suffit, le courant est de quelques mA).
+2. **Courant par canal** : les pistes HT font 1 mm (cuivre 2 oz) ; le courant
+   de puissance (20 A) passe par les barres de cuivre soudées sur les points
+   d'accueil `BAR1`-`BAR32` (voir `simulation/figures/fig_barres_cuivre.png`).
 3. Dans chaque canal, le courant fait l'aller-retour relais → ACS712 (à gauche)
    → bornier (à droite) : c'est la topologie d'origine, conservée pour ne pas
    changer le routage qui avait été validé.

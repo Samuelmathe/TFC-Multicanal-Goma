@@ -1,0 +1,39 @@
+** Drc report for multical.kicad_pcb **
+** Created on 2026-11-19T07:12:17 **
+** Report includes: Errors, Warnings **
+
+** Found 7 DRC violations **
+[lib_footprint_mismatch]: Footprint 'TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm' does not match copy in library 'TerminalBlock'
+    Local override; warning
+    @(146.8750 mm, 27.7500 mm): Footprint J10
+[lib_footprint_mismatch]: Footprint 'MountingHole_3.2mm_NPTH' does not match copy in library 'multical_local'
+    Local override; warning
+    @(20.0000 mm, 362.0000 mm): Footprint MH2
+[lib_footprint_mismatch]: Footprint 'ESP32-WROOM-32' does not match copy in library 'RF_Module'
+    Local override; warning
+    @(50.0000 mm, 60.0000 mm): Footprint U1
+[lib_footprint_mismatch]: Footprint 'TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm' does not match copy in library 'TerminalBlock'
+    Local override; warning
+    @(146.8750 mm, 312.7500 mm): Footprint J17
+[lib_footprint_mismatch]: Footprint 'MountingHole_3.2mm_NPTH' does not match copy in library 'multical_local'
+    Local override; warning
+    @(20.0000 mm, 24.5000 mm): Footprint MH1
+[lib_footprint_mismatch]: Footprint 'MountingHole_3.2mm_NPTH' does not match copy in library 'multical_local'
+    Local override; warning
+    @(128.0000 mm, 362.0000 mm): Footprint MH3
+[lib_footprint_mismatch]: Footprint 'MountingHole_3.2mm_NPTH' does not match copy in library 'multical_local'
+    Local override; warning
+    @(128.0000 mm, 112.0000 mm): Footprint MH4
+
+** Found 0 unconnected pads **
+
+** Found 0 Footprint errors **
+
+** Ignored checks **
+    - Footprint has no courtyard defined
+    - Track endpoint not centered on via
+    - Tuning profile track geometries
+    - Footprint doesn't match symbol's footprint filters
+    - Footprint component type doesn't match footprint pads
+
+** End of Report **

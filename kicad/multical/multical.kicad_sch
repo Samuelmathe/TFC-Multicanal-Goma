@@ -4276,15 +4276,9 @@
 		)
 		(uuid "58208f5a-47e4-4ef3-8db0-2cc5b03bd222")
 	)
-	(label "NEUTRE_BUS"
-		(at 167.64 151.13 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "5897a7ba-3e6c-4b46-807d-31ccb46b7166")
+	(no_connect
+		(at 167.64 151.13)
+		(uuid "491b2480-e1dd-4590-bb01-afa060b36218")
 	)
 	(label "GPIO5"
 		(at 162.56 73.66 0)
@@ -5256,15 +5250,9 @@
 		)
 		(uuid "df8eedb9-59d8-4802-b40c-5593eb692f0b")
 	)
-	(label "PHASE_BUS"
-		(at 167.64 148.59 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e33933ab-1a15-4e4d-9c29-9fd9bfdef15e")
+	(no_connect
+		(at 167.64 148.59)
+		(uuid "016d51c5-57a8-4618-a6fb-bd4f93c4a488")
 	)
 	(label "CANAL6_PHASE_IN"
 		(at 240.03 76.2 0)
@@ -6955,7 +6943,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical"
+		(property "Footprint" "multical_local:ZMPT101B_Header_1x04"
 			(at 179.07 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -14121,6 +14109,119 @@
 			(justify left)
 		)
 		(uuid "985c32aa-de61-467f-9182-4aac53aae6c7")
+	)
+	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 152.40 149.86 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim yes)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "77849bef-a2a4-4278-96db-ce8beeb80403")
+		(property "Reference" "J27"
+			(at 154.94 149.86 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "ZMPT_secteur"
+			(at 154.94 152.40 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "multical_local:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm"
+			(at 152.40 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 152.40 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 152.40 149.86 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "65a4002a-6125-47a8-a667-c9d5d1ce75bd")
+		)
+		(pin "1"
+			(uuid "09575929-2fed-4193-bab4-7d0a9a47e12b")
+		)
+		(instances
+			(project "multical"
+				(path "/58486ab8-8a77-40bd-879b-8044d35a44e6"
+					(reference "J27")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(label "PHASE_BUS"
+		(at 147.32 149.86 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "74ffbd6e-4712-4905-80a9-58799e17e06f")
+	)
+	(label "NEUTRE_BUS"
+		(at 147.32 152.40 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "5e3ff6ae-7478-457a-b318-dc0d4c1e9bb1")
+	)
+	(text "J27 : entree secteur du module ZMPT101B (pas 5 mm).\nCabler J27 vers le bornier a vis L/N du module ;\nle connecteur U12 ne porte plus que GND / VCC / OUT."
+		(exclude_from_sim no)
+		(at 137.16 160.02 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "34241d60-b379-4ea3-bee0-4ab0f1c68014")
 	)
 	(sheet_instances
 		(path "/"

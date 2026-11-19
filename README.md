@@ -21,10 +21,14 @@ crédit prépayé et consultation via une application mobile Flutter.
   `route_pcb.py`, `finish_acs712.py`, `cleanup_after_route.py`). Les 17
   borniers restent sur le bord droit ; le HLK-PM01 et le ZMPT101B sont
   regroupés près de l'entrée secteur J10.
-  Dernier DRC (KiCad 10.0.8, 19/11/2026) : **0 élément non connecté**, 11
-  violations, dont 4 à traiter avant toute fabrication (distances
-  phase/neutre/GND sur le connecteur du ZMPT101B, U12, trop faibles pour du
-  230 V) ; les 7 autres sont cosmétiques (empreintes modifiées localement).
+  Ajouts du 19/11/2026 : ponts diviseurs 10 k / 12 k (R6-R23) entre les
+  capteurs 5 V et les entrées ADC de l'ESP32 ; 32 points d'accueil pour les
+  barres de cuivre qui portent le courant de puissance (20 A) ; entrée
+  secteur du ZMPT101B déportée sur un bornier J27 au pas de 5 mm (le
+  connecteur U12 ne porte plus que GND / VCC / OUT).
+  Dernier DRC (KiCad 10.0.8, 19/11/2026) : **0 élément non connecté**,
+  7 violations, toutes cosmétiques (empreintes modifiées localement) ;
+  plus aucun écart de dégagement 230 V. Détails : `kicad/COMPACTAGE_PCB.md`.
   Les liaisons très proches sur les broches du ACS712 sont couvertes par
   `multical.kicad_dru` (les deux côtés du shunt sont au même potentiel).
   **Non fabriqué ni assemblé** : les Gerbers de `kicad/multical/fabrication/`

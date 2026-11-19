@@ -59,7 +59,7 @@
 "U9","ACS712xLCTR-20A","Package_SO:SOIC-8_3.9x4.9mm_P1.27mm","1","","C10681"
 "U10","HLK-PM01","Converter_ACDC:Converter_ACDC_Hi-Link_HLK-PMxx","1","","C209903"
 "U11","AMS1117-3.3","Package_TO_SOT_SMD:SOT-223-3_TabPin2","1","","C6186"
-"U12","zmpt101b","Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical","1","","C111858"
+"U12","zmpt101b","multical_local:ZMPT101B_Header_1x04","1","",""
 "U13","ULN2003A","Package_DIP:DIP-16_W7.62mm","1","","C93000"
 "U14","ULN2003A","Package_DIP:DIP-16_W7.62mm","1","","C93000"
 "R6","10k","Resistor_SMD:R_0805_2012Metric","1","","C17414"
@@ -80,3 +80,4 @@
 "R21","12k","Resistor_SMD:R_0805_2012Metric","1","","C17444"
 "R22","10k","Resistor_SMD:R_0805_2012Metric","1","","C17414"
 "R23","12k","Resistor_SMD:R_0805_2012Metric","1","","C17444"
+"J27","ZMPT_secteur","multical_local:TerminalBlock_MaiXu_MX126-5.0-02P_1x02_P5.00mm","1","",""
