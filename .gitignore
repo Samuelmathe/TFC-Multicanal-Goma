@@ -38,3 +38,6 @@ GUIDE_TECHNIQUE_COMPLET.md
 GUIDE_TECHNIQUE_COMPLET.pdf
 GUIDE_EXPLICATION_CODE.md
 GUIDE_EXPLICATION_CODE.pdf
+
+# Resultats bruts ngspice (regeneres par kicad/simulation/*.cir)
+kicad/simulation/*.dat

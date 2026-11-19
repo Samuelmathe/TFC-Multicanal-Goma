@@ -53,6 +53,9 @@ Rnc      COM NC             R = {0.1 + 0.999999e9*0.5*(1 + tanh(10*(V(COIL_P,COI
 * 8 GND, 9 COM retour diode de roue libre, 10-16 sorties O7..O1).
 * Seuil d'entree ~2 V (compatible logique 3,3V/5V), transition lissee
 * sur environ +/-0,3 V (k=15) pour la meme raison de convergence.
+* Resistance a l'etat passant 12 ohm : ~0,9 V a 70 mA, conforme a la VCE(sat)
+* typique de la datasheet TI (corrige le 19/11/2026 : 60 ohm ne laissait que
+* 2,7 V sur la bobine, sous le seuil d'enclenchement du relais).
 .subckt ULN2003A I1 I2 I3 I4 I5 I6 I7 GND COM O7 O6 O5 O4 O3 O2 O1
 Rin1 I1 GND 10k
 Rin2 I2 GND 10k
@@ -61,13 +64,13 @@ Rin4 I4 GND 10k
 Rin5 I5 GND 10k
 Rin6 I6 GND 10k
 Rin7 I7 GND 10k
-Ron1 O1 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I1,GND)-2.0)))}
-Ron2 O2 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I2,GND)-2.0)))}
-Ron3 O3 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I3,GND)-2.0)))}
-Ron4 O4 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I4,GND)-2.0)))}
-Ron5 O5 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I5,GND)-2.0)))}
-Ron6 O6 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I6,GND)-2.0)))}
-Ron7 O7 GND R = {60 + 0.999999e9*0.5*(1 - tanh(15*(V(I7,GND)-2.0)))}
+Ron1 O1 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I1,GND)-2.0)))}
+Ron2 O2 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I2,GND)-2.0)))}
+Ron3 O3 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I3,GND)-2.0)))}
+Ron4 O4 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I4,GND)-2.0)))}
+Ron5 O5 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I5,GND)-2.0)))}
+Ron6 O6 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I6,GND)-2.0)))}
+Ron7 O7 GND R = {12 + 0.999999e9*0.5*(1 - tanh(15*(V(I7,GND)-2.0)))}
 Dfly1 O1 COM DFLY
 Dfly2 O2 COM DFLY
 Dfly3 O3 COM DFLY

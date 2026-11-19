@@ -1,0 +1,23 @@
+* ACS712-20A : caracteristique de transfert courant -> tension (balayage DC)
+* Comparaison : sortie reliee directement au GPIO (schema actuel) et sortie
+* via un pont diviseur 10 k / 12 k (correction proposee).
+.include ../multical/behavioral_models.lib
+
+V5V   vcc 0 DC 5
+* le meme courant traverse les deux capteurs (montes en serie)
+Iload 0 ip DC 0
+X1    ip mid 0 filt1 out vcc ACS712_20A
+X2    mid ret 0 filt2 out2 vcc ACS712_20A
+Rret  ret 0 1m
+* schema actuel : sortie directe sur le GPIO (impedance d'entree ADC ~ 1 Mohm)
+Radc1 out 0 1Meg
+* correction proposee : pont diviseur 10k / 12k vers le GPIO
+Rh    out2 adc2 10k
+Rb    adc2 0 12k
+
+.control
+dc Iload -25 25 0.25
+wrdata acs712_transfert.dat v(out) v(adc2)
+quit
+.endc
+.end

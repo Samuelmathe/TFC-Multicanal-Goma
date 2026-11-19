@@ -7,8 +7,11 @@
 //   - un trou de tournevis au-dessus de chaque vis, avec etiquettes gravees
 //   - une fente d'entree de fil dans la paroi droite, en face de chaque bornier
 //   - "MULTICANAL" grave sur le couvercle
+//   - un compartiment sous la carte pour les barrettes de repartition en cuivre
+//     (phase et neutre, 1 arrivee 35 mm2 + 8 departs 4 mm2 vers les borniers IN),
+//     avec isolateurs, cloison basse et 2 presse-etoupe M20 pour l'arrivee
 //
-// PART : "assembly" (vue d'ensemble) | "base" | "lid" | "lid_print"
+// PART : "assembly" (vue d'ensemble) | "open" (sans couvercle) | "base" | "lid" | "lid_print"
 // Toutes les cotes sont en mm. Les positions des borniers sont en coordonnees
 // KiCad : si tu deplaces un bornier dans le PCB, mets a jour le tableau
 // `terminals` ci-dessous, rien d'autre.
@@ -30,12 +33,26 @@ wall      = 3;
 floor_t   = 3;
 lid_t     = 3;
 standoff  = 6;            // hauteur des plots sous la carte (pattes traversantes)
-comp_h    = 30;           // hauteur libre au-dessus de la carte (relais ~16, HLK ~15, ZMPT ~25)
+comp_h    = 30;           // hauteur libre au-dessus de la carte (relais ~16, HLK ~15, ZMPT ~25,
+                          // barres de cuivre des canaux ~8 + 1 mm)
 r_out     = 8;            // rayon des coins exterieurs
 term_h    = 11;           // hauteur bornier + vis au-dessus de la carte
 ramp_gap  = 2;            // jeu entre le haut des vis et le dessous de la rampe
 screw_d   = 7.5;          // trou de tournevis
 font_b    = "Liberation Sans:style=Bold";
+
+// ---- Compartiment des barrettes de repartition (rail de cuivre) --------------
+// Le courant combine des 8 canaux (jusqu'a 160 A) ne passe pas par le PCB :
+// arrivee secteur 35 mm2 -> barrette -> 8 cavaliers 4 mm2 -> borniers IN.
+rail_l    = 50;           // longueur ajoutee sous la carte (repere carte, Y < 0)
+rail_len  = 100;          // longueur d'une barrette (1 arrivee + 8 departs)
+rail_w    = 10;           // section de la barre : 10 x 6 mm = 60 mm2 de cuivre
+rail_t    = 6;
+rail_h    = 10;           // hauteur des isolateurs sous la barre
+rail_x0   = 6;            // debut des barrettes (repere carte), a gauche de la rampe
+rail_y    = [-15, -35];   // [phase, neutre] (repere carte)
+gland_d   = 20.3;         // presse-etoupe M20 (cable 6-12 mm), un par conducteur
+gland_x   = [30, 60];     // position des presse-etoupe sur la paroi basse
 
 z_pcb_top = floor_t + standoff + pcb_t;
 z_top     = z_pcb_top + comp_h + lid_t;
@@ -46,9 +63,10 @@ ramp_x1   = 124;          // fin de la pente : les etiquettes sont sur la pente,
 ramp_ang  = atan((z_top - z_lo) / (ramp_x1 - ramp_x0));
 
 r_in  = r_out - wall;
-in_w  = pcb_w + 2*clr;   in_l  = pcb_l + 2*clr;
+in_w  = pcb_w + 2*clr;   in_l  = pcb_l + 2*clr + rail_l;
 out_w = in_w + 2*wall;   out_l = in_l + 2*wall;
-cx = pcb_w/2;            cy = pcb_l/2;
+cx = pcb_w/2;            cy = (pcb_l - rail_l)/2;
+y_in_lo = -clr - rail_l;                 // face interieure de la paroi basse
 x_out_r = cx + out_w/2;                  // face exterieure de la paroi droite
 
 // ---- Borniers (coordonnees KiCad) --------------------------------------------
@@ -93,9 +111,12 @@ supports   = [[bx(20), by(200)], [bx(20), by(290)], [bx(60), by(108)], [bx(130),
 
 // oreilles de fixation du couvercle (centre en repere carte)
 ear_o = clr + wall + 3;
-ears = [[-ear_o, 60], [-ear_o, 175], [-ear_o, 290],
-        [pcb_w + ear_o, by(358)], [pcb_w + ear_o, by(75)],
-        [pcb_w/2, -ear_o], [pcb_w/2, pcb_l + ear_o]];
+ears = [[-ear_o, -rail_l/2], [-ear_o, 60], [-ear_o, 175], [-ear_o, 290],
+        [pcb_w + ear_o, -rail_l/2], [pcb_w + ear_o, by(358)], [pcb_w + ear_o, by(75)],
+        [pcb_w/2 + 30, y_in_lo - wall - 3], [pcb_w/2, pcb_l + ear_o]];
+
+// isolateurs des barrettes : un a chaque extremite de chaque barre
+rail_posts = [for (y = rail_y, x = [rail_x0 + 6, rail_x0 + rail_len - 6]) [x, y]];
 
 // ---- Outils ------------------------------------------------------------------
 module rr2d(w, l, r) {
@@ -121,7 +142,7 @@ module xz_prism(pts, y0, y1) {
 module ramp_cut(dz) {
   x_end = x_out_r + 2;
   xz_prism([[ramp_x0, z_top + 5], [ramp_x0, z_top - dz], [ramp_x1, z_lo - dz],
-            [x_end, z_lo - dz], [x_end, z_top + 5]], -20, pcb_l + 20);
+            [x_end, z_lo - dz], [x_end, z_top + 5]], y_in_lo - wall - 20, pcb_l + 20);
 }
 
 // surface exterieure de la rampe
@@ -179,6 +200,41 @@ module top_text() {
   engrave("MULTICANAL", 9, 46, 175, ha = "center", depth = 1);
   engrave("SOUS-COMPTAGE ELECTRIQUE", 3.6, 46, 160, ha = "center", depth = 0.8);
   engrave("8 CANAUX - BAILLEUR + 7 LOCATAIRES", 2.6, 46, 151, ha = "center", depth = 0.8);
+  engrave("ARRIVEE 230 V - BARRETTES PH / N", 3.6, 56, -rail_l/2 - clr, ha = "center", depth = 0.8);
+}
+
+// ---- Compartiment des barrettes de repartition -------------------------------
+// isolateur : plot plein avec trou pour vis M5 (fixation de la barre)
+module rail_post(p) {
+  translate([p[0], p[1], floor_t - 0.01]) difference() {
+    cylinder(d = 12, h = rail_h + 0.01, $fn = 32);
+    translate([0, 0, rail_h - 10]) cylinder(d = 4.2, h = 11, $fn = 16);      // M5 auto-taraudeuse
+  }
+}
+
+// cloison basse entre le compartiment et la carte : evite tout contact entre
+// la carte et les barrettes, les cavaliers 4 mm2 passent par-dessus
+module partition() {
+  translate([-clr, -clr - 2.5, floor_t - 0.01]) cube([in_w, 2, z_pcb_top + 4 - floor_t]);
+}
+
+// presse-etoupe M20 dans la paroi basse (un par conducteur 35 mm2)
+module glands() {
+  for (x = gland_x)
+    translate([x, y_in_lo + 1, z_split - 1 - gland_d/2]) rotate([90, 0, 0])
+      cylinder(d = gland_d, h = wall + 4, $fn = 48);
+}
+
+// barrettes de cuivre (vue d'ensemble uniquement, ne s'imprime pas)
+module rails_model() {
+  for (k = [0 : len(rail_y) - 1]) {
+    y = rail_y[k];
+    color(k == 0 ? "#c8732a" : "#8a8a8a")
+      translate([rail_x0, y - rail_w/2, floor_t + rail_h]) difference() {
+        cube([rail_len, rail_w, rail_t]);
+        for (i = [0 : 8]) translate([10 + i*10, rail_w/2, -1]) cylinder(d = 4, h = rail_t + 2, $fn = 16);
+      }
+  }
 }
 
 // ---- Pieces ------------------------------------------------------------------
@@ -199,13 +255,16 @@ module base() {
     union() {
       intersection() {
         shell();
-        translate([-50, -50, -1]) cube([out_w + 100, out_l + 100, z_split + 1]);
+        translate([-100, -150, -1]) cube([out_w + 200, out_l + 300, z_split + 1]);
       }
       for (p = pcb_mounts) post(p, true);
       for (p = supports)   post(p, false);
+      for (p = rail_posts) rail_post(p);
+      partition();
       for (e = ears) translate([e[0], e[1], z_split - 8]) cylinder(d = 12, h = 8, $fn = 32);
     }
     wire_slots();
+    glands();
     // feuillure interieure
     translate([0, 0, z_split - lap_h]) linear_extrude(lap_h + 1)
       rr2d(in_w + 2*(lap_t + lap_gap), in_l + 2*(lap_t + lap_gap), r_in + lap_t + lap_gap);
@@ -219,7 +278,7 @@ module lid() {
     union() {
       intersection() {
         shell();
-        translate([-50, -50, z_split]) cube([out_w + 100, out_l + 100, z_top + 10]);
+        translate([-100, -150, z_split]) cube([out_w + 200, out_l + 300, z_top + 10]);
       }
       // levre : moitie interieure de la paroi, sous le plan de joint
       translate([0, 0, z_split - lap_h]) linear_extrude(lap_h + 0.01) difference() {
@@ -229,6 +288,7 @@ module lid() {
       for (e = ears) translate([e[0], e[1], z_split]) cylinder(d = 12, h = 4, $fn = 32);
     }
     wire_slots();
+    glands();
     terminal_marks();
     top_text();
     vents();
@@ -238,5 +298,6 @@ module lid() {
 
 if (PART == "base")           base();
 else if (PART == "lid")       lid();
+else if (PART == "open")      { base(); rails_model(); }   // vue sans couvercle
 else if (PART == "lid_print") translate([0, pcb_l, z_top]) rotate([180, 0, 0]) lid();
-else { base(); translate([0, 0, explode]) lid(); }
+else { base(); rails_model(); translate([0, 0, explode]) lid(); }

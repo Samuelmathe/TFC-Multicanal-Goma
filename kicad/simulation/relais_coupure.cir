@@ -1,0 +1,32 @@
+* Commande d'un relais : GPIO 3,3 V -> ULN2003A -> bobine (70 ohm, 100 mH)
+* Tension sur la sortie du ULN2003A (REL_DRV) a la coupure :
+*   cas 1 : diode de roue libre D (1N4007) entre REL_DRV et P5V, comme sur le PCB
+*   cas 2 : sans aucune diode (ni externe, ni interne au ULN2003A) - reference
+.include ../multical/behavioral_models.lib
+
+V5V   p5v 0 DC 5
+* creneau GPIO : relais commande de 10 a 60 ms
+Vgpio gpio 0 PULSE(0 3.3 10m 10u 10u 50m 200m)
+
+* --- cas 1 : montage du PCB (diode externe + diodes internes vers COM = P5V) ---
+XU1   gpio 0 0 0 0 0 0 0 p5v nc7 nc6 nc5 nc4 nc3 nc2 drv1 ULN2003A
+XK1   com1 nc_1 no_1 p5v drv1 RELAY_SPDT
+D1    drv1 p5v D1N4007
+Rcom1 com1 0 1k
+
+* --- cas 2 : sans diode (COM du ULN2003A laisse en l'air) ---
+XU2   gpio 0 0 0 0 0 0 0 comflottant m7 m6 m5 m4 m3 m2 drv2 ULN2003A
+Rcf   comflottant 0 1G
+XK2   com2 nc_2 no_2 p5v drv2 RELAY_SPDT
+Rcom2 com2 0 1k
+* capacite parasite de la bobine / des pistes (sans elle le pic est infini)
+Cpar2 drv2 0 100p
+
+.model D1N4007 D(IS=7.02n RS=0.0341 N=1.80 BV=1000 IBV=5u CJO=10p TT=4.32u)
+
+.control
+tran 5u 120m uic
+wrdata relais_coupure.dat v(drv1) v(drv2) v(gpio) i(V5V)
+quit
+.endc
+.end

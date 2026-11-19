@@ -1,0 +1,32 @@
+* Acquisition 50 Hz : tension presentee aux GPIO de l'ESP32
+*  - ACS712-20A a pleine echelle (20 A crete = 14,1 A efficaces)
+*  - ZMPT101B sur 230 V efficaces (325 V crete)
+* Chaque capteur est alimente en 5 V (P5V), comme sur le PCB.
+* Comparaison : branchement direct (schema actuel) / pont diviseur 10k-12k.
+.include ../multical/behavioral_models.lib
+
+V5V   vcc 0 DC 5
+
+* --- courant de charge sinusoidal 50 Hz, 20 A crete ---
+Iload 0 ip SIN(0 20 50)
+X1    ip mid 0 f1 acs_dir vcc ACS712_20A
+X2    mid ret 0 f2 acs_raw vcc ACS712_20A
+Rret  ret 0 1m
+Radc1 acs_dir 0 1Meg
+Rh1   acs_raw acs_div 10k
+Rb1   acs_div 0 12k
+
+* --- secteur 230 V efficaces ---
+Vmains l 0 SIN(0 325 50)
+X3    l 0 0 vcc zmpt_dir ZMPT101B
+X4    l 0 0 vcc zmpt_raw ZMPT101B
+Radc2 zmpt_dir 0 1Meg
+Rh2   zmpt_raw zmpt_div 10k
+Rb2   zmpt_div 0 12k
+
+.control
+tran 50u 40m
+wrdata acquisition_ac.dat v(acs_dir) v(acs_div) v(zmpt_dir) v(zmpt_div)
+quit
+.endc
+.end
